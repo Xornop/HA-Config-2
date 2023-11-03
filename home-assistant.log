@@ -394,3 +394,13 @@ NoneType: None
 2023-11-03 17:33:09.858 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
 2023-11-03 17:33:09.912 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
 2023-11-03 17:33:09.981 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
+2023-11-03 17:34:05.216 ERROR (MainThread) [homeassistant.components.shell_command] Error running command: `/bin/bash pushupdates.sh`, return code: 128
+NoneType: None
+2023-11-03 17:34:09.284 WARNING (MainThread) [homeassistant.components.automation.hassio_control_washer_input_booleans_for_google] *HASSIO - Control washer input booleans for Google: Already running
+2023-11-03 17:34:09.285 WARNING (MainThread) [homeassistant.components.automation.hassio_control_washer_input_booleans_for_google] *HASSIO - Control washer input booleans for Google: Already running
+2023-11-03 17:34:41.255 ERROR (MainThread) [homeassistant.components.hassio.handler] /ingress/validate_session return code 401
+2023-11-03 17:34:41.255 ERROR (MainThread) [homeassistant.components.hassio] Failed to to call /ingress/validate_session - 
+2023-11-03 17:35:28.532 ERROR (SyncWorker_4) [homeassistant.components.command_line.utils] Command failed (with return code 1): python3 -c "import requests; import json; import random; dataRequest = requests.get('https://gpsgadget.buienradar.nl/data/raintext?lat=51.83&lon=5.86&c='+str(random.randint(0,999999999999999)) ).text; dataRequest = dataRequest.replace('\r\n',' '); data = '{\"data\":\"'+dataRequest+'\"}';    pri(data);"
+2023-11-03 17:35:28.534 WARNING (MainThread) [homeassistant.components.command_line] Empty reply found when expecting JSON data
+2023-11-03 17:36:09.339 WARNING (MainThread) [homeassistant.helpers.script] Error in 'if[0]' evaluation: In 'numeric_state':
+  In 'numeric_state' condition: unknown entity sensor.humidity_11
