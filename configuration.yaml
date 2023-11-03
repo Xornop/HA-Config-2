@@ -1,0 +1,172 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+ffmpeg:
+conversation:
+breaking_changes:
+tts:
+  - platform: google_translate
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+frontend: !include themes.yaml
+sensor: !include sensors.yaml
+homeassistant:
+  customize: !include customize.yaml
+  packages: !include_dir_named packages
+  media_dirs:
+    media_halloween: /media/halloween
+command_line: !include command_line.yaml
+recorder:
+  purge_keep_days: 61
+  commit_interval: 20
+input_text: !include text_helpers.yaml
+
+camera:
+  - platform: ffmpeg
+    input: /config/www/notdrunk.mp4
+    name: Lovelace Video
+
+# If User 2 has an iPhone, this creates a "is charging" sensor
+template:
+  - binary_sensor:
+      - name: "User2 Phone Is Charging"
+        state: >
+         {{ is_state('sensor.user2_phone_battery_state', 'Charging')
+            or is_state('sensor.user2_phone_battery_state', 'Full') }}
+        icon: >
+          {% if is_state("binary_sensor.user2_phone_is_charging", "on") %}
+            mdi:power-plug
+          {% else %}
+            mdi:power-plug-off
+          {% endif %}
+        
+# Router presence detection
+device_tracker:
+  - platform: luci
+    host: 192.168.69.1
+    ssl: true
+    verify_ssl: false
+    username: !secret router_username
+    password: !secret password0
+    new_device_defaults:
+        track_new_devices: true
+    consider_home: 500
+
+# Computer wake on lan
+wake_on_lan:
+switch:
+  - platform: wake_on_lan
+    mac: !secret user1_desktop_mac_adress
+    name: "PC Power"
+    host: 192.168.69.103
+    turn_off:
+      service: hassio.addon_stdin
+      data:
+        addon: core_rpc_shutdown
+        input: desktop
+
+# Cast Spotify
+spotcast:
+  sp_dc: !secret user1_sp_dc
+  sp_key: !secret user1_sp_key
+  accounts:
+    user1:
+      sp_dc: !secret user1_sp_dc
+      sp_key: !secret user1_sp_key
+#    user2:
+#      sp_dc: !secret user2_sp_dc
+#      sp_key: !secret user2_sp_key
+
+# Google assistant integration, calls to a different file for the info to keep this file clean
+google_assistant: !include googleassistantintegration.yaml
+
+# Notification service to send notifications via FB messenger
+notify:
+#
+# notifications via Whatsapp Callmebot
+  - name: "WhatsApp"          
+    platform: rest
+    resource: https://api.callmebot.com/whatsapp.php
+    data:
+      source: HA
+      phone: !secret phone_number
+      apikey: !secret callmebot_key
+#
+# notifications via Whatsapp Whin
+  - name: whatsapp_whin_personal        
+    platform: rest
+    resource: https://whin2.p.rapidapi.com/send
+    method: POST
+    verify_ssl: true
+    headers: 
+      X-RapidAPI-Host: whin2.p.rapidapi.com
+      X-RapidAPI-Key:  !secret rapid_api_key
+    message_param_name: text
+#
+# notifications via Whatsapp group Whin
+  - name: whatsapp_whin_group           
+    platform: rest
+    resource: !secret whatsapp_group_link
+    method: POST
+    verify_ssl: true
+    headers: 
+      X-RapidAPI-Host: whin2.p.rapidapi.com
+      X-RapidAPI-Key: !secret rapid_api_key
+    message_param_name: text
+  - name: Google Assistant
+    platform: rest
+    resource: http://192.168.69.21:5000/broadcast_message
+  - name: Google Assistant Command
+    platform: rest
+    resource: http://192.168.69.21:5000/command?message=google_command
+
+# Secures the connection to HA with https for duckdns
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+  ip_ban_enabled: false
+
+# Alarm panel setup
+alarm_control_panel:
+  - platform: manual
+    code: 269
+    code_arm_required: true
+    arming_time: 20
+    delay_time: 30
+
+# Car washing sensor
+binary_sensor:
+  - platform: car_wash
+    weather: weather.home
+
+# Assistant Relay
+rest_command:
+  assistant_broadcast:
+    url: http://192.168.69.21:3000/assistant
+    method: POST
+    content_type: 'application/json'
+    payload: '{"command":"{{ command }}", "user":"Jop", "broadcast":true}'
+  assistant_converse:
+    url: http://192.168.69.21:3000/assistant
+    method: POST
+    content_type: 'application/json'
+    payload: '{"command":"{{ command }}", "user":"Jop", "converse":true}'
+  assistant_relay:
+    url: http://192.168.69.21:3000/assistant
+    method: POST
+    content_type: 'application/json'
+    payload: '{"command":"{{ command }}", "user":"Jop"}'
+
+anniversaries:
+  sensors:
+  - name: Jop's Birthday
+    date: '1997-04-29'
+  - name: Liselotte's Birthday
+    date: '2003-04-01'
+  - name: Kiwi's Birthday
+    date: '2021-04-02'
+  - name: Viktor's Birthday
+    date: '1998-10-19'
+  - name: Lychee's Birthday
+    date: '2023-08-02'

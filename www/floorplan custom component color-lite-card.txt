@@ -1,0 +1,409 @@
+type: custom:config-template-card
+entities:
+  - media_player.home_display
+  - media_player.tv
+  - media_player.tv1
+  - media_player.googlehome4699
+  - cover.0006317224a16023e145
+  - cover.86037560e0980611a3bf
+  - light.extended_color_light_9
+  - binary_sensor.hp_printer_connectivity
+  - light.color_temperature_light_5
+  - light.extended_color_light_10
+  - light.computer_light
+  - switch.on_off_plug_in_unit_7
+  - sensor.cpu_temperature
+  - person.jop
+  - person.seline
+  - sensor.tradfri_remote_control_desk_battery_level
+  - sensor.tradfri_remote_control_bathroom_battery_level
+  - sensor.tradfri_remote_control_bedroom_battery_level
+  - sensor.tradfri_remote_control_main_battery_level
+  - light.color_temperature_light_6
+  - light.color_light_3
+  - light.extended_color_light_9
+  - light.extended_color_light_8
+  - light.extended_color_light_11
+  - switch.pc_power
+  - binary_sensor.openclose_5
+  - binary_sensor.presence_2
+  - binary_sensor.tradfri_motion_sensor
+  - light.color_light_11
+  - switch.bfc7b3b07c0f9587cbk1ov
+  - light.extended_color_light_4
+  - switch.on_off_plug_in_unit_12
+  - binary_sensor.openclose_12
+  - binary_sensor.openclose_13
+  - sensor.humidity_11
+  - sensor.temperature_10
+  - sensor.sun_brightness
+  - light.bfdd22dbe597a2a90eyyiy
+  - sensor.pure_xl_battery_level
+card:
+  type: picture-elements
+  image: /local/floorplan/base2.png
+  elements:
+    - type: state-icon
+      entity: binary_sensor.hp_printer_connectivity
+      style:
+        top: 10%
+        left: 21%
+    - type: state-icon
+      entity: media_player.tv
+      style:
+        top: 96.3%
+        left: 67%
+    - type: state-icon
+      entity: light.color_temperature_light_5
+      tap_action:
+        action: toggle
+      style:
+        top: 46.9%
+        left: 55%
+    - type: state-icon
+      entity: light.extended_color_light_10
+      tap_action:
+        action: toggle
+      style:
+        top: 88.9%
+        left: 29.5%
+    - type: state-icon
+      entity: switch.on_off_plug_in_unit_7
+      tap_action:
+        action: toggle
+      icon: hass:power
+      style:
+        top: 94.4%
+        left: 41%
+    - type: state-badge
+      entity: sensor.humidity_11
+      style:
+        top: 6%
+        left: 85%
+        color: white
+      title: Bathroom Humidity
+    - type: state-badge
+      entity: sensor.cpu_temperature
+      style:
+        top: 6%
+        left: 65%
+        color: white
+    - type: state-badge
+      entity: person.jop
+      style:
+        top: 5.1%
+        left: 45%
+        color: white
+    - type: state-icon
+      entity: sensor.tradfri_remote_control_desk_battery_level
+      style:
+        top: 82%
+        left: 44%
+    - type: state-icon
+      entity: sensor.tradfri_remote_control_bathroom_battery_level
+      style:
+        top: 52%
+        left: 47%
+    - type: state-icon
+      entity: sensor.tradfri_remote_control_bedroom_battery_level
+      style:
+        top: 43.4%
+        left: 41%
+        opacity: 50%
+    - type: state-icon
+      entity: sensor.tradfri_remote_control_main_battery_level
+      style:
+        top: 61%
+        left: 37.5%
+        opacity: 85%
+    - type: state-icon
+      entity: sensor.pure_xl_battery_level
+      style:
+        top: 58.9%
+        left: 37.5%
+    - type: state-icon
+      entity: light.color_temperature_light_6
+      tap_action:
+        action: toggle
+      style:
+        top: 47%
+        left: 23.3%
+    - type: state-icon
+      entity: light.color_light_3
+      tap_action:
+        action: toggle
+      style:
+        top: 85.5%
+        left: 87%
+    - type: state-icon
+      entity: light.extended_color_light_9
+      tap_action:
+        action: toggle
+      style:
+        top: 23.5%
+        left: 46.7%
+    - type: state-icon
+      entity: light.extended_color_light_8
+      tap_action:
+        action: toggle
+      style:
+        top: 26.5%
+        left: 39%
+    - type: state-icon
+      entity: light.extended_color_light_11
+      tap_action:
+        action: toggle
+      style:
+        top: 62.4%
+        left: 52%
+    - type: state-icon
+      entity: switch.pc_power
+      icon: hass:desktop-classic
+      style:
+        top: 22.5%
+        left: 39%
+    - type: state-icon
+      entity: binary_sensor.openclose_13
+      style:
+        top: 29%
+        left: 10.4%
+    - type: state-icon
+      entity: binary_sensor.openclose_5
+      style:
+        top: 48%
+        left: 9.4%
+    - type: state-icon
+      entity: binary_sensor.openclose_12
+      style:
+        top: 72%
+        left: 7.9%
+    - type: state-icon
+      entity: binary_sensor.presence_2
+      style:
+        top: 47.5%
+        left: 18%
+    - type: state-icon
+      entity: light.color_light_11
+      tap_action:
+        action: toggle
+      style:
+        top: 78.8%
+        left: 49.6%
+    - type: state-icon
+      state:
+        - value: 'on'
+          spin: true
+      entity: switch.bfc7b3b07c0f9587cbk1ov
+      tap_action:
+        action: toggle
+      style:
+        top: 52%
+        left: 81.5%
+      styles:
+        card:
+          - —paper-card-background-color: rgba(0,0,0,0.0)
+          - box-shadow: rgba(0,0,0,0.0)
+        icon:
+          - opacity: 100%
+      icon: hass:fan
+    - type: state-icon
+      entity: light.extended_color_light_4
+      tap_action:
+        action: toggle
+      style:
+        top: 80%
+        left: 65%
+    - type: state-icon
+      entity: switch.on_off_plug_in_unit_12
+      tap_action:
+        action: toggle
+      style:
+        top: 42%
+        left: 59%
+      icon: hass:fan
+    - type: state-icon
+      entity: cover.0006317224a16023e145
+      tap_action:
+        action: call-service
+        service: >-
+          ${if (states['cover.0006317224a16023e145'].state === 'opening')
+          'cover.close_cover'; else 'cover.open_cover'}
+        service_data:
+          entity_id: cover.0006317224a16023e145
+      style:
+        top: 85%
+        left: 8%
+    - type: state-icon
+      entity: cover.86037560e0980611a3bf
+      tap_action:
+        action: call-service
+        service: >-
+          ${if (states['cover.86037560e0980611a3bf'].state === 'opening')
+          'cover.close_cover'; else 'cover.open_cover'}
+        service_data:
+          entity_id: cover.86037560e0980611a3bf
+      style:
+        top: 34%
+        left: 13%
+        opacity: 60%
+    - type: state-icon
+      entity: sensor.humidity_11
+      style:
+        top: 49%
+        left: 39.6%
+    - type: state-icon
+      entity: media_player.googlehome4699
+      style:
+        top: 19.5%
+        left: 39%
+    - type: state-icon
+      entity: media_player.home_display
+      style:
+        top: 84%
+        left: 81%
+    - type: state-icon
+      entity: binary_sensor.tradfri_motion_sensor
+      style:
+        top: 47%
+        left: 44%
+    - type: state-icon
+      entity: light.computer_light
+      tap_action:
+        action: toggle
+      style:
+        top: 19%
+        left: 33%
+    - type: state-icon
+      entity: light.bfdd22dbe597a2a90eyyiy
+      tap_action:
+        action: toggle
+      style:
+        top: 21%
+        left: 82%
+
+    - type: image
+      image: /local/floorplan/dim.png
+      entity: sensor.sun_brightness
+      tap_action:
+        action: none
+      style:
+        top: 50%
+        left: 50%
+        width: 100%
+      state_filter:
+        bright: opacity(.0)
+        mid: opacity(.2)
+        dark: opacity(.4)
+        black: opacity(.7)
+    - type: custom:color-lite-card
+      entity: light.extended_color_light_8
+      tap_action:
+        action: none
+      image: /local/floorplan/desklampw.png
+      color_image: /local/floorplan/desklampr.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: custom:color-lite-card
+      entity: light.extended_color_light_9
+      tap_action:
+        action: none
+      image: /local/floorplan/bedroomw.png
+      color_image: /local/floorplan/bedroomr.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: custom:color-lite-card
+      entity: light.color_temperature_light_6
+      tap_action:
+        action: none
+      image: /local/floorplan/hallw.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: custom:color-lite-card
+      entity: light.color_temperature_light_5
+      tap_action:
+        action: none
+      image: /local/floorplan/bathroomw.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: custom:color-lite-card
+      entity: light.extended_color_light_11
+      tap_action:
+        action: none
+      image: /local/floorplan/kitchenw.png
+      color_image: /local/floorplan/kitchenr.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: custom:color-lite-card
+      entity: switch.bfc7b3b07c0f9587cbk1ov
+      tap_action:
+        action: none
+      image: /local/floorplan/cookerhoodw.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: custom:color-lite-card
+      entity: light.extended_color_light_4
+      tap_action:
+        action: none
+      image: /local/floorplan/couchw.png
+      color_image: /local/floorplan/couchr.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: custom:color-lite-card
+      entity: light.extended_color_light_10
+      tap_action:
+        action: none
+      image: /local/floorplan/cornerw.png
+      color_image: /local/floorplan/cornerr.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: custom:color-lite-card
+      entity: light.color_light_3
+      tap_action:
+        action: none
+      image: /local/floorplan/moodw.png
+      color_image: /local/floorplan/moodr.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: custom:color-lite-card
+      entity: light.color_light_11
+      tap_action:
+        action: none
+      image: /local/floorplan/livingroom.png
+      color_image: /local/floorplan/livingroomr.png
+      style:
+        top: 50.25%
+        left: 50%
+        width: 100%
+    - type: image
+      entity: media_player.tv1
+      tap_action:
+        action: none
+      hold_action:
+        action: none
+      state_image:
+        'on': /local/floorplan/tvw.png
+        playing: /local/floorplan/tvw.png
+        'off': /local/floorplan/empty.png
+        unavailable: /local/floorplan/empty.png
+      style:
+        top: 50%
+        left: 50%
+        width: 100%

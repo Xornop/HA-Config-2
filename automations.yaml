@@ -1,0 +1,4743 @@
+- id: '1698346985196'
+  alias: All rooms - Door open cat alert
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.front_door_sensor_contact
+    from: 'on'
+    to: 'off'
+    id: Closed
+  - platform: state
+    entity_id:
+    - binary_sensor.front_door_sensor_contact
+    from: 'off'
+    to: 'on'
+    id: Open
+  condition:
+  - condition: state
+    entity_id: input_boolean.phones_charging
+    state: 'off'
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - Open
+    then:
+    - service: scene.create
+      data:
+        scene_id: before_door_open1
+        snapshot_entities:
+        - light.table_light
+        - light.bedroom_main_light
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 200
+    - service: light.turn_on
+      data: {}
+      target:
+        entity_id:
+        - light.table_light
+        - light.bedroom_main_light
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 300
+    - service: scene.create
+      data:
+        scene_id: before_door_open2
+        snapshot_entities:
+        - light.table_light
+        - light.bedroom_main_light
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 200
+    - service: light.turn_on
+      data:
+        color_name: red
+        brightness_pct: 100
+      target:
+        entity_id:
+        - light.table_light
+        - light.bedroom_main_light
+  - if:
+    - condition: trigger
+      id:
+      - Closed
+    then:
+    - service: scene.turn_on
+      data: {}
+      target:
+        entity_id: scene.before_door_open2
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 300
+    - service: scene.turn_on
+      data: {}
+      target:
+        entity_id: scene.before_door_open1
+  mode: queued
+  max: 20
+- id: '1697578366027'
+  alias: All rooms - Halloween/October spooky house
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - timer.spooky_flicker_time
+    id: Spooky timer runs out
+    to: idle
+  - platform: time
+    at: '17:00:00'
+    id: reset timer in afternoon
+  - platform: time
+    at: '21:32:04'
+    id: spooky video
+  - platform: time_pattern
+    minutes: '13'
+    id: Spooky minute
+  - platform: time_pattern
+    minutes: '43'
+    id: Spooky minute
+  condition:
+  - condition: template
+    value_template: '{{ now().month == 10 }}'
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - Spooky timer runs out
+    then:
+    - service: timer.start
+      data:
+        duration: 00:{{ (range(1, 59)|random|int) }}:00
+      target:
+        entity_id: timer.spooky_flicker_time
+    - if:
+      - condition: sun
+        before: sunrise
+        after: sunset
+      then:
+      - service: script.1697576050117
+        data: {}
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: person.user2
+            state: home
+          - condition: state
+            entity_id: sensor.random_0_9
+            state: '0'
+          - condition: state
+            entity_id: group.any_phone_charging
+            state: 'off'
+          sequence:
+          - service: media_player.volume_set
+            data:
+              volume_level: 0
+            target:
+              entity_id: media_player.nest_mini
+          - service: spotcast.start
+            data:
+              entity_id: media_player.nest_mini
+              start_volume: 70
+              uri: spotify:track:4EgQ0PeMuQQ5UBCkdMRQMA?si=ee2dab12eddf4180
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 7
+              milliseconds: 0
+          - service: spotcast.start
+            data:
+              entity_id: media_player.nest_mini
+              start_volume: 60
+              uri: spotify:track:1psO4kPgHh8boAIU4YoZ4z?si=02b6c13261a146b5
+        - conditions:
+          - condition: state
+            entity_id: person.user2
+            state: home
+          - condition: state
+            entity_id: sensor.random_0_9
+            state: '1'
+          - condition: state
+            entity_id: group.any_phone_charging
+            state: 'off'
+          sequence:
+          - service: scene.create
+            data:
+              scene_id: before_spooky_off
+              snapshot_entities:
+              - light.desk_light
+              - light.bedroom_corner_light
+              - light.bedroom_main_light
+              - light.bathroom_light
+              - light.hall_light
+              - light.mood_light
+              - light.tv_floor_light
+              - light.table_light
+              - light.living_room_main
+              - light.couch_floor_light
+              - light.kitchen_light_cct
+              - light.kitchen_light_rgb
+              - light.corner_light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - service: light.turn_off
+            data: {}
+            target:
+              entity_id:
+              - light.all_lights
+          - service: media_player.turn_off
+            data: {}
+            target:
+              entity_id:
+              - media_player.tv_2
+              - media_player.tv_adb
+              - media_player.samsung_tv
+              - media_player.tv
+          - service: media_player.volume_set
+            data:
+              volume_level: 0
+            target:
+              entity_id: media_player.nest_mini
+          - service: media_player.play_media
+            data:
+              media_content_type: audio/mp3
+              media_content_id: /media/media_halloween/womangiggle.mp3
+            target:
+              entity_id: media_player.nest_mini
+          - service: media_player.volume_set
+            data:
+              volume_level: 0.9
+            target:
+              entity_id: media_player.nest_mini
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 15
+              milliseconds: 0
+          - service: scene.turn_on
+            target:
+              entity_id: scene.before_spooky_off
+            metadata: {}
+        - conditions:
+          - condition: state
+            entity_id: person.user2
+            state: home
+          - condition: state
+            entity_id: sensor.random_0_9
+            state: '2'
+          - condition: state
+            entity_id: group.any_phone_charging
+            state: 'off'
+          sequence:
+          - variables:
+              random_number: '{{ range(1,10) | random }}'
+          - service: notify.mobile_app_user2_phone
+            data:
+              message: '{{ states(''input_text.text'' + random_number | string) }}'
+        - conditions:
+          - condition: state
+            entity_id: person.user2
+            state: home
+          - condition: state
+            entity_id: sensor.random_0_9
+            state: '3'
+          - condition: state
+            entity_id: group.any_phone_charging
+            state: 'off'
+          sequence:
+          - type: toggle
+            device_id: d2a6daeb5216ee97cea1311eaf0421f4
+            entity_id: e834a890ed24a784c4b3f7f63b402bf8
+            domain: light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - type: toggle
+            device_id: d2a6daeb5216ee97cea1311eaf0421f4
+            entity_id: e834a890ed24a784c4b3f7f63b402bf8
+            domain: light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - type: toggle
+            device_id: e623bf2f14f541f6e56f8564301f55f1
+            entity_id: 45ae930adcaf7206c733972902019fad
+            domain: light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - type: toggle
+            device_id: e623bf2f14f541f6e56f8564301f55f1
+            entity_id: 45ae930adcaf7206c733972902019fad
+            domain: light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - type: toggle
+            device_id: 37886c62962b73acbb39d62efd6f26cf
+            entity_id: 1836273a90efdb433daedfe1b9695e58
+            domain: light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - type: toggle
+            device_id: 37886c62962b73acbb39d62efd6f26cf
+            entity_id: 1836273a90efdb433daedfe1b9695e58
+            domain: light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - type: toggle
+            device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+            entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+            domain: light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - type: toggle
+            device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+            entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+            domain: light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - type: toggle
+            device_id: 32c634081b077160963e7735846151b8
+            entity_id: 6bc44c9b1ea72836aed81cf7f31d6914
+            domain: light
+          - delay:
+              hours: 0
+              minutes: 0
+              seconds: 0
+              milliseconds: 500
+          - type: toggle
+            device_id: 32c634081b077160963e7735846151b8
+            entity_id: 6bc44c9b1ea72836aed81cf7f31d6914
+            domain: light
+  - if:
+    - condition: trigger
+      id:
+      - reset timer in afternoon
+    then:
+    - service: timer.start
+      data:
+        duration: '{{ (range(0, 2)|random|int) }}:{{ (range(1, 59)|random|int) }}:00'
+      target:
+        entity_id: timer.spooky_flicker_time
+  - if:
+    - condition: trigger
+      id:
+      - spooky video
+    then:
+    - service: media_player.play_media
+      data:
+        media_content_id: /media/media_halloween/fireplace.mp4
+        media_content_type: video/mp4
+      target:
+        entity_id: media_player.home_display
+  - if:
+    - condition: trigger
+      id:
+      - Spooky minute
+    - condition: sun
+      before: sunrise
+      after: sunset
+    then:
+    - service: script.1697576050117
+      data: {}
+  mode: parallel
+  max: 10
+- id: '1609273824247'
+  alias: Hall - Security door sensor
+  description: Sends a notification when the door opens but nobody is home
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 0ded3e0935a5bdc04824dcd48f8d3de9
+    entity_id: 0505c5488c134cbc6f539110e86723fe
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: group.people
+    state: not_home
+  action:
+  - service: notify.mobile_app_user1_phone
+    data:
+      message: "\U0001F6A8\U0001F6AA The door was opened while you were away!  {{
+        states('sensor.date_time') }}"
+      data:
+        level: warning
+        priority: high
+  - service: notify.whatsapp
+    data:
+      message: "\U0001F6A8\U0001F6AA The door was opened while you were away!  {{
+        states('sensor.date_time') }}"
+      data:
+        level: warning
+        priority: high
+  mode: single
+- id: '1610105851274'
+  alias: '*HASSIO - Lights off when nobody home'
+  description: ''
+  trigger:
+  - platform: state
+    from: home
+    entity_id:
+    - group.people
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    to:
+  action:
+  - service: media_player.turn_off
+    target:
+      entity_id:
+      - media_player.tv
+      - media_player.home_display
+      - media_player.nest_mini
+      - media_player.both_rooms
+      - media_player.tv
+    data: {}
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.cooker_hood
+      - switch.toast_maker
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.all_lights
+  mode: single
+- id: '1613253019327'
+  alias: All rooms - Any or all phones charging, everything off or dim
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.phones_charging
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    id: all_phones_charging
+  - platform: state
+    entity_id:
+    - group.any_phone_charging
+    to: 'on'
+    from: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    id: any_phone_charging
+  condition:
+  - condition: time
+    after: '23:00:00'
+    before: 06:00:00
+    enabled: true
+  - condition: state
+    entity_id: group.people
+    state: home
+  action:
+  - if:
+    - condition: trigger
+      id: all_phones_charging
+      enabled: true
+    then:
+    - service: media_player.turn_off
+      target:
+        entity_id:
+        - media_player.tv
+        - media_player.samsung_tv
+        - media_player.home_display
+        - media_player.nest_mini
+      data: {}
+    - service: light.turn_off
+      data:
+        transition: 10
+      target:
+        entity_id:
+        - light.table_light
+        - light.kitchen_light_rgb
+        - light.tv_floor_light
+        - light.bathroom_light
+        - light.bedroom_corner_light
+        - light.bedroom_main_light
+        - light.corner_light
+        - light.desk_light
+        - light.kitchen_light_cct
+        - light.living_room_main
+        - light.mood_light
+    - service: media_player.turn_off
+      target:
+        entity_id:
+        - media_player.home_display
+        - media_player.tv
+      data: {}
+    - type: turn_off
+      device_id: 29e5b50f8c442b580a6e128d97fbf9ed
+      entity_id: switch.cooker_hood
+      domain: switch
+    - delay:
+        hours: 0
+        minutes: 15
+        seconds: 0
+        milliseconds: 0
+    - service: light.turn_off
+      target:
+        entity_id:
+        - light.starlight
+      data: {}
+    - service: light.turn_on
+      data:
+        transition: 10
+        brightness_pct: 10
+      target:
+        entity_id: light.couch_floor_light
+  - if:
+    - condition: trigger
+      id: any_phone_charging
+    then:
+    - type: turn_on
+      device_id: 7d2dd3b9d31296da6667c913106e6eb7
+      entity_id: light.starlight
+      domain: light
+    - if:
+      - condition: numeric_state
+        entity_id: light.bedroom_main_light
+        attribute: brightness
+        above: 10
+      then:
+      - service: light.turn_on
+        data:
+          transition: 5
+          brightness_pct: 10
+        target:
+          entity_id:
+          - light.bedroom_corner_light
+          - light.bedroom_main_light
+    - if:
+      - condition: state
+        entity_id: person.user2
+        state: home
+      - condition: state
+        entity_id: binary_sensor.user2_phone_is_charging
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.task1
+        state: 'off'
+      then:
+      - service: script.google_home_resume
+        data:
+          target:
+            entity_id: media_player.nest_mini
+          action:
+          - service: media_player.volume_set
+            data:
+              volume_level: 0.5
+            target:
+              entity_id: media_player.nest_mini
+          - service: tts.google_translate_say
+            data:
+              cache: false
+              entity_id: media_player.nest_mini
+              message: Don't forget to take your pill
+          resume_delay:
+            hours: 0
+            minutes: 0
+            seconds: 20
+  mode: restart
+- id: '1613253825767'
+  alias: Bedroom - morning routine
+  description: ''
+  trigger:
+  - platform: state
+    from: 'on'
+    to: 'off'
+    entity_id: input_boolean.phones_charging
+  condition:
+  - condition: time
+    before: '12:30:00'
+    after: 06:30:00
+  - condition: state
+    entity_id: group.people
+    state: home
+  action:
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.nest_mini
+    data:
+      volume_level: 0.4
+  - service: light.turn_on
+    data:
+      brightness: 255
+      transition: 300
+      color_temp: 435
+    target:
+      entity_id:
+      - light.bedroom_main_light
+  - type: turn_off
+    device_id: 7d2dd3b9d31296da6667c913106e6eb7
+    entity_id: light.starlight
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 29
+      seconds: 0
+      milliseconds: 0
+  - condition: state
+    entity_id: group.phones_charging
+    state: 'off'
+  - if:
+    - condition: numeric_state
+      entity_id: cover.bedroom_blinds
+      attribute: current_position
+      below: 5
+    - condition: numeric_state
+      entity_id: sensor.bedroom_window_sensor_device_temperature
+      below: 35
+    then:
+    - service: script.google_home_resume
+      data:
+        action:
+        - service: tts.google_translate_say
+          data:
+            message: The blinds will open in 1 minute
+            entity_id: media_player.nest_mini
+        resume_delay:
+          hours: 0
+          minutes: 0
+          seconds: 15
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 2
+      milliseconds: 0
+  - if:
+    - condition: numeric_state
+      entity_id: cover.bedroom_blinds
+      attribute: current_position
+      below: 5
+    - condition: numeric_state
+      entity_id: sensor.bedroom_window_sensor_device_temperature
+      below: 35
+    then:
+    - service: cover.open_cover
+      target:
+        entity_id: cover.bedroom_blinds
+      data: {}
+  mode: single
+- id: '1613497447020'
+  alias: All rooms - Sun down, close blinds, lights on
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 00:00:00
+    id: blinds
+  - platform: state
+    entity_id:
+    - binary_sensor.bedroom_window_sensor_contact
+    to: 'off'
+    id: bedroom_window_closed
+    from: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.living_room_window_sensor_contact
+    to: 'off'
+    id: living_room_window_closed
+    from: 'on'
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: TAKEN
+    id: taken_action
+    enabled: false
+  - platform: numeric_state
+    entity_id: sun.sun
+    attribute: elevation
+    below: 5
+    id: lights
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: lights
+    - condition: state
+      entity_id: group.people
+      state: home
+    then:
+    - service: light.turn_on
+      data: {}
+      target:
+        entity_id:
+        - light.corner_light
+        - light.bedroom_main_light
+        - light.bedroom_corner_light
+        - light.kitchen_light_cct
+        - light.table_light
+        - light.mood_light
+        - light.living_room_main
+  - if:
+    - condition: sun
+      before: sunrise
+      after: sunset
+    - condition: or
+      conditions:
+      - condition: trigger
+        id: bedroom_window_closed
+      - condition: trigger
+        id: taken_action
+        enabled: false
+    then:
+    - if:
+      - type: is_not_open
+        condition: device
+        device_id: 9b696ccd7719c8f2740d536ccdb5b5ec
+        entity_id: 64d5cc5787285579984e5199eea03308
+        domain: binary_sensor
+      - condition: state
+        entity_id: input_boolean.task1
+        state: 'on'
+      then:
+      - device_id: 487df4d70640db9b7ca1e166c417a9b6
+        domain: cover
+        entity_id: cover.bedroom_blinds
+        type: set_position
+        position: 0
+      else:
+      - if:
+        - type: is_not_open
+          condition: device
+          device_id: 9b696ccd7719c8f2740d536ccdb5b5ec
+          entity_id: 64d5cc5787285579984e5199eea03308
+          domain: binary_sensor
+        then:
+        - device_id: 487df4d70640db9b7ca1e166c417a9b6
+          domain: cover
+          entity_id: cover.bedroom_blinds
+          type: set_position
+          position: 20
+        - service: notify.mobile_app_user2_phone
+          data:
+            message: Heb je je pil al genomen?
+            title: "\U0001F48A Hey jij! Zin in kinderen? \U0001F476"
+            data:
+              actions:
+              - action: TAKEN
+                title: "\U0001F47C Pil al genomen"
+              - action: REMIND
+                title: "\U0001F550 Herinner me over 1 uur"
+              tag: pill
+          enabled: false
+  - if:
+    - condition: trigger
+      id: living_room_window_closed
+    - condition: sun
+      before: sunrise
+      after: sunset
+    then:
+    - service: cover.close_cover
+      data: {}
+      target:
+        entity_id:
+        - cover.living_room_blinds
+  - if:
+    - condition: trigger
+      id: blinds
+    then:
+    - if:
+      - type: is_not_open
+        condition: device
+        device_id: 9b696ccd7719c8f2740d536ccdb5b5ec
+        entity_id: 64d5cc5787285579984e5199eea03308
+        domain: binary_sensor
+      - condition: state
+        entity_id: input_boolean.task1
+        state: 'on'
+      then:
+      - device_id: 487df4d70640db9b7ca1e166c417a9b6
+        domain: cover
+        entity_id: cover.bedroom_blinds
+        type: set_position
+        position: 0
+      else:
+      - if:
+        - type: is_not_open
+          condition: device
+          device_id: 9b696ccd7719c8f2740d536ccdb5b5ec
+          entity_id: 64d5cc5787285579984e5199eea03308
+          domain: binary_sensor
+        then:
+        - device_id: 487df4d70640db9b7ca1e166c417a9b6
+          domain: cover
+          entity_id: cover.bedroom_blinds
+          type: set_position
+          position: 20
+        - service: notify.mobile_app_user2_phone
+          data:
+            message: Heb je je pil al genomen?
+            title: "\U0001F48A Hey jij! Zin in kinderen? \U0001F476"
+            data:
+              actions:
+              - action: TAKEN
+                title: "\U0001F47C Pil al genomen"
+              - action: REMIND
+                title: "\U0001F550 Herinner me over 1 uur"
+              tag: pill
+          enabled: false
+    - if:
+      - type: is_not_open
+        condition: device
+        device_id: c51b209d088ed7d261aaba6ee8e4b6e6
+        entity_id: 59674d17ca45311537dd8b99518eaf36
+        domain: binary_sensor
+      then:
+      - device_id: fc7579ef5d1a8b1b6df7b9705982d065
+        domain: cover
+        entity_id: cover.living_room_blinds
+        type: set_position
+        position: 0
+  mode: single
+- id: '1613497506530'
+  alias: Living room - sunrise open blinds
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.living_room_window_sensor_device_temperature
+    below: 35
+  action:
+  - service: cover.open_cover
+    target:
+      entity_id: cover.living_room_blinds
+    data: {}
+  - if:
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: group.any_phone_charging
+        state: 'off'
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: group.people
+          state: home
+    then:
+    - service: cover.open_cover
+      data: {}
+      target:
+        entity_id: cover.bedroom_blinds
+  mode: single
+- id: '1613560065852'
+  alias: Living rooms - lights on when blinds close
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: cover.living_room_blinds
+    below: 100
+  condition:
+  - condition: state
+    state: home
+    entity_id: group.people
+  - condition: state
+    entity_id: input_boolean.tv_apps
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      transition: 40
+    target:
+      entity_id:
+      - light.corner_light
+      - light.mood_light
+      - light.table_light
+      - light.kitchen_light_cct
+  - if:
+    - condition: time
+      before: '21:00:00'
+    then:
+    - service: light.turn_on
+      data:
+        transition: 40
+        brightness: 255
+      target:
+        entity_id: light.kitchen_light_cct
+  mode: single
+- id: '1613962085847'
+  alias: All rooms - blinds closing open window detection
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - cover.bedroom_blinds
+    attribute: current_position
+    id: bedroom
+  - platform: state
+    entity_id:
+    - cover.living_room_blinds
+    attribute: current_position
+    id: living room
+  condition: []
+  action:
+  - if:
+    - condition: and
+      conditions:
+      - type: is_open
+        condition: device
+        device_id: 9b696ccd7719c8f2740d536ccdb5b5ec
+        entity_id: 64d5cc5787285579984e5199eea03308
+        domain: binary_sensor
+      - condition: trigger
+        id: bedroom
+    then:
+    - service: cover.stop_cover
+      data: {}
+      target:
+        entity_id: cover.bedroom_blinds
+  - if:
+    - condition: and
+      conditions:
+      - type: is_open
+        condition: device
+        device_id: c51b209d088ed7d261aaba6ee8e4b6e6
+        entity_id: 59674d17ca45311537dd8b99518eaf36
+        domain: binary_sensor
+      - condition: trigger
+        id: living room
+    then:
+    - service: cover.stop_cover
+      data: {}
+      target:
+        entity_id: cover.living_room_blinds
+  mode: single
+- id: '1614094955877'
+  alias: Bedroom - lights off when blinds open
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: cover.bedroom_blinds
+    above: 50
+  condition:
+  - condition: sun
+    before: sunset
+    after: sunrise
+    before_offset: -01:00:00
+    after_offset: 01:00:00
+  - condition: or
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.estimated_illuminance_accuw
+      above: 2000
+    - condition: numeric_state
+      entity_id: sensor.estimated_illuminance_owm
+      above: 2000
+  action:
+  - type: turn_off
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - type: turn_off
+    device_id: 32c634081b077160963e7735846151b8
+    entity_id: 6bc44c9b1ea72836aed81cf7f31d6914
+    domain: light
+  mode: single
+- id: '1614461976472'
+  alias: Bathroom - Fan on/off based on humidity
+  description: ''
+  trigger:
+  - type: humidity
+    platform: device
+    device_id: 88388c7948247c5e96cc4047f98698c2
+    entity_id: 64621a96a99e386fb6b50058b5e4db97
+    domain: sensor
+    id: humidity high
+    above: 85
+  - type: humidity
+    platform: device
+    device_id: 88388c7948247c5e96cc4047f98698c2
+    entity_id: 64621a96a99e386fb6b50058b5e4db97
+    domain: sensor
+    id: humidity low
+    below: 80
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: humidity high
+    then:
+    - type: turn_on
+      device_id: 28fb4b12757763f6122fa1e7603c3365
+      entity_id: a3643aa6b81d4b765cdcf52cabad04d1
+      domain: switch
+  - if:
+    - condition: trigger
+      id: humidity low
+    then:
+    - type: turn_off
+      device_id: 28fb4b12757763f6122fa1e7603c3365
+      entity_id: a3643aa6b81d4b765cdcf52cabad04d1
+      domain: switch
+  mode: restart
+- id: '1614463215190'
+  alias: All rooms - Rain alert when window open
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.buienalarm_precipitation_forecast_average
+    above: 0
+  - type: not_opened
+    platform: device
+    device_id: 9b696ccd7719c8f2740d536ccdb5b5ec
+    entity_id: 64d5cc5787285579984e5199eea03308
+    domain: binary_sensor
+    id: Bedroom window closed
+  - type: not_opened
+    platform: device
+    device_id: c51b209d088ed7d261aaba6ee8e4b6e6
+    entity_id: 59674d17ca45311537dd8b99518eaf36
+    domain: binary_sensor
+    id: Living room window closed
+  - type: opened
+    platform: device
+    device_id: 9b696ccd7719c8f2740d536ccdb5b5ec
+    entity_id: 64d5cc5787285579984e5199eea03308
+    domain: binary_sensor
+    id: Bedroom window opened
+  - type: opened
+    platform: device
+    device_id: c51b209d088ed7d261aaba6ee8e4b6e6
+    entity_id: 59674d17ca45311537dd8b99518eaf36
+    domain: binary_sensor
+    id: Living room window opened
+  - platform: state
+    entity_id:
+    - binary_sensor.front_door_sensor_contact
+    to: 'off'
+    id: Front door closed
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.front_door_sensor_contact
+      state: 'on'
+    - condition: numeric_state
+      entity_id: sensor.buienalarm_precipitation_forecast_average
+      above: 0
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: "\U0001F327️ Rain is coming but the front door is open!"
+        data:
+          tag: rain-alert
+  - if:
+    - condition: state
+      entity_id: binary_sensor.bedroom_window_sensor_contact
+      state: 'on'
+    - condition: numeric_state
+      entity_id: sensor.buienalarm_precipitation_forecast_average
+      above: 0
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: "\U0001F327️ Rain is coming but the bedroom window is open!"
+        data:
+          tag: rain-alert
+  - if:
+    - condition: state
+      entity_id: binary_sensor.living_room_window_sensor_contact
+      state: 'on'
+    - condition: numeric_state
+      entity_id: sensor.buienalarm_precipitation_forecast_average
+      above: 0
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: "\U0001F327️ Rain is coming but the living room window is open!"
+        data:
+          tag: rain-alert
+  - if:
+    - condition: trigger
+      id:
+      - Bedroom window closed
+      - Living room window closed
+      - Front door closed
+    then:
+    - service: script.notify_people_who_are_present
+      data:
+        message: clear_notification
+        tag: rain-alert
+  - if:
+    - condition: trigger
+      id:
+      - Bedroom window opened
+    - condition: numeric_state
+      entity_id: sensor.buienalarm_precipitation_forecast_average
+      above: 0
+    then:
+    - service: script.google_home_resume
+      data:
+        action:
+        - service: media_player.volume_set
+          data:
+            volume_level: 0.5
+          target:
+            entity_id: media_player.nest_mini
+        - service: tts.google_translate_say
+          data:
+            cache: false
+            entity_id: media_player.nest_mini
+            message: Rain is coming, you might want to keep the windows closed
+        target:
+          entity_id: media_player.nest_mini
+  - if:
+    - condition: trigger
+      id: Living room window opened
+    - condition: numeric_state
+      entity_id: sensor.buienalarm_precipitation_forecast_average
+      above: 0
+    then:
+    - service: script.google_home_resume
+      data:
+        action:
+        - service: media_player.volume_set
+          data:
+            volume_level: 0.5
+          target:
+            entity_id: media_player.home_display
+        - service: tts.google_translate_say
+          data:
+            cache: false
+            entity_id: media_player.home_display
+            message: Rain is coming, you might want to keep the windows closed
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: script.notify_people_who_are_present
+    data:
+      message: clear_notification
+      tag: rain-alert
+  mode: parallel
+  max: 100
+- id: '1614545016936'
+  alias: Hall - motion light
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 82e622ddf6a0262a121bda4747813fe0
+    entity_id: bc33463587bac7fc069b4fd5c786a118
+    domain: binary_sensor
+    id: stop
+  - type: motion
+    platform: device
+    device_id: 82e622ddf6a0262a121bda4747813fe0
+    entity_id: bc33463587bac7fc069b4fd5c786a118
+    domain: binary_sensor
+    id: start
+  condition:
+  - condition: or
+    conditions:
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: sensor.sun_brightness
+        state: bright
+    - condition: numeric_state
+      entity_id: sensor.estimated_illuminance_owm
+      below: '1000'
+    - condition: numeric_state
+      entity_id: sensor.estimated_illuminance_accuw
+      below: '1000'
+  action:
+  - if:
+    - condition: trigger
+      id: start
+    then:
+    - choose:
+      - conditions:
+        - condition: time
+          after: '23:00:00'
+          before: 08:00:00
+        - condition: state
+          entity_id: input_boolean.phones_charging
+          state: 'off'
+        sequence:
+        - service: light.turn_on
+          data:
+            color_temp: 500
+            brightness_pct: 50
+          target:
+            entity_id: light.hall_light
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: below_horizon
+        - condition: state
+          entity_id: input_boolean.phones_charging
+          state: 'off'
+        sequence:
+        - service: light.turn_on
+          data:
+            color_temp: 350
+            brightness_pct: 100
+          target:
+            entity_id: light.hall_light
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: below_horizon
+        - condition: state
+          entity_id: input_boolean.phones_charging
+          state: 'on'
+        sequence:
+        - service: light.turn_on
+          data:
+            brightness_pct: 2
+            rgb_color:
+            - 255
+            - 130
+            - 0
+          target:
+            entity_id: light.hall_light
+        - service: light.turn_on
+          data:
+            brightness_pct: 20
+          target:
+            entity_id: light.floor
+      default:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.hall_light
+        data:
+          color_temp: 153
+          brightness_pct: 100
+  - if:
+    - condition: trigger
+      id: stop
+    - condition: state
+      entity_id: binary_sensor.front_door_sensor_contact
+      state: 'off'
+    then:
+    - service: light.turn_off
+      data: {}
+      target:
+        entity_id: light.hall_light
+    - if:
+      - condition: state
+        entity_id: input_boolean.phones_charging
+        state: 'on'
+      then:
+      - type: turn_off
+        device_id: cdf53bc820b5a7c1f1a37164d6a96b0f
+        entity_id: 498ae94dfba8dfa666c9e889e2d743b3
+        domain: light
+      - type: turn_off
+        device_id: a00a4cdd024919947d01c242c02c804c
+        entity_id: c545aafc68610ad5f529aaf47abe5ad7
+        domain: light
+      - service: light.turn_on
+        data:
+          brightness_pct: 10
+        target:
+          entity_id: light.couch_floor_light
+  mode: single
+- id: '1614800598654'
+  alias: Bathroom - Motion light
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: d506689cbde3242b2203f74f71aa0fee
+    entity_id: 45251a1dadaeb20d6ae68c187a331ab4
+    domain: binary_sensor
+    id: motion on
+  - type: no_motion
+    platform: device
+    device_id: d506689cbde3242b2203f74f71aa0fee
+    entity_id: 45251a1dadaeb20d6ae68c187a331ab4
+    domain: binary_sensor
+    id: motion off
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: motion on
+    then:
+    - choose:
+      - conditions:
+        - condition: time
+          after: 00:00:00
+          before: 07:00:00
+        sequence:
+        - service: light.turn_on
+          target:
+            entity_id: light.bathroom_light
+          data:
+            brightness_pct: 50
+            color_temp: 500
+      default:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.bathroom_light
+        data:
+          brightness_pct: 100
+          color_temp: 153
+  - if:
+    - condition: trigger
+      id: motion off
+    then:
+    - delay:
+        hours: 0
+        minutes: 3
+        seconds: 0
+        milliseconds: 0
+    - if:
+      - condition: numeric_state
+        entity_id: sensor.humidity_11
+        above: 99
+      then:
+      - delay:
+          hours: 0
+          minutes: 2
+          seconds: 0
+          milliseconds: 0
+    - service: light.turn_off
+      target:
+        entity_id:
+        - light.bathroom_light
+      data:
+        transition: 10
+  mode: restart
+- id: '1614805890675'
+  alias: Living room - cover open lights off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - cover.living_room_blinds
+    attribute: current_position
+    from: '0'
+  condition:
+  - condition: sun
+    before: sunset
+    after: sunrise
+    after_offset: 00:01:00
+    before_offset: -00:01:00
+  action:
+  - if:
+    - condition: not
+      conditions:
+      - condition: numeric_state
+        entity_id: sensor.estimated_illuminance_accuw
+        below: 2501
+      - condition: numeric_state
+        entity_id: sensor.estimated_illuminance_owm
+        below: 2501
+    then:
+    - service: light.turn_off
+      target:
+        entity_id:
+        - light.mood_light
+        - light.table_light
+        - light.living_room_main
+        - light.kitchen_light_cct
+        - light.living_room_floor_light
+        - light.corner_light
+      data:
+        transition: 40
+  mode: single
+- id: '1614943073991'
+  alias: Bedroom - lights on blinds closing
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: cover.bedroom_blinds
+    attribute: current_position
+    below: 100
+  condition:
+  - condition: state
+    entity_id: group.people
+    state: home
+  - condition: sun
+    before: sunset
+    after: sunrise
+    before_offset: -01:00
+  - condition: state
+    entity_id: group.any_phone_charging
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 100
+      transition: 30
+  mode: single
+- id: '1617573773017'
+  alias: Bedroom - late night door open warning when any phone charging
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.any_phone_charging
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: group.people
+      state: home
+    - condition: time
+      after: '22:00:00'
+      before: 06:00:00
+    - type: is_open
+      condition: device
+      device_id: 0ded3e0935a5bdc04824dcd48f8d3de9
+      entity_id: 0505c5488c134cbc6f539110e86723fe
+      domain: binary_sensor
+  action:
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.nest_mini
+      message: heads up. the door is open
+  mode: single
+- id: '1618408486227'
+  alias: Living room - yellow NFC tag play spotify
+  description: ''
+  trigger:
+  - platform: event
+    event_type: tag_scanned
+    event_data:
+      tag_id: cf1f1cce-6d45-4d40-9522-4f351f2bb4af
+    context:
+      user_id:
+      - 06566bc5235c488baf887992ee8d6ef1
+    id: user1
+  - platform: event
+    event_type: tag_scanned
+    event_data:
+      tag_id: cf1f1cce-6d45-4d40-9522-4f351f2bb4af
+    context:
+      user_id:
+      - cf10f36e5a7c446ba11cf824d120d624
+    id: user2
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: time
+        before: '21:30'
+        after: '18:00'
+      - condition: trigger
+        id: user1
+      sequence:
+      - service: spotcast.start
+        data:
+          shuffle: true
+          start_volume: 50
+          repeat: context
+          force_playback: true
+          random_song: true
+          uri: spotify:playlist:0MBtOI7hWDZmJStWCamQE2
+          entity_id: media_player.tv
+          account: user1
+    - conditions:
+      - condition: time
+        after: '21:30'
+        before: 05:00
+      - condition: trigger
+        id: user1
+      sequence:
+      - service: spotcast.start
+        data:
+          shuffle: true
+          start_volume: 30
+          repeat: context
+          force_playback: true
+          random_song: true
+          uri: spotify:playlist:1xi67K5x81RymhonhUTygN
+          account: user1
+          entity_id: media_player.tv
+    default:
+    - if:
+      - condition: trigger
+        id: user1
+      then:
+      - service: spotcast.start
+        data:
+          entity_id: media_player.tv
+          shuffle: true
+          start_volume: 50
+          repeat: context
+          force_playback: true
+          random_song: true
+          account: user1
+  mode: single
+- id: '1619293256059'
+  alias: Bedroom - birthday morning
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.phones_charging
+    to: 'off'
+  condition:
+  - condition: or
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.anniversary_user2_s_birthday
+      below: '1'
+    - condition: numeric_state
+      entity_id: sensor.anniversary_user1_s_birthday
+      below: '1'
+  - condition: time
+    after: 06:30:00
+    before: '11:30:00'
+  action:
+  - service: media_player.play_media
+    data:
+      media_content_id: /local/happybirthday.mp3
+      media_content_type: audio/mp3
+    target:
+      entity_id:
+      - media_player.nest_mini
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.bedroom_main_light
+    data:
+      brightness: 255
+      color_name: magenta
+      transition: 11
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - type: flash
+    domain: light
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 100
+  - service: light.turn_on
+    data:
+      transition: 23
+      kelvin: 4500
+    target:
+      entity_id:
+      - light.bedroom_main_light
+  mode: single
+- id: '1620412403799'
+  alias: Living room - light on upon arrival
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.people
+    to: home
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.sun_brightness
+      state: dark
+    - condition: state
+      entity_id: sensor.sun_brightness
+      state: black
+    - condition: numeric_state
+      entity_id: sensor.estimated_illuminance_owm
+      below: 2000
+    - condition: state
+      entity_id: cover.living_room_blinds
+      state: closed
+    - condition: sun
+      before: sunrise
+      after: sunset
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.living_room_main
+      - light.table_light
+      - light.hall_light
+      - light.mood_light
+      - light.corner_light
+      - light.kitchen_light_cct
+    data:
+      transition: 5
+      brightness_pct: 100
+  - if:
+    - condition: state
+      entity_id: group.any_phone_charging
+      state: 'off'
+    - condition: state
+      entity_id: cover.bedroom_blinds
+      state: closed
+    then:
+    - service: light.turn_on
+      data: {}
+      target:
+        entity_id:
+        - light.bedroom_corner_light
+        - light.bedroom_main_light
+  mode: single
+- id: '1623308536732'
+  alias: Bedroom - Cancel morning routine
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - group.any_phone_charging
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: automation.phones_off_the_charger_in_the_morning_light_on
+      state: 'on'
+    - condition: state
+      entity_id: automation.birthday_morning
+      state: 'on'
+  - condition: time
+    after: 06:29:00
+    before: '11:31:00'
+  action:
+  - service: automation.turn_off
+    target:
+      entity_id:
+      - automation.phones_off_the_charger_in_the_morning_light_on
+      - automation.birthday_morning
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - type: turn_off
+    device_id: 1f6971a0e2f9c9440de0f2e034cdb68c
+    entity_id: f7fb807a1082e6839dd02cf6b6aa2b43
+    domain: light
+  - service: automation.turn_on
+    target:
+      entity_id:
+      - automation.phones_off_the_charger_in_the_morning_light_on
+      - automation.birthday_morning
+    data: {}
+  mode: single
+- id: '1623742376776'
+  alias: '*HASSIO - HA/HACS update available'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: update.home_assistant_core_update
+    from: 'off'
+    to: 'on'
+    id: HA Core
+  - platform: state
+    entity_id:
+    - sensor.hacs
+    id: HACS
+    from: '0'
+  action:
+  - if:
+    - condition: trigger
+      id: HA Core
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: Home Assistant {{ state_attr('update.home_assistant_core_update',
+          'latest_version') }}  is available, and brings at least {{ states('sensor.potential_breaking_changes')
+          }} breaking changes.
+        data:
+          actions:
+          - action: URI
+            title: Open Settings
+            uri: /config/dashboard
+  - if:
+    - condition: trigger
+      id: HACS
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: '{{ states(''sensor.hacs'') }} HACS update(s) is/are available!'
+        data:
+          actions:
+          - action: URI
+            title: Open HACS
+            uri: /hacs
+  mode: single
+- id: '1624744313115'
+  alias: Living Room - evening mood
+  description: ''
+  trigger:
+  - platform: time
+    at: '21:30:00'
+    id: dark_days
+  - platform: time
+    at: '22:15:00'
+    id: light_days
+  condition:
+  - condition: state
+    entity_id: group.people
+    state: home
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: dark_days
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      sequence:
+      - if:
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: input_boolean.tv_apps
+            state: 'on'
+          - condition: state
+            entity_id: media_player.tv_adb
+            state: playing
+        then:
+        - service: scene.turn_on
+          target:
+            entity_id: scene.evening_scene
+          data:
+            transition: 120
+      - delay:
+          hours: 0
+          minutes: 2
+          seconds: 0
+          milliseconds: 0
+      - service: media_player.volume_set
+        data:
+          volume_level: 0.25
+        target:
+          entity_id: media_player.home_display
+      - service: script.play_fireplace_on_youtube_on_living_room_display
+        data: {}
+      - if:
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: input_boolean.tv_apps
+            state: 'on'
+          - condition: state
+            entity_id: media_player.tv_adb
+            state: playing
+        then:
+        - service: scene.turn_on
+          target:
+            entity_id: scene.evening_scene
+          data: {}
+    - conditions:
+      - condition: trigger
+        id: dark_days
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      sequence:
+      - if:
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: input_boolean.tv_apps
+            state: 'on'
+          - condition: state
+            entity_id: media_player.tv_adb
+            state: playing
+        then:
+        - service: scene.turn_on
+          target:
+            entity_id: scene.evening_scene
+          data:
+            transition: 120
+      - delay:
+          hours: 0
+          minutes: 2
+          seconds: 0
+          milliseconds: 0
+      - service: media_player.volume_set
+        data:
+          volume_level: 0.25
+        target:
+          entity_id: media_player.home_display
+      - service: script.play_fireplace_on_youtube_on_living_room_display
+        data: {}
+      - if:
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: input_boolean.tv_apps
+            state: 'on'
+          - condition: state
+            entity_id: media_player.tv_adb
+            state: playing
+        then:
+        - service: scene.turn_on
+          target:
+            entity_id: scene.evening_scene
+          data: {}
+  mode: single
+- id: '1624815860947'
+  alias: All rooms - turn on/off light if sky is dark/light
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.estimated_illuminance_accuw
+    below: '2001'
+    id: dark
+  - platform: numeric_state
+    entity_id: sensor.estimated_illuminance_accuw
+    above: '2000'
+    id: light
+  - platform: numeric_state
+    entity_id: sensor.estimated_illuminance_owm
+    below: 2001
+    id: dark
+  - platform: numeric_state
+    entity_id: sensor.estimated_illuminance_owm
+    above: '2000'
+    id: light
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: group.people
+      state: home
+    - condition: sun
+      before: sunset
+      after: sunrise
+      before_offset: -00:45:00
+    - condition: state
+      entity_id: group.any_phone_charging
+      state: 'off'
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: dark
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.table_light
+          - light.living_room_main
+        data:
+          transition: 20
+          brightness_pct: 100
+      - service: light.turn_on
+        data:
+          brightness_pct: 50
+          transition: 10
+        target:
+          entity_id:
+          - light.mood_light
+          - light.corner_light
+          - light.living_room_floor_light
+      - if:
+        - condition: state
+          entity_id: group.any_phone_charging
+          state: 'off'
+        then:
+        - service: light.turn_on
+          target:
+            entity_id:
+            - light.bedroom_corner_light
+            - light.bedroom_main_light
+          data:
+            transition: 100
+    - conditions:
+      - condition: trigger
+        id: light
+      sequence:
+      - if:
+        - condition: numeric_state
+          entity_id: cover.living_room_blinds
+          attribute: current_position
+          above: '50'
+        then:
+        - service: light.turn_off
+          target:
+            entity_id:
+            - light.table_light
+            - light.mood_light
+            - light.living_room_floor_light
+            - light.living_room_main
+          data:
+            transition: 20
+      - if:
+        - condition: numeric_state
+          entity_id: cover.bedroom_blinds
+          attribute: current_position
+          above: '10'
+        then:
+        - service: light.turn_off
+          data:
+            transition: 20
+          target:
+            entity_id:
+            - light.bedroom_corner_light
+            - light.bedroom_main_light
+    default: []
+  mode: single
+- id: '1630782792503'
+  alias: Bedroom - open window detection
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: cover.bedroom_blinds
+  condition:
+  - condition: state
+    entity_id: binary_sensor.openclose_13
+    state: 'on'
+  action:
+  - service: cover.stop_cover
+    target:
+      entity_id: cover.bedroom_blinds
+  mode: single
+- id: '1631222530699'
+  alias: '*HASSIO - all phones charging depending on who''s home'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.user1_phone_is_charging
+    id: user1_on
+    to: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.user2_phone_is_charging
+    id: user2_on
+    to: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.user1_phone_is_charging
+    id: user1_off
+    to: 'off'
+  - platform: state
+    entity_id:
+    - binary_sensor.user2_phone_is_charging
+    id: user2_off
+    to: 'off'
+  condition:
+  action:
+  - if:
+    - condition: or
+      conditions:
+      - condition: trigger
+        id: user1_off
+      - condition: trigger
+        id: user2_off
+    then:
+    - choose:
+      - conditions:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: person.user2
+            state: home
+          - condition: not
+            conditions:
+            - condition: state
+              entity_id: person.user1
+              state: home
+          - condition: trigger
+            id: user2_off
+        sequence:
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.phones_charging
+          data: {}
+      - conditions:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: person.user1
+            state: home
+          - condition: not
+            conditions:
+            - condition: state
+              entity_id: person.user2
+              state: home
+          - condition: trigger
+            id: user1_off
+        sequence:
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.phones_charging
+          data: {}
+      - conditions:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: person.user2
+            state: home
+          - condition: state
+            entity_id: person.user1
+            state: home
+          - condition: state
+            entity_id: group.any_phone_charging
+            state: 'off'
+        sequence:
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.phones_charging
+          data: {}
+      default: []
+  - if:
+    - condition: or
+      conditions:
+      - condition: trigger
+        id: user1_on
+      - condition: trigger
+        id: user2_on
+    then:
+    - choose:
+      - conditions:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: person.user2
+            state: home
+          - condition: not
+            conditions:
+            - condition: state
+              entity_id: person.user1
+              state: home
+          - condition: trigger
+            id: user2_on
+        sequence:
+        - service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.phones_charging
+          data: {}
+      - conditions:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: person.user1
+            state: home
+          - condition: not
+            conditions:
+            - condition: state
+              entity_id: person.user2
+              state: home
+          - condition: trigger
+            id: user1_on
+        sequence:
+        - service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.phones_charging
+          data: {}
+      - conditions:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: person.user1
+            state: home
+          - condition: state
+            entity_id: person.user2
+            state: home
+          - condition: state
+            entity_id: group.phones_charging
+            state: 'on'
+        sequence:
+        - service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.phones_charging
+          data: {}
+      default: []
+  mode: single
+- id: '1635125259990'
+  alias: Living room - Random floor lights
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.random_floor_light
+    from: 'off'
+    to: 'on'
+    id: Floor lights
+  condition: []
+  action:
+  - repeat:
+      until:
+      - condition: state
+        entity_id: input_boolean.random_floor_light
+        state: 'off'
+      sequence:
+      - service: light.turn_on
+        data:
+          hs_color:
+          - '{{ [0, 23, 45, 77, 90, 103, 135, 225, 250, 270, 300, 315] | random }}'
+          - '{{ [75, 100] | random }}'
+          transition: 2.1
+          brightness: 180
+        target:
+          entity_id: light.living_room_floor_light
+      - delay:
+          hours: 0
+          minutes: '{{ range(0, 2) | random }}'
+          seconds: '{{ range(1, 59) | random }}'
+          milliseconds: 0
+  mode: single
+- id: '1636569301163'
+  alias: '*HASSIO - Mood light timer runs out'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: timer.mood_light_timer
+    id: Mood timer runs out
+    to: idle
+  - platform: state
+    entity_id:
+    - light.mood_light
+    - light.corner_light
+    attribute: hs_color
+    id: Mood color change set new timer
+  - platform: state
+    entity_id:
+    - timer.bedroom_corner_timer
+    id: Bedroom timer runs out
+    to: idle
+  - platform: state
+    entity_id:
+    - light.bedroom_corner_light
+    attribute: hs_color
+    id: Bedroom color change set new timer
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - Mood color change set new timer
+    - condition: state
+      entity_id: light.mood_light
+      state: 'on'
+    then:
+    - service: timer.start
+      data:
+        duration: '{{ (range(0, 3)|random|int) }}:{{ (range(1, 59)|random|int) }}:00'
+      target:
+        entity_id: timer.mood_light_timer
+  - if:
+    - condition: trigger
+      id:
+      - Mood timer runs out
+    - condition: state
+      entity_id: light.mood_light
+      state: 'on'
+    then:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: below_horizon
+        sequence:
+        - service: light.turn_on
+          data:
+            hs_color:
+            - '{{ [0, 23, 45, 77, 90, 103, 135, 225, 250, 270, 300, 315] | random
+              }}'
+            - '{{ [75, 100] | random }}'
+            transition: 60
+            brightness: 50
+          entity_id: light.mood_light
+        - service: light.turn_on
+          data:
+            hs_color:
+            - '{{ [0, 23, 45, 77, 90, 103, 135, 225, 250, 270, 300, 315] | random
+              }}'
+            - '{{ [75, 100] | random }}'
+            transition: 60
+          entity_id: light.corner_light
+      default:
+      - service: light.turn_on
+        data:
+          hs_color:
+          - '{{ [0, 23, 45, 77, 90, 103, 135, 225, 250, 270, 300, 315] | random }}'
+          - '{{ [75, 100] | random }}'
+          transition: 60
+          brightness: 200
+        target:
+          entity_id: light.mood_light
+      - service: light.turn_on
+        data:
+          hs_color:
+          - '{{ [0, 23, 45, 77, 90, 103, 135, 225, 250, 270, 300, 315] | random }}'
+          - '{{ [75, 100] | random }}'
+          transition: 60
+          brightness: 200
+        target:
+          entity_id: light.corner_light
+  - if:
+    - condition: trigger
+      id:
+      - Bedroom color change set new timer
+    - condition: state
+      entity_id: light.bedroom_corner_light
+      state: 'on'
+    then:
+    - service: timer.start
+      data:
+        duration: '{{ (range(0, 3)|random|int) }}:{{ (range(1, 59)|random|int) }}:00'
+      target:
+        entity_id: timer.bedroom_corner_timer
+  - if:
+    - condition: trigger
+      id:
+      - Bedroom timer runs out
+    - condition: state
+      entity_id: light.bedroom_corner_light
+      state: 'on'
+    then:
+    - choose:
+      - conditions:
+        - condition: sun
+          before: sunset
+          after: sunrise
+        sequence:
+        - service: light.turn_on
+          data:
+            brightness_pct: 50
+          target:
+            entity_id:
+            - light.corner_light
+        - service: light.turn_on
+          data:
+            hs_color:
+            - '{{ [0, 23, 45, 77, 90, 103, 135, 225, 250, 270, 300, 315] | random
+              }}'
+            - '{{ [75, 100] | random }}'
+            transition: 60
+          target:
+            entity_id:
+            - light.bedroom_corner_light
+      default: []
+  mode: queued
+  max: 10
+- id: '1639307057423'
+  alias: Living room - Toast maker
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.toast_maker_button_action
+    to: single
+    id: single
+  - platform: state
+    entity_id:
+    - sensor.toast_maker_button_action
+    to: double
+    id: double
+  - platform: state
+    entity_id:
+    - sensor.toast_maker_button_action
+    to: long
+    id: long
+  - platform: state
+    entity_id:
+    - switch.toast_maker
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 20
+      seconds: 1
+    id: safety shut off
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - safety shut off
+    then:
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.toast_maker
+  - if:
+    - condition: trigger
+      id:
+      - single
+    then:
+    - if:
+      - condition: state
+        entity_id: switch.toast_maker
+        state: 'off'
+      then:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.toast_maker
+      - delay:
+          hours: 0
+          minutes: 6
+          seconds: 0
+          milliseconds: 0
+      - service: switch.turn_off
+        data: {}
+        target:
+          entity_id: switch.toast_maker
+      else:
+      - service: switch.turn_off
+        data: {}
+        target:
+          entity_id: switch.toast_maker
+  - if:
+    - condition: trigger
+      id:
+      - double
+    then:
+    - if:
+      - condition: state
+        entity_id: switch.toast_maker
+        state: 'off'
+      then:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.toast_maker
+      - delay:
+          hours: 0
+          minutes: 10
+          seconds: 0
+          milliseconds: 0
+      - service: switch.turn_off
+        data: {}
+        target:
+          entity_id: switch.toast_maker
+      else:
+      - service: switch.turn_off
+        data: {}
+        target:
+          entity_id: switch.toast_maker
+  mode: restart
+- id: '1640372123085'
+  alias: Living room - any light on, floor light on
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: e19a8d20f7b7ea1636aaece8e3938b99
+    entity_id: ada31ad17cd23ec89e01fe8a3c659064
+    domain: light
+    id: living room on
+  - platform: device
+    type: turned_off
+    device_id: e19a8d20f7b7ea1636aaece8e3938b99
+    entity_id: ada31ad17cd23ec89e01fe8a3c659064
+    domain: light
+    id: living room off
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: living room on
+      sequence:
+      - type: turn_on
+        device_id: 47186ac7deda23066038b7edcb5cb895
+        entity_id: ac1ff4bbd4c3376e6da14fa103c88ff2
+        domain: light
+    - conditions:
+      - condition: trigger
+        id: living room off
+      sequence:
+      - type: turn_off
+        device_id: 47186ac7deda23066038b7edcb5cb895
+        entity_id: ac1ff4bbd4c3376e6da14fa103c88ff2
+        domain: light
+    default: []
+  mode: single
+- id: '1640378191966'
+  alias: Bedroom - main light switch
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.bedroom_button_action
+    to: on_press_release
+    id: top short
+  - platform: state
+    entity_id:
+    - sensor.bedroom_button_action
+    to: on_hold
+    id: top long
+  - platform: state
+    entity_id:
+    - sensor.bedroom_button_action
+    to: up_press_release
+    id: up short
+  - platform: state
+    entity_id:
+    - sensor.bedroom_button_action
+    to: up_hold
+    id: up long
+  - platform: state
+    entity_id:
+    - sensor.bedroom_button_action
+    to: down_press_release
+    id: down short
+  - platform: state
+    entity_id:
+    - sensor.bedroom_button_action
+    to: down_hold
+    id: down long
+  - platform: state
+    entity_id:
+    - sensor.bedroom_button_action
+    to: off_press_release
+    id: bottom short
+  - platform: state
+    entity_id:
+    - sensor.bedroom_button_action
+    to: off_hold
+    id: bottom long
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: top short
+    then:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: above_horizon
+        sequence:
+        - service: light.toggle
+          data:
+            kelvin: 6500
+            brightness_pct: 100
+          target:
+            entity_id:
+            - light.bedroom_main_light
+        - service: light.toggle
+          data:
+            brightness_pct: 100
+          target:
+            entity_id:
+            - light.bedroom_corner_light
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: below_horizon
+        sequence:
+        - service: light.toggle
+          data:
+            brightness_pct: 40
+          target:
+            entity_id:
+            - light.bedroom_corner_light
+        - service: light.toggle
+          data:
+            kelvin: 2000
+            brightness_pct: 100
+          target:
+            entity_id:
+            - light.bedroom_main_light
+  - if:
+    - condition: trigger
+      id: top long
+    then:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: above_horizon
+        sequence:
+        - service: light.toggle
+          data:
+            kelvin: 6500
+          target:
+            entity_id: light.bedroom_main_light
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: below_horizon
+        sequence:
+        - service: light.toggle
+          data:
+            kelvin: 2000
+          target:
+            entity_id: light.bedroom_main_light
+  - if:
+    - condition: trigger
+      id: up short
+    then:
+    - service: cover.open_cover
+      data: {}
+      target:
+        entity_id: cover.bedroom_blinds
+  - if:
+    - condition: trigger
+      id: up long
+    then:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: above_horizon
+        sequence:
+        - service: light.toggle
+          data:
+            kelvin: 6500
+          target:
+            entity_id: light.bedroom_corner_light
+      - conditions:
+        - condition: state
+          entity_id: sun.sun
+          state: below_horizon
+        sequence:
+        - service: light.toggle
+          data:
+            kelvin: 2000
+          target:
+            entity_id: light.bedroom_corner_light
+  - if:
+    - condition: trigger
+      id: down short
+    then:
+    - service: cover.close_cover
+      data: {}
+      target:
+        entity_id: cover.bedroom_blinds
+  - if:
+    - condition: trigger
+      id: down long
+    then:
+    - choose:
+      - conditions:
+        - condition: numeric_state
+          entity_id: light.bedroom_main_light
+          attribute: color_temp_kelvin
+          above: 3000
+        - condition: numeric_state
+          entity_id: light.bedroom_corner_light
+          attribute: color_temp_kelvin
+          below: 3000
+        sequence:
+        - service: light.turn_on
+          data:
+            kelvin: 2000
+          target:
+            entity_id: light.bedroom_corner_light
+      - conditions:
+        - condition: numeric_state
+          entity_id: light.bedroom_corner_light
+          attribute: color_temp_kelvin
+          below: 3000
+        - condition: numeric_state
+          entity_id: light.bedroom_corner_light
+          attribute: color_temp_kelvin
+          above: 3000
+        sequence:
+        - service: light.turn_on
+          data:
+            kelvin: 2000
+          target:
+            entity_id: light.bedroom_corner_light
+      - conditions:
+        - condition: numeric_state
+          entity_id: light.bedroom_main_light
+          attribute: color_temp_kelvin
+          above: 3000
+        - condition: numeric_state
+          entity_id: light.bedroom_corner_light
+          attribute: color_temp_kelvin
+          above: 3000
+        sequence:
+        - service: light.turn_on
+          data:
+            kelvin: 2000
+          target:
+            entity_id:
+            - light.bedroom_main_light
+            - light.bedroom_corner_light
+      - conditions:
+        - condition: numeric_state
+          entity_id: light.bedroom_main_light
+          attribute: color_temp_kelvin
+          below: 3000
+        - condition: numeric_state
+          entity_id: light.bedroom_corner_light
+          attribute: color_temp_kelvin
+          below: 3000
+        sequence:
+        - service: light.turn_on
+          data:
+            kelvin: 6500
+          target:
+            entity_id:
+            - light.bedroom_main_light
+            - light.bedroom_corner_light
+      - conditions:
+        - condition: numeric_state
+          entity_id: light.bedroom_main_light
+          attribute: color_temp_kelvin
+          below: 3000
+        - condition: state
+          entity_id: light.bedroom_corner_light
+          state: 'off'
+        sequence:
+        - service: light.turn_on
+          data:
+            kelvin: 6500
+          target:
+            entity_id:
+            - light.bedroom_main_light
+      - conditions:
+        - condition: state
+          entity_id: light.bedroom_main_light
+          state: 'off'
+        - condition: numeric_state
+          entity_id: light.bedroom_corner_light
+          attribute: color_temp_kelvin
+          below: 3000
+        sequence:
+        - service: light.turn_on
+          data:
+            kelvin: 6500
+          target:
+            entity_id:
+            - light.bedroom_corner_light
+      - conditions:
+        - condition: numeric_state
+          entity_id: light.bedroom_main_light
+          attribute: color_temp_kelvin
+          above: 3000
+        - condition: state
+          entity_id: light.bedroom_corner_light
+          state: 'off'
+        sequence:
+        - service: light.turn_on
+          data:
+            kelvin: 2000
+          target:
+            entity_id:
+            - light.bedroom_main_light
+      - conditions:
+        - condition: state
+          entity_id: light.bedroom_main_light
+          state: 'off'
+        - condition: numeric_state
+          entity_id: light.bedroom_corner_light
+          attribute: color_temp_kelvin
+          above: 3000
+        sequence:
+        - service: light.turn_on
+          data:
+            kelvin: 2000
+          target:
+            entity_id:
+            - light.bedroom_corner_light
+      enabled: true
+  - if:
+    - condition: trigger
+      id: bottom short
+    then:
+    - service: cover.set_cover_position
+      data:
+        position: 65
+      target:
+        entity_id: cover.bedroom_blinds
+  - if:
+    - condition: trigger
+      id: bottom long
+    then:
+    - type: toggle
+      device_id: 7d2dd3b9d31296da6667c913106e6eb7
+      entity_id: light.starlight
+      domain: light
+  mode: single
+- id: '1645525416125'
+  alias: Living room - main light switch
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.living_room_button_action
+    to: on_press_release
+    id: top short
+  - platform: state
+    entity_id:
+    - sensor.living_room_button_action
+    to: on_hold
+    id: top long
+  - platform: state
+    entity_id:
+    - sensor.living_room_button_action
+    to: up_press_release
+    id: up short
+  - platform: state
+    entity_id:
+    - sensor.living_room_button_action
+    to: up_hold
+    id: up long
+  - platform: state
+    entity_id:
+    - sensor.living_room_button_action
+    to: down_press_release
+    id: down short
+  - platform: state
+    entity_id:
+    - sensor.living_room_button_action
+    to: down_hold
+    id: down long
+  - platform: state
+    entity_id:
+    - sensor.living_room_button_action
+    to: off_press_release
+    id: bottom short
+  - platform: state
+    entity_id:
+    - sensor.living_room_button_action
+    to: off_hold
+    id: bottom long
+  condition: []
+  action:
+  - alias: Top short
+    if:
+    - condition: trigger
+      id:
+      - top short
+    then:
+    - service: light.toggle
+      data: {}
+      target:
+        entity_id: light.living_room_lights
+  - if:
+    - condition: trigger
+      id: bottom short
+    then:
+    - service: light.toggle
+      data:
+        brightness: 255
+      target:
+        entity_id: light.kitchen_light_cct
+    alias: Bottom short
+  - if:
+    - condition: trigger
+      id: up short
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.day_scene
+      metadata: {}
+    alias: Up short
+  - if:
+    - condition: trigger
+      id: down short
+    then:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.evening_scene
+      metadata: {}
+    alias: Down short
+  - if:
+    - condition: trigger
+      id: bottom long
+    then:
+    - service: media_player.media_play_pause
+      data: {}
+      target:
+        entity_id: media_player.tv
+    alias: Bottom long
+  - if:
+    - condition: trigger
+      id: down long
+    then:
+    - service: cover.close_cover
+      data: {}
+      target:
+        entity_id: cover.living_room_blinds
+    alias: Down long
+  - if:
+    - condition: trigger
+      id: up long
+    then:
+    - service: cover.open_cover
+      data: {}
+      target:
+        entity_id: cover.living_room_blinds
+    alias: Up long
+  - alias: Top long
+    if:
+    - condition: trigger
+      id: top long
+    then:
+    - service: spotcast.start
+      data:
+        force_playback: true
+        random_song: true
+        repeat: context
+        shuffle: true
+        offset: 0
+        ignore_fully_played: false
+        entity_id: media_player.tv
+  mode: parallel
+  max: 10
+- id: '1654508465966'
+  alias: Living room - Alert if litterbox need changing
+  description: ''
+  trigger:
+  - alias: short_clean
+    platform: state
+    entity_id:
+    - binary_sensor.litterbox_sensor_contact
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 20
+    id: short_clean
+    to: 'on'
+    from: 'off'
+  - alias: open for longer
+    platform: state
+    entity_id:
+    - binary_sensor.litterbox_sensor_contact
+    for:
+      hours: 0
+      minutes: 4
+      seconds: 0
+    to: 'on'
+    id: cleaned
+    from: 'off'
+  - alias: not opened in a while
+    platform: state
+    entity_id:
+    - binary_sensor.litterbox_open_close
+    to: 'off'
+    for:
+      hours: 26
+      minutes: 0
+      seconds: 0
+    id: warning after 24 hours
+    from: 'on'
+  - platform: time
+    at: '19:00:00'
+    id: time
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: time
+    then:
+    - service: counter.increment
+      data: {}
+      target:
+        entity_id: counter.litterbox_opened
+    alias: Increase daycount if triggered by time
+  - if:
+    - alias: Triggered by time and counter above 4
+      condition: and
+      conditions:
+      - condition: trigger
+        id: time
+      - condition: numeric_state
+        entity_id: counter.litterbox_opened
+        above: 4
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: Het is tijd om de kattenbak te legen!
+        title: Kiwi wil aandacht!
+    - if:
+      - condition: state
+        entity_id: person.user2
+        state: home
+      then:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Het is tijd om de kattenbak te legen!
+          title: Kiwi wil aandacht!
+  - if:
+    - condition: trigger
+      id: cleaned
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: Kiwi is je dankbaar!
+        title: Kattenbakteller gereset!
+    - service: counter.reset
+      data: {}
+      target:
+        entity_id: counter.litterbox_opened
+    - if:
+      - condition: state
+        entity_id: person.user2
+        state: home
+      then:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Kiwi is je dankbaar!
+          title: Kattenbakteller gereset!
+    alias: Reset if cleaned
+  - if:
+    - condition: trigger
+      id: warning after 40 hours
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: Het is tijd om poep te scheppen!!
+        title: Kiwi wil aandacht!
+    - if:
+      - condition: state
+        entity_id: person.user2
+        state: home
+      then:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Het is tijd om poep te scheppen!!
+          title: Kiwi wil aandacht!
+  - if:
+    - condition: trigger
+      id: short_clean
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: Kiwi is je dankbaar!
+        title: Schoongemaakt!
+    - if:
+      - condition: state
+        entity_id: person.user2
+        state: home
+      then:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Kiwi is je dankbaar!
+          title: Schoongemaakt!
+    alias: Reset if cleaned
+  mode: single
+- id: '1655985361136'
+  alias: All rooms - warm day blinds down
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.living_room_window_sensor_device_temperature
+    above: 35
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: living_room_warm
+  - platform: numeric_state
+    entity_id: sensor.bedroom_window_sensor_device_temperature
+    above: 35
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: bedroom_warm
+  - platform: numeric_state
+    entity_id: sensor.living_room_window_sensor_device_temperature
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: living_room_cold
+    below: 35
+  - platform: numeric_state
+    entity_id: sensor.bedroom_window_sensor_device_temperature
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: bedroom_cold
+    below: 35
+  condition: []
+  action:
+  - if:
+    - type: is_not_open
+      condition: device
+      device_id: 9b696ccd7719c8f2740d536ccdb5b5ec
+      entity_id: 64d5cc5787285579984e5199eea03308
+      domain: binary_sensor
+    - condition: trigger
+      id: bedroom_warm
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: group.any_phone_charging
+        state: 'on'
+    then:
+    - device_id: 487df4d70640db9b7ca1e166c417a9b6
+      domain: cover
+      entity_id: cover.bedroom_blinds
+      type: set_position
+      position: 0
+    - service: light.turn_on
+      data:
+        transition: 30
+      target:
+        entity_id:
+        - light.corner_light
+        - light.bedroom_main_light
+  - if:
+    - type: is_not_open
+      condition: device
+      device_id: c51b209d088ed7d261aaba6ee8e4b6e6
+      entity_id: 59674d17ca45311537dd8b99518eaf36
+      domain: binary_sensor
+    - condition: trigger
+      id: living_room_warm
+    then:
+    - device_id: fc7579ef5d1a8b1b6df7b9705982d065
+      domain: cover
+      entity_id: cover.living_room_blinds
+      type: set_position
+      position: 0
+    - service: scene.turn_on
+      data:
+        transition: 30
+      target:
+        entity_id: scene.day_scene
+  - if:
+    - condition: trigger
+      id: bedroom_cold
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: group.any_phone_charging
+        state: 'on'
+    - condition: sun
+      after: sunrise
+      before: sunset
+    then:
+    - device_id: 487df4d70640db9b7ca1e166c417a9b6
+      domain: cover
+      entity_id: cover.bedroom_blinds
+      type: set_position
+      position: 0
+  - if:
+    - condition: trigger
+      id: living_room_cold
+    - condition: sun
+      before: sunset
+      after: sunrise
+    then:
+    - device_id: fc7579ef5d1a8b1b6df7b9705982d065
+      domain: cover
+      entity_id: cover.living_room_blinds
+      type: set_position
+      position: 100
+  mode: single
+- id: '1670749810770'
+  alias: Living room - Table button
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.table_button_action
+    to: single
+    id: single
+  - platform: state
+    entity_id:
+    - sensor.table_button_action
+    to: double
+    id: double
+  - platform: state
+    entity_id:
+    - sensor.table_button_action
+    to: long
+    id: long
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - single
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      sequence:
+      - service: light.toggle
+        target:
+          entity_id:
+          - light.table_light
+        data:
+          color_temp: 500
+          brightness_pct: 100
+    - conditions:
+      - condition: trigger
+        id:
+        - single
+      - condition: state
+        entity_id: sun.sun
+        state: above_horizon
+      sequence:
+      - service: light.toggle
+        target:
+          entity_id:
+          - light.table_light
+        data:
+          color_temp: 153
+    - conditions:
+      - condition: trigger
+        id: long
+      sequence:
+      - service: light.turn_on
+        data:
+          color_temp: 500
+          brightness_pct: 40
+        target:
+          entity_id:
+          - light.table_light
+    - conditions:
+      - condition: trigger
+        id: double
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.table_light
+        data:
+          color_temp: 160
+          brightness_pct: 100
+    default: []
+  mode: single
+- id: '1670750161031'
+  alias: Bedroom - (Round) Corner button
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.bedroom_corner_button_action
+    to: brightness_down_hold
+    id: down long
+  - platform: state
+    entity_id:
+    - sensor.bedroom_corner_button_action
+    to: toggle
+    id: middle
+  - platform: state
+    entity_id:
+    - sensor.bedroom_corner_button_action
+    to: brightness_up_click
+    id: up
+  - platform: state
+    entity_id:
+    - sensor.bedroom_corner_button_action
+    to: brightness_down_click
+    id: down
+  - platform: state
+    entity_id:
+    - sensor.bedroom_corner_button_action
+    to: arrow_left_click
+    id: left
+  - platform: state
+    entity_id:
+    - sensor.bedroom_corner_button_action
+    to: arrow_right_click
+    id: right
+  - platform: state
+    entity_id:
+    - sensor.bedroom_corner_button_action
+    to: arrow_right_hold
+    id: right long
+  - platform: state
+    entity_id:
+    - sensor.bedroom_corner_button_action
+    to: arrow_left_hold
+    id: left long
+  - platform: state
+    entity_id:
+    - sensor.bedroom_corner_button_action
+    to: brightness_up_hold
+    id: up long
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: middle
+      sequence:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.bedroom_corner_light
+    - conditions:
+      - condition: trigger
+        id: up
+      sequence:
+      - service: cover.open_cover
+        data: {}
+        target:
+          entity_id: cover.bedroom_blinds
+    - conditions:
+      - condition: trigger
+        id: down
+      sequence:
+      - service: cover.close_cover
+        data: {}
+        target:
+          entity_id: cover.bedroom_blinds
+    - conditions:
+      - condition: trigger
+        id: left
+      sequence:
+      - type: toggle
+        device_id: 7d2dd3b9d31296da6667c913106e6eb7
+        entity_id: light.starlight
+        domain: light
+    - conditions:
+      - condition: trigger
+        id: right
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: sun.sun
+            state: above_horizon
+          sequence:
+          - service: light.toggle
+            data:
+              kelvin: 6500
+            target:
+              entity_id:
+              - light.bedroom_corner_light
+              - light.bedroom_main_light
+        - conditions:
+          - condition: state
+            entity_id: sun.sun
+            state: below_horizon
+          sequence:
+          - service: light.toggle
+            data:
+              kelvin: 2000
+            target:
+              entity_id:
+              - light.bedroom_corner_light
+              - light.bedroom_main_light
+    - conditions:
+      - condition: trigger
+        id: up long
+      sequence: []
+    - conditions:
+      - condition: trigger
+        id: down long
+      sequence: []
+    - conditions:
+      - condition: trigger
+        id: left long
+      sequence:
+      - service: cover.set_cover_position
+        data:
+          position: 65
+        target:
+          entity_id: cover.bedroom_blinds
+    - conditions:
+      - condition: trigger
+        id: right long
+      sequence:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.bedroom_main_light
+    default: []
+  mode: parallel
+  max: 10
+- id: '1674393723887'
+  alias: Bedroom - Close blinds after shower
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.bathroom_moisture_sensor_humidity
+    above: 99
+  condition: []
+  action:
+  - if:
+    - condition: numeric_state
+      entity_id: cover.bedroom_blinds
+      attribute: current_position
+      above: 70
+    then:
+    - service: scene.create
+      data:
+        scene_id: blinds_before_shower
+        snapshot_entities: cover.bedroom_blinds
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 1
+        milliseconds: 0
+    - service: cover.set_cover_position
+      data:
+        position: 64
+      target:
+        entity_id: cover.bedroom_blinds
+    - wait_for_trigger:
+      - platform: numeric_state
+        entity_id: sensor.humidity_11
+        below: 100
+      continue_on_timeout: true
+      timeout:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
+    - if:
+      - condition: numeric_state
+        entity_id: cover.bedroom_blinds
+        attribute: current_position
+        above: 5
+      then:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.blinds_before_shower
+        metadata: {}
+  mode: single
+- id: '1677682278992'
+  alias: '*HASSIO - Guest mode'
+  description: Turn off hall light and blinds in the morning
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.guest_on_couch
+    from: 'on'
+    to: 'off'
+    id: 'off'
+  - platform: state
+    entity_id:
+    - input_boolean.guest_on_couch
+    from: 'off'
+    to: 'on'
+    id: 'on'
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: 'off'
+    then:
+    - service: automation.turn_on
+      target:
+        entity_id:
+        - automation.hall_day_motion_light
+        - automation.new_automation
+  - if:
+    - condition: trigger
+      id: 'on'
+    then:
+    - service: automation.turn_off
+      target:
+        entity_id:
+        - automation.hall_day_motion_light
+        - automation.new_automation
+      data:
+        stop_actions: false
+  mode: single
+- id: '1677886730031'
+  alias: Living room - Movie time
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.tv_adb
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    id: tv_changes
+    from: playing
+  - platform: state
+    entity_id:
+    - binary_sensor.front_door_sensor_contact
+    to: 'on'
+    from: 'off'
+    id: door_open
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 4
+  - platform: state
+    entity_id:
+    - media_player.tv_adb
+    id: tv_playing
+    to: playing
+  - platform: state
+    entity_id:
+    - binary_sensor.smoking_sensor_contact
+    from: 'on'
+    to: 'off'
+    id: just going for a smoke
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id: door_open
+    - condition: state
+      entity_id: media_player.tv_adb
+      state: playing
+    - condition: state
+      entity_id: binary_sensor.smoking_sensor_contact
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.tv_apps
+      state: ''
+    then:
+    - service: media_player.media_pause
+      data: {}
+      target:
+        entity_id:
+        - media_player.tv_adb
+    - wait_for_trigger:
+      - platform: state
+        entity_id:
+        - binary_sensor.front_door_sensor_contact
+        - binary_sensor.smoking_sensor_contact
+        from: 'on'
+        to: 'off'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 5
+      continue_on_timeout: false
+    - if:
+      - condition: state
+        entity_id: media_player.tv_adb
+        state: paused
+      - condition: state
+        entity_id: input_boolean.tv_apps
+        state: 'on'
+      then:
+      - service: media_player.media_play
+        data: {}
+        target:
+          entity_id:
+          - media_player.tv_adb
+  - if:
+    - condition: state
+      entity_id: light.table_light
+      state: 'on'
+    - condition: trigger
+      id: tv_playing
+    - condition: state
+      entity_id: input_boolean.tv_apps
+      state: 'on'
+    - condition: numeric_state
+      entity_id: cover.living_room_blinds
+      below: 50
+      attribute: current_position
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: light.table_light
+        attribute: color_temp
+        state: '160'
+    then:
+    - service: scene.create
+      data:
+        scene_id: before_movie_time
+        snapshot_entities:
+        - light.table_light
+        - light.living_room_main
+    - service: light.turn_on
+      data:
+        brightness_pct: 5
+      target:
+        entity_id:
+        - light.table_light
+    - service: light.turn_off
+      data: {}
+      target:
+        entity_id: light.living_room_main
+  - if:
+    - condition: trigger
+      id: tv_changes
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: media_player.tv_adb
+        state: paused
+      - condition: state
+        entity_id: media_player.tv
+        state: 'off'
+      - condition: state
+        entity_id: media_player.tv_adb
+        state: idle
+    - condition: numeric_state
+      entity_id: light.table_light
+      attribute: Brightness
+      below: 50
+    then:
+    - service: scene.turn_on
+      data: {}
+      target:
+        entity_id: scene.before_movie_time
+  mode: parallel
+  max: 100
+- id: '1680606885050'
+  alias: '*HASSIO - Wash notifications'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.washer_upstairs
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    to: 'off'
+    from: 'on'
+    id: washer_upstairs
+  - platform: state
+    entity_id:
+    - input_boolean.washer_downstairs
+    id: washer_downstairs
+    to: 'off'
+    from: 'on'
+  - platform: state
+    entity_id:
+    - input_boolean.dryer
+    id: dryer
+    to: 'off'
+    from: 'on'
+  - platform: state
+    entity_id:
+    - sensor.washer_waiter_button_action
+    to: on_press_release
+    id: top_short
+  - platform: state
+    entity_id:
+    - sensor.washer_waiter_button_action
+    to: on_hold
+    id: top_long
+  - platform: state
+    entity_id:
+    - sensor.washer_waiter_button_action
+    to: up_press_release
+    id: up_short
+  - platform: state
+    entity_id:
+    - sensor.washer_waiter_button_action
+    to: up_hold
+    id: up_long
+  - platform: state
+    entity_id:
+    - sensor.washer_waiter_button_action
+    to: down_press_release
+    id: down_short
+  - platform: state
+    entity_id:
+    - sensor.washer_waiter_button_action
+    to: down_hold
+    id: down_long
+  - platform: state
+    entity_id:
+    - sensor.washer_waiter_button_action
+    to: off_press_release
+    id: bottom_short
+  - platform: state
+    entity_id:
+    - sensor.washer_waiter_button_action
+    to: off_hold
+    id: bottom_long
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: up_short
+      sequence:
+      - service: input_boolean.turn_on
+        data: {}
+        target:
+          entity_id: input_boolean.washer_upstairs_waiter
+      - device_id: 37886c62962b73acbb39d62efd6f26cf
+        domain: light
+        entity_id: 1836273a90efdb433daedfe1b9695e58
+        type: flash
+    - conditions:
+      - condition: trigger
+        id: down_short
+      sequence:
+      - service: input_boolean.turn_on
+        data: {}
+        target:
+          entity_id: input_boolean.washer_downstairs_waiter
+      - device_id: 37886c62962b73acbb39d62efd6f26cf
+        domain: light
+        entity_id: 1836273a90efdb433daedfe1b9695e58
+        type: flash
+    - conditions:
+      - condition: trigger
+        id: bottom_short
+      sequence:
+      - service: input_boolean.turn_on
+        data: {}
+        target:
+          entity_id: input_boolean.dryer_waiter
+      - device_id: 37886c62962b73acbb39d62efd6f26cf
+        domain: light
+        entity_id: 1836273a90efdb433daedfe1b9695e58
+        type: flash
+    - conditions:
+      - condition: trigger
+        id: top_long
+      sequence:
+      - service: input_boolean.turn_off
+        data: {}
+        target:
+          entity_id:
+          - input_boolean.dryer_waiter
+          - input_boolean.washer_downstairs_waiter
+          - input_boolean.washer_upstairs_waiter
+      - device_id: 37886c62962b73acbb39d62efd6f26cf
+        domain: light
+        entity_id: 1836273a90efdb433daedfe1b9695e58
+        type: flash
+    - conditions:
+      - condition: trigger
+        id: top_short
+      sequence:
+      - choose:
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.washer_downstairs
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.dryer
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.washer_upstairs
+            state: 'on'
+          sequence:
+          - service: script.google_home_resume
+            data:
+              action:
+              - service: media_player.volume_set
+                data:
+                  volume_level: 0.5
+                target:
+                  entity_id: media_player.home_display
+              - service: tts.google_translate_say
+                data:
+                  cache: false
+                  message: Everything is running
+                  entity_id: media_player.home_display
+              resume_delay:
+                hours: 0
+                minutes: 0
+                seconds: 20
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.washer_downstairs
+            state: 'off'
+          - condition: state
+            entity_id: input_boolean.dryer
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.washer_upstairs
+            state: 'on'
+          sequence:
+          - service: script.google_home_resume
+            data:
+              action:
+              - service: media_player.volume_set
+                data:
+                  volume_level: 0.5
+                target:
+                  entity_id: media_player.home_display
+              - service: tts.google_translate_say
+                data:
+                  cache: false
+                  message: The downstairs washer is off
+                  entity_id: media_player.home_display
+              resume_delay:
+                hours: 0
+                minutes: 0
+                seconds: 20
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.washer_downstairs
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.dryer
+            state: 'off'
+          - condition: state
+            entity_id: input_boolean.washer_upstairs
+            state: 'on'
+          sequence:
+          - service: script.google_home_resume
+            data:
+              action:
+              - service: media_player.volume_set
+                data:
+                  volume_level: 0.5
+                target:
+                  entity_id: media_player.home_display
+              - service: tts.google_translate_say
+                data:
+                  cache: false
+                  message: The dryer is off
+                  entity_id: media_player.home_display
+              resume_delay:
+                hours: 0
+                minutes: 0
+                seconds: 20
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.washer_downstairs
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.dryer
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.washer_upstairs
+            state: 'off'
+          sequence:
+          - service: script.google_home_resume
+            data:
+              action:
+              - service: media_player.volume_set
+                data:
+                  volume_level: 0.5
+                target:
+                  entity_id: media_player.home_display
+              - service: tts.google_translate_say
+                data:
+                  cache: false
+                  message: The upstairs washer is off
+                  entity_id: media_player.home_display
+              resume_delay:
+                hours: 0
+                minutes: 0
+                seconds: 20
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.washer_downstairs
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.dryer
+            state: 'off'
+          - condition: state
+            entity_id: input_boolean.washer_upstairs
+            state: 'off'
+          sequence:
+          - service: script.google_home_resume
+            data:
+              action:
+              - service: media_player.volume_set
+                data:
+                  volume_level: 0.5
+                target:
+                  entity_id: media_player.home_display
+              - service: tts.google_translate_say
+                data:
+                  cache: false
+                  message: Only the downstairs washer is on
+                  entity_id: media_player.home_display
+              resume_delay:
+                hours: 0
+                minutes: 0
+                seconds: 20
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.washer_downstairs
+            state: 'off'
+          - condition: state
+            entity_id: input_boolean.dryer
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.washer_upstairs
+            state: 'off'
+          sequence:
+          - service: script.google_home_resume
+            data:
+              action:
+              - service: media_player.volume_set
+                data:
+                  volume_level: 0.5
+                target:
+                  entity_id: media_player.home_display
+              - service: tts.google_translate_say
+                data:
+                  cache: false
+                  message: Only the dryer is on
+                  entity_id: media_player.home_display
+              resume_delay:
+                hours: 0
+                minutes: 0
+                seconds: 20
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.washer_downstairs
+            state: 'off'
+          - condition: state
+            entity_id: input_boolean.dryer
+            state: 'off'
+          - condition: state
+            entity_id: input_boolean.washer_upstairs
+            state: 'on'
+          sequence:
+          - service: script.google_home_resume
+            data:
+              action:
+              - service: media_player.volume_set
+                data:
+                  volume_level: 0.5
+                target:
+                  entity_id: media_player.home_display
+              - service: tts.google_translate_say
+                data:
+                  cache: false
+                  message: Only the upstairs washer is on
+                  entity_id: media_player.home_display
+              resume_delay:
+                hours: 0
+                minutes: 0
+                seconds: 20
+        - conditions:
+          - condition: state
+            entity_id: input_boolean.washer_downstairs
+            state: 'off'
+          - condition: state
+            entity_id: input_boolean.dryer
+            state: 'off'
+          - condition: state
+            entity_id: input_boolean.washer_upstairs
+            state: 'off'
+          sequence:
+          - service: script.google_home_resume
+            data:
+              action:
+              - service: media_player.volume_set
+                data:
+                  volume_level: 0.5
+                target:
+                  entity_id: media_player.home_display
+              - service: tts.google_translate_say
+                data:
+                  cache: false
+                  message: Everything is off
+                  entity_id: media_player.home_display
+              resume_delay:
+                hours: 0
+                minutes: 0
+                seconds: 20
+        default:
+        - service: script.google_home_resume
+          data:
+            action:
+            - service: media_player.volume_set
+              data:
+                volume_level: 0.5
+              target:
+                entity_id: media_player.home_display
+            - service: tts.google_translate_say
+              data:
+                cache: false
+                message: Something went wrong with checking washers. Please check
+                  Home Assistant
+                entity_id: media_player.home_display
+            resume_delay:
+              hours: 0
+              minutes: 0
+              seconds: 20
+    enabled: true
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: dryer
+      - condition: state
+        entity_id: input_boolean.dryer_waiter
+        state: 'on'
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          title: Dryer is done!
+          data:
+            tag: washer
+          message: "\U0001F9FA Bring a basket!"
+      - service: input_boolean.turn_off
+        data: {}
+        target:
+          entity_id: input_boolean.dryer_waiter
+      - if:
+        - condition: state
+          entity_id: group.people
+          state: home
+        - condition: not
+          conditions:
+          - condition: and
+            conditions:
+            - condition: state
+              entity_id: group.any_phone_charging
+              state: 'on'
+            - condition: state
+              entity_id: sun.sun
+              state: below_horizon
+        then:
+        - service: script.google_home_resume
+          data:
+            action:
+            - service: media_player.volume_set
+              data:
+                volume_level: 0.5
+              target:
+                entity_id: media_player.home_display
+            - service: tts.google_translate_say
+              data:
+                message: The dryer is done
+                entity_id: media_player.home_display
+            resume_delay:
+              hours: 0
+              minutes: 0
+              seconds: 15
+      - if:
+        - condition: state
+          entity_id: person.user2
+          state: home
+        then:
+        - service: notify.mobile_app_user2_phone
+          data:
+            message: "\U0001F9FA Bring a basket!"
+            title: Dryer is done!
+            data:
+              tag: washer
+      - delay:
+          hours: 0
+          minutes: 30
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: clear_notification
+          data:
+            tag: washer
+      - delay:
+          hours: 0
+          minutes: 30
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: clear_notification
+          data:
+            tag: washer
+    - conditions:
+      - condition: trigger
+        id: washer_upstairs
+      - condition: state
+        entity_id: input_boolean.washer_upstairs_waiter
+        state: 'on'
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: '⬆️ Upstairs '
+          title: Washer is done!
+          data:
+            tag: washer
+      - service: input_boolean.turn_off
+        data: {}
+        target:
+          entity_id: input_boolean.washer_upstairs_waiter
+      - if:
+        - condition: state
+          entity_id: group.people
+          state: home
+        - condition: not
+          conditions:
+          - condition: and
+            conditions:
+            - condition: state
+              entity_id: group.any_phone_charging
+              state: 'on'
+            - condition: state
+              entity_id: sun.sun
+              state: below_horizon
+        then:
+        - service: script.google_home_resume
+          data:
+            action:
+            - service: media_player.volume_set
+              data:
+                volume_level: 0.5
+              target:
+                entity_id: media_player.home_display
+            - service: tts.google_translate_say
+              data:
+                message: The upstairs washer is done
+                entity_id: media_player.home_display
+            resume_delay:
+              hours: 0
+              minutes: 0
+              seconds: 15
+      - if:
+        - condition: state
+          entity_id: person.user2
+          state: home
+        then:
+        - service: notify.mobile_app_user2_phone
+          data:
+            message: ⬆️ Upstairs
+            title: Washer is done!
+            data:
+              tag: washer
+      - delay:
+          hours: 0
+          minutes: 30
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: clear_notification
+          data:
+            tag: washer
+      - delay:
+          hours: 0
+          minutes: 30
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: clear_notification
+          data:
+            tag: washer
+    - conditions:
+      - condition: trigger
+        id: washer_downstairs
+      - condition: state
+        entity_id: input_boolean.washer_downstairs_waiter
+        state: 'on'
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: ⬇️ Downstairs
+          title: Washer is done!
+          data:
+            tag: washer
+      - service: input_boolean.turn_off
+        data: {}
+        target:
+          entity_id: input_boolean.washer_downstairs_waiter
+      - if:
+        - condition: state
+          entity_id: group.people
+          state: home
+        - condition: not
+          conditions:
+          - condition: and
+            conditions:
+            - condition: state
+              entity_id: group.any_phone_charging
+              state: 'on'
+            - condition: state
+              entity_id: sun.sun
+              state: below_horizon
+        then:
+        - service: script.google_home_resume
+          data:
+            action:
+            - service: media_player.volume_set
+              data:
+                volume_level: 0.5
+              target:
+                entity_id: media_player.home_display
+            - service: tts.google_translate_say
+              data:
+                message: The downstairs washer is done
+                entity_id: media_player.home_display
+            resume_delay:
+              hours: 0
+              minutes: 0
+              seconds: 15
+      - if:
+        - condition: state
+          entity_id: person.user2
+          state: home
+        then:
+        - service: notify.mobile_app_user2_phone
+          data:
+            message: '⬇️ Downstairs '
+            title: Washer is done!
+            data:
+              tag: washer
+      - delay:
+          hours: 0
+          minutes: 30
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: clear_notification
+          data:
+            tag: washer
+      - delay:
+          hours: 0
+          minutes: 30
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: clear_notification
+          data:
+            tag: washer
+  mode: parallel
+  max: 100
+- id: '1680624727039'
+  alias: '*HASSIO - Control washer input booleans for Google'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.dryer_running
+    to: 'on'
+    id: dryer_on
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 7
+  - platform: state
+    entity_id:
+    - binary_sensor.washer_downstairs_running
+    to: 'on'
+    id: washer_down_on
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  - platform: state
+    entity_id:
+    - binary_sensor.washer_upstairs_running
+    to: 'on'
+    id: washer_up_on
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  - platform: state
+    entity_id:
+    - binary_sensor.dryer_running
+    to: 'off'
+    id: dryer_off
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - platform: state
+    entity_id:
+    - binary_sensor.washer_downstairs_running
+    to: 'off'
+    id: washer_down_off
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - platform: state
+    entity_id:
+    - binary_sensor.washer_upstairs_running
+    to: 'off'
+    id: washer_up_off
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: dryer_on
+      sequence:
+      - service: input_boolean.turn_on
+        data: {}
+        target:
+          entity_id: input_boolean.dryer
+    - conditions:
+      - condition: trigger
+        id: washer_down_on
+      sequence:
+      - service: input_boolean.turn_on
+        data: {}
+        target:
+          entity_id: input_boolean.washer_downstairs
+    - conditions:
+      - condition: trigger
+        id: washer_up_on
+      sequence:
+      - service: input_boolean.turn_on
+        data: {}
+        target:
+          entity_id: input_boolean.washer_upstairs
+    - conditions:
+      - condition: trigger
+        id: dryer_off
+      sequence:
+      - service: input_boolean.turn_off
+        data: {}
+        target:
+          entity_id: input_boolean.dryer
+    - conditions:
+      - condition: trigger
+        id: washer_down_off
+      sequence:
+      - service: input_boolean.turn_off
+        data: {}
+        target:
+          entity_id: input_boolean.washer_downstairs
+    - conditions:
+      - condition: trigger
+        id: washer_up_off
+      sequence:
+      - service: input_boolean.turn_off
+        data: {}
+        target:
+          entity_id: input_boolean.washer_upstairs
+  mode: single
+- id: '1681595855373'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.user1
+    zone: zone.uni_campus
+    event: enter
+    id: user1_uni_enter
+  - platform: zone
+    entity_id: person.user1
+    zone: zone.uni_campus
+    event: leave
+    id: user1_uni_leave
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: user1_uni_enter
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: command_ringer_mode
+          data:
+            command: vibrate
+    - conditions:
+      - condition: trigger
+        id: user1_uni_leave
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: command_ringer_mode
+          data:
+            command: normal
+  mode: single
+- id: '1684774702433'
+  alias: '*HASSIO - Medicine reminder'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.pillbox_sensor_contact
+    to: 'off'
+    id: pillbox_open
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    from: 'on'
+  - platform: time
+    at: 07:00:00
+    id: time_end
+  - platform: time
+    at: '20:00:00'
+    id: time_start
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: REMIND
+    id: remind_action
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: TAKEN
+    id: taken_action
+  - platform: state
+    entity_id:
+    - person.user2
+    to: home
+    id: time_start
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: trigger
+          id: taken_action
+        - condition: and
+          conditions:
+          - condition: trigger
+            id: pillbox_open
+          - condition: state
+            entity_id: person.user2
+            state: home
+          - condition: time
+            after: '16:00:00'
+            before: '10:00:00'
+      sequence:
+      - service: input_boolean.turn_on
+        data: {}
+        target:
+          entity_id: input_boolean.task1
+      - service: notify.mobile_app_user2_phone
+        data:
+          data:
+            tag: pill
+          message: clear_notification
+        alias: Delete notification from user_2 phone
+      - if:
+        - condition: numeric_state
+          entity_id: cover.bedroom_blinds
+          attribute: current_position
+          above: 15
+          below: 25
+        - condition: state
+          entity_id: binary_sensor.bedroom_window_sensor_contact
+          state: 'off'
+        then:
+        - service: cover.close_cover
+          data: {}
+          target:
+            entity_id: cover.bedroom_blinds
+    - conditions:
+      - condition: trigger
+        id: time_end
+      sequence:
+      - service: input_boolean.turn_off
+        data: {}
+        target:
+          entity_id: input_boolean.task1
+    - conditions:
+      - condition: trigger
+        id: time_start
+      - condition: time
+        after: '19:59:00'
+        before: 06:59:00
+      - condition: state
+        entity_id: input_boolean.task1
+        state: 'off'
+      sequence:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Heb je je pil al genomen?
+          title: "\U0001F48A Hey jij! Zin in kinderen? \U0001F476"
+          data:
+            actions:
+            - action: TAKEN
+              title: "\U0001F47C Pil al genomen"
+            - action: REMIND
+              title: "\U0001F550 Herinner me over 1 uur"
+            tag: pill
+    - conditions:
+      - condition: trigger
+        id: remind_action
+      sequence:
+      - delay:
+          hours: 1
+          minutes: 0
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Heb je je pil al genomen?
+          title: "\U0001F48A Hey jij! Zin in kinderen? \U0001F476"
+          data:
+            actions:
+            - action: TAKEN
+              title: "\U0001F47C Pil al genomen"
+            - action: REMIND
+              title: "\U0001F550 Herinner me over 1 uur"
+            tag: pill
+  mode: parallel
+  max: 100
+- id: '1685481455233'
+  alias: '*HASSIO - User2 Tracker'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - person.user2
+    from: Nijmegen CS
+    id: passed_station
+  - platform: state
+    entity_id:
+    - person.user2
+    from: Liselotte moeder
+    id: left_mom
+  - platform: state
+    entity_id:
+    - person.user2
+    to: not_home
+  - platform: state
+    entity_id:
+    - person.user2
+    to: home
+    id: back_home
+  condition:
+  - condition: state
+    entity_id: input_boolean.user2_tracker
+    state: 'on'
+  action:
+  - service: notify.mobile_app_user1_phone
+    data:
+      message: On the move {{ states('sensor.date_time')     }}
+      title: Someone is
+  - if:
+    - condition: trigger
+      id: back_home
+    then:
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.user2_tracker
+  - if:
+    - condition: trigger
+      id: passed_station
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: ETA 5 min from {{ states('sensor.date_time')     }}
+        title: Someone has passed the Station
+  - if:
+    - condition: trigger
+      id: left_mom
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: ETA 15 min from {{ states('sensor.date_time')     }}
+        title: Someone has left Mom
+  mode: single
+- id: '1691970862500'
+  alias: '*HASSIO - TV App state'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.tv_adb
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    attribute: app_name
+  condition: []
+  action:
+  - if:
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: media_player.tv_adb
+        attribute: app_name
+        state: YouTube
+      - condition: state
+        entity_id: media_player.tv_adb
+        attribute: app_name
+        state: Plex
+      - condition: state
+        entity_id: media_player.tv_adb
+        attribute: app_name
+        state: Videoland
+      - condition: state
+        entity_id: media_player.tv_adb
+        attribute: app_name
+        state: Disney+
+      - condition: state
+        entity_id: media_player.tv_adb
+        attribute: app_name
+        state: Netflix
+      - condition: state
+        entity_id: media_player.tv_adb
+        attribute: app_name
+        state: Prime Video
+      - condition: state
+        entity_id: media_player.tv_adb
+        attribute: app_name
+        state: NOS
+    then:
+    - service: input_boolean.turn_on
+      data: {}
+      target:
+        entity_id: input_boolean.tv_apps
+    else:
+    - service: input_boolean.turn_off
+      data: {}
+      target:
+        entity_id: input_boolean.tv_apps
+  mode: restart
+- id: '1698589183647'
+  alias: Bedroom - Desk light button
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.desk_light_button_action
+    to: hold
+    id: hold
+  - platform: state
+    entity_id:
+    - sensor.desk_light_button_action
+    to: single
+    id: single
+  - platform: state
+    entity_id:
+    - sensor.desk_light_button_action
+    to: double
+    id: double
+  condition: []
+  action:
+  - if:
+    - condition: trigger
+      id:
+      - single
+    then:
+    - service: light.toggle
+      data: {}
+      target:
+        entity_id: light.desk_light
+  - if:
+    - condition: trigger
+      id:
+      - double
+    then:
+    - service: light.toggle
+      data: {}
+      target:
+        entity_id: light.bedroom_main_light
+  - if:
+    - condition: trigger
+      id:
+      - hold
+    then:
+    - service: cover.toggle
+      target:
+        entity_id: cover.bedroom_blinds
+      data: {}
+  mode: single
+- id: '1698630432690'
+  alias: '*HASSIO - Backup every monday and friday at 5am'
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:00:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - fri
+  action:
+  - service: auto_backup.backup_full
+    data:
+      exclude:
+        addons:
+        - MariaDB
+        folders:
+        - media
+      compressed: true
+      keep_days: 14
+  mode: single
+- id: '1698936992088'
+  alias: '*HASSIO - Time to shop?'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - device_tracker.user1_phone
+    id: user1
+  - platform: state
+    entity_id:
+    - device_tracker.user2_phone
+    id: user2
+  condition: []
+  action:
+  - if:
+    - condition: zone
+      entity_id: person.user1
+      zone: zone.action_groenestraat
+    then: []
+  mode: single

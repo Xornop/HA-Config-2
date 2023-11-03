@@ -1,0 +1,16 @@
+---
+gradients:
+  ha-card-border-radius: 20px
+  paper-item-icon-color: '#FFBE86'
+  primary-color: '#93B7BE'
+  masonry-view-card-margin: 16px
+  accent-color: '#D2E8EC'
+  ha-card-background: 'linear-gradient(180deg, #009E79 0%, #007167 100%)'
+  primary-text-color: white
+  rgb-primary-text-color: 255, 255, 255
+  secondary-text-color: '#D2E8EC'
+  sidebar-background-color: '#333739'
+  card-background-color: '#333739'
+  card-background-color-rgb: 0, 0, 0
+  app-header-background-color: '#3f4a4d'
+  primary-background-color: '#3f4a4d'

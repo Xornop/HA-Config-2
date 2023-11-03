@@ -1,0 +1,162 @@
+colorloop_mood:
+  alias: Random floor light
+  sequence:
+  - wait_for_trigger:
+    - platform: state
+      entity_id: input_boolean.random_floor_light
+      to: 'on'
+      from: 'off'
+    continue_on_timeout: false
+  - repeat:
+      until:
+      - condition: state
+        entity_id: input_boolean.random_floor_light
+        state: 'off'
+      sequence:
+      - service: light.turn_on
+        data:
+          hs_color:
+          - '{{ [0, 23, 45, 77, 90, 103, 135, 225, 250, 270, 300, 315] | random }}'
+          - '{{ [75, 100] | random }}'
+          transition: 1
+          brightness: 180
+        entity_id: light.floor
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 750
+  mode: single
+play_fireplace_on_youtube_on_living_room_display:
+  sequence:
+  - data:
+      media_content_type: cast
+      media_content_id: ' { "app_name": "youtube", "media_id": "L_LUpnjgPso" }'
+    service: media_player.play_media
+    target:
+      entity_id: media_player.home_display
+  mode: single
+user2plst1:
+  sequence:
+  - service: spotcast.start
+    data:
+      entity_id: media_player.tv
+      uri:
+      shuffle: true
+      random_song: true
+      start_volume: 50
+      account: user2
+  mode: single
+  alias: user2plst1
+  icon: hass:music
+user2plst2:
+  alias: user2plst2
+  sequence:
+  - service: spotcast.start
+    data:
+      uri: spotify:playlist:6gIYWsPieuppZNhzYoVKaG
+      shuffle: true
+      random_song: true
+      start_volume: 50
+      device_name: TV
+      force_playback: true
+      repeat: context
+      account: user2
+  mode: single
+  icon: hass:music
+notify_people_who_are_present:
+  alias: Notify people who are home
+  fields:
+    title:
+      description: A catchy title
+      name: Title
+      example: Hello there!
+      selector:
+        text:
+          multiline: false
+      required: true
+    message:
+      description: Message to send
+      name: Message
+      example: You've got a message
+      selector:
+        text:
+          multiline: true
+      required: true
+    tag:
+      description: An optional tag
+      name: Tag
+      example: tag
+      selector:
+        text:
+          multiline: true
+  sequence:
+  - if:
+    - condition: state
+      entity_id: person.user1
+      state: home
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        title: '{{ title }}'
+        message: '{{ message }}'
+        data:
+          tag: '{{ tag }}'
+  - if:
+    - condition: state
+      entity_id: person.user2
+      state: home
+    then:
+    - service: notify.mobile_app_user2_phone
+      data:
+        title: '{{ title }}'
+        message: '{{ message }}'
+        data:
+          tag: '{{ tag }}'
+  mode: parallel
+  max: 100
+  icon: mdi:bell
+'1697576050117':
+  alias: Spooky flickering lights
+  sequence:
+  - variables:
+      predefined_lights:
+      - light.extended_color_light_10
+      - light.extended_color_light_23
+      - light.extended_color_light_9
+      - light.extended_color_light_24
+      - light.color_temperature_light_11
+      - light.color_temperature_light_15
+      - light.color_temperature_light_5
+      - light.extended_color_light_17
+      - light.extended_color_light_2
+  - variables:
+      on_lights: '{{ predefined_lights | select(''is_state'', ''on'') | list }}'
+  - condition: template
+    value_template: '{{ on_lights | length > 0 }}'
+  - variables:
+      random_light: '{{ on_lights | random }}'
+  - condition: template
+    value_template: '{{ is_state(random_light, ''on'') }}'
+  - service: scene.create
+    data:
+      scene_id: before_flicker
+      snapshot_entities:
+      - '{{ random_light }}'
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 300
+  - service: scene.apply
+    data:
+      entities:
+        '{{ random_light }}':
+          state: 'on'
+          brightness: 1
+          transition: 0
+  - service: scene.turn_on
+    data:
+      entity_id: scene.before_flicker
+      transition: 0
+  mode: parallel

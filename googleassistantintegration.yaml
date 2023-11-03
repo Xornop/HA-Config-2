@@ -1,0 +1,46 @@
+project_id: !secret googleassistantintegration
+service_account: !include service_account.json
+report_state: true
+exposed_domains:
+  - light
+  - camera
+  - scene
+  - script
+  - fan
+  - lock
+  - cover
+  - climate
+  - vacuum
+entity_config:
+  light.all_lights_2:
+    expose: false
+  binary_sensor.front_door_sensor_contact:
+    expose: true
+  binary_sensor.bedroom_window_sensor_contact:
+    expose: true
+  binary_sensor.living_room_window_contact:
+    expose: true
+  switch.cooker_hood:
+    expose: true
+  switch.toast_maker:
+    expose: true
+  sensor.bathroom_moisture_sensor_humidity:
+    expose: true
+  input_boolean.washer_downstairs:
+    expose: true
+  input_boolean.washer_upstairs:
+    expose: true
+  input_boolean.dryer:
+    expose: true
+  lock.downstairs_washer_child_lock:
+    expose: false
+  lock.upstairs_washer_child_lock:
+    expose: false
+  lock.dryer_child_lock:
+    expose: false
+  camera.lovelace_video:
+    expose: false
+  light.living_room_lights:
+    expose: false
+  light.all_lights:
+    expose: false

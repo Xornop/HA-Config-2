@@ -1,0 +1,22 @@
+light.computer_light:
+  friendly_name: Computer light
+sensor.euro95_groesbeekseweg:
+  friendly_name: Euro95 TinQ Groesbeekseweg
+  unit_of_measurement: €
+  icon: hass:gas-station
+sensor.tankerkoenig_aral_tankstelle_e10:
+  friendly_name: E10 ARAL Tankstelle Kranenburg
+sensor.euro95_hatertseweg:
+  friendly_name: Euro95 Tango Hatertseweg
+  icon: hass:gas-station
+  unit_of_measurement: €
+sensor.dar_restafval:
+  friendly_name: Restafval (Dar)
+sensor.dar_gft:
+  friendly_name: GFT (Dar)
+sensor.dar_papier:
+  friendly_name: Papier (Dar)
+sensor.dar_pmd:
+  friendly_name: PMD (Dar)
+sensor.openclose_13_temperature:
+  device_class: temperature

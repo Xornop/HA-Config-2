@@ -1,0 +1,206 @@
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'date_time_utc'
+      - 'date_time_iso'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: memory_free
+      - type: memory_use_percent
+      - type: memory_use
+      - type: disk_use
+        arg: /
+      - type: disk_free
+        arg: /
+      - type: swap_use_percent
+      - type: throughput_network_in
+        arg: eth0
+      - type: throughput_network_out
+        arg: eth0
+      - type: ipv4_address
+        arg: eth0
+      - type: processor_use
+      - type: processor_temperature
+      - type: last_boot
+      - type: network_in
+        arg: eth0
+      - type: network_out
+        arg: eth0
+
+
+# buienradar and buienalarm data
+  - platform: buienalarm
+    timeframe: 60
+    name: buienalarm
+    monitored_conditions:
+      - temperature
+      - precipitation
+      - precipitation_forecast_average
+      - precipitation_forecast_total
+      - next_rain_forecast
+
+# waste collection
+  - platform: afvalbeheer
+    wastecollector: dar
+    resources:
+      - restafval
+      - gft
+      - papier
+      - pmd
+      - gftgratis
+      - textiel
+      - glas
+      - grofvuil
+      - asbest
+      - apparaten
+      - chemisch
+      - sloopafval
+      - takken
+      - pbd
+      - duobak
+      - restwagen
+      - sortibak
+    postcode: 6525GS
+    streetnumber: 269
+
+# sun brightness for floormap
+  - platform: template
+    sensors:
+      sun_brightness:
+        friendly_name: "Sun Brightness"
+        value_template: >-
+          {% if state_attr('sun.sun', 'elevation') > 20  %}
+            bright
+          {% elif state_attr('sun.sun', 'elevation') > 9 %}
+            mid    
+          {% elif state_attr('sun.sun', 'elevation') > -3 %}
+            dark                
+          {% else %}
+            black
+          {% endif %} 
+
+# media information
+  - platform: plex_recently_added
+    token: !secret plex_token
+    host: 192.168.69.103
+    port: 32400
+    max: 20
+
+# brightness for lights, various sources used      
+  - platform: illuminance
+    entity_id: weather.openweathermap
+    name: Estimated Illuminance OWM
+  - platform: illuminance
+    entity_id: weather.accuweather
+    name: Estimated Illuminance AccuW
+
+# correction for sensors that display wrong data
+  - platform: template
+    sensors:
+      desk_temp_adj:
+        friendly_name: "Desk loght button Temperature (adj)"
+        unit_of_measurement: "°C"
+        value_template: >-
+          {{ (states.sensor.desk_light_button_device_temperature.state | float - 8 ) | round(0) }}
+      front_door_sensor_device_temperature_adj:
+        friendly_name: "Front door sensor Temperature (adj)"
+        unit_of_measurement: "°C"
+        value_template: >-
+          {{ (states.sensor.front_door_sensor_device_temperature.state | float - 3 ) | round(0) }}
+      living_room_window_sensor_device_temperature_adj:
+        friendly_name: "Living room window Temperature adj"
+        unit_of_measurement: "°C"
+        value_template: >-
+          {{ (states.sensor.living_room_window_sensor_device_temperature.state | float - 4 ) | round(0) }}
+
+# Hombot sensors
+  - platform: template
+    sensors:
+      hombot_battery:
+        friendly_name: Hombot Battery
+        unit_of_measurement: '%'
+        value_template: "{{ states.vacuum.hombot.attributes.battery_level }}"
+        icon_template: "{{ states.vacuum.hombot.attributes.battery_icon }}"
+      hombot_status:
+        friendly_name: Hombot Status
+        value_template: "{{ states.vacuum.hombot.attributes.status }}"
+        
+# Medicine average time calculation sensors
+  - platform: template
+    sensors:
+      medicine_hours_recent:
+        friendly_name: "Most recent hour when taking medicine"
+        value_template: >-
+          {% if states('binary_sensor.pillbox_sensor_contact') == 'on' %}
+            {% if 16 < now().hour|int %}
+              {{ now().hour|int }}
+            {% elif 16 >= now().hour|int %}
+              {% set base_hour = 24 + now().hour %}
+              {{ base_hour|int }}
+            {% endif %}
+          {% else %}
+            {{ states('sensor.medicine_hours_recent') }}
+          {% endif %}
+      medicine_minutes_recent:
+        friendly_name: "Most recent minute when taking medicine"
+        value_template: >-
+          {% if states('binary_sensor.pillbox_sensor_contact') == 'on' %}
+            {% if 16 < now().minute|int %}
+              {{ now().minute|int }}
+            {% elif 16 >= now().minute|int %}
+              {% set base_hour = 24 + now().minute %}
+              {{ base_hour|int }}
+            {% endif %}
+          {% else %}
+            {{ states('sensor.medicine_minutes_recent') }}
+          {% endif %}
+      medicine_time_average:
+        friendly_name: Average time to take medicine
+        value_template: >
+          {% if states('sensor.average_medicine_hours')|int > 23 %}
+            {% set hours = states('sensor.average_medicine_hours')|int - 24 %}
+          {% else %}
+            {% set hours = states('sensor.average_medicine_hours')|int %}
+          {% endif %}
+            {% set minutes = states('sensor.average_medicine_minutes')|int %}
+          {{hours|string + ":" + minutes|string }}
+        icon_template: mdi:clock
+      medicine_time_recent:
+        friendly_name: Most recent time you took medicine
+        value_template: >
+          {% if states('sensor.medicine_hours_recent')|int > 23 %}
+            {% set hours = states('sensor.medicine_hours_recent')|int - 24 %}
+          {% else %}
+            {% set hours = states('sensor.medicine_hours_recent')|int %}
+          {% endif %}
+            {% set minutes = states('sensor.medicine_minutes_recent')|int %}
+          {{hours|string + ":" + minutes|string }}
+        icon_template: mdi:clock
+  - platform: average
+    name: "Average medicine hours"
+    entities:
+      - sensor.medicine_hours_recent
+    duration:
+      days: 4
+    precision: 0
+  - platform: average
+    name: "Average medicine minutes"
+    entities:
+      - sensor.medicine_minutes_recent
+    duration:
+      days: 4
+    precision: 0
+    
+# Sensors with random output, 0 - 9
+  - platform: random
+    name: Random 0 - 9
+    minimum: 0
+    maximum: 9

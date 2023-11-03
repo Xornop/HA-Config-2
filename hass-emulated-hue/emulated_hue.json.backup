@@ -1,0 +1,900 @@
+{
+    "groups": {
+        "1": {
+            "action": {
+                "on": false
+            },
+            "area_id": "bedroom",
+            "class": "Other",
+            "enabled": true,
+            "lights": [],
+            "name": "",
+            "sensors": [],
+            "state": {
+                "all_on": false,
+                "any_on": true
+            },
+            "type": "Room"
+        },
+        "2": {
+            "action": {
+                "on": false
+            },
+            "area_id": "living_room",
+            "class": "Other",
+            "enabled": true,
+            "lights": [],
+            "name": "",
+            "sensors": [],
+            "state": {
+                "all_on": false,
+                "any_on": true
+            },
+            "type": "Room"
+        },
+        "3": {
+            "action": {
+                "on": false
+            },
+            "area_id": "hall",
+            "class": "Other",
+            "enabled": true,
+            "lights": [],
+            "name": "",
+            "sensors": [],
+            "state": {
+                "all_on": false,
+                "any_on": false
+            },
+            "type": "Room"
+        },
+        "4": {
+            "action": {
+                "on": false
+            },
+            "area_id": "bathroom",
+            "class": "Other",
+            "enabled": true,
+            "lights": [],
+            "name": "",
+            "sensors": [],
+            "state": {
+                "all_on": false,
+                "any_on": false
+            },
+            "type": "Room"
+        },
+        "5": {
+            "action": {
+                "on": false
+            },
+            "area_id": "computer",
+            "class": "Other",
+            "enabled": true,
+            "lights": [],
+            "name": "",
+            "sensors": [],
+            "state": {
+                "all_on": true,
+                "any_on": false
+            },
+            "type": "Room"
+        },
+        "6": {
+            "action": {
+                "on": false
+            },
+            "area_id": "kitchen",
+            "class": "Other",
+            "enabled": true,
+            "lights": [],
+            "name": "",
+            "sensors": [],
+            "state": {
+                "all_on": true,
+                "any_on": false
+            },
+            "type": "Room"
+        },
+        "7": {
+            "action": {
+                "on": false
+            },
+            "area_id": "all_rooms",
+            "class": "Other",
+            "enabled": true,
+            "lights": [],
+            "name": "",
+            "sensors": [],
+            "state": {
+                "all_on": true,
+                "any_on": false
+            },
+            "type": "Room"
+        },
+        "8": {
+            "action": {
+                "on": false
+            },
+            "area_id": "hassio",
+            "class": "Other",
+            "enabled": true,
+            "lights": [],
+            "name": "",
+            "sensors": [],
+            "state": {
+                "all_on": true,
+                "any_on": false
+            },
+            "type": "Room"
+        },
+        "9": {
+            "class": "Other",
+            "lights": [
+                "17"
+            ],
+            "name": "iLightShow",
+            "stream": {
+                "owner": "61820F05dc3404Cb6005B5A7AEEDc67cabfAFa8D",
+                "proxymode": "manual",
+                "proxynode": "/bridge"
+            },
+            "type": "Entertainment"
+        }
+    },
+    "lights": {
+        "1": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.extended_color_light_8",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 0,
+                "colormode": "xy",
+                "ct": 0,
+                "effect": "none",
+                "hue": 0,
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": true,
+                "sat": 0,
+                "xy": [
+                    0,
+                    0
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:38:d4:1b:94:fa:d3:19-4c"
+        },
+        "10": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.extended_color_light_14",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 107,
+                "colormode": "xy",
+                "ct": 0,
+                "effect": "none",
+                "hue": 256,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 100,
+                "xy": [
+                    0.157,
+                    0.018
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:9f:d3:5f:36:bf:1b:eb-e6"
+        },
+        "11": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.color_temperature_light_15",
+            "name": "",
+            "state": {
+                "bri": 107,
+                "colormode": "ct",
+                "ct": 500,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true
+            },
+            "throttle": 0,
+            "uniqueid": "00:9e:e5:84:06:75:22:83-52"
+        },
+        "12": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.dimmable_light_16",
+            "name": "",
+            "state": {
+                "bri": 0,
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": false
+            },
+            "throttle": 0,
+            "uniqueid": "00:fa:f0:ec:da:4e:23:eb-da"
+        },
+        "13": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.extended_color_light_17",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 128,
+                "colormode": "xy",
+                "ct": 0,
+                "effect": "none",
+                "hue": 0,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 100,
+                "xy": [
+                    0.701,
+                    0.299
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:55:aa:c4:e8:d1:52:d2-95"
+        },
+        "14": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.color_temperature_light_18",
+            "name": "",
+            "state": {
+                "bri": 0,
+                "colormode": null,
+                "ct": 0,
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": false
+            },
+            "throttle": 0,
+            "uniqueid": "00:2f:2b:f9:2a:45:95:60-da"
+        },
+        "15": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.desk_lamp",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 0,
+                "colormode": "xy",
+                "ct": 0,
+                "effect": "none",
+                "hue": 0,
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": false,
+                "sat": 0,
+                "xy": [
+                    0,
+                    0
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:35:c6:d1:6b:7f:72:94-e7"
+        },
+        "16": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.all_lights",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 254,
+                "colormode": "ct",
+                "ct": 250,
+                "effect": "none",
+                "hue": 26,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 34,
+                "xy": [
+                    0.421,
+                    0.364
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:91:4d:42:7a:10:93:73-a8"
+        },
+        "17": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.living_room",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 107,
+                "colormode": "ct",
+                "ct": 500,
+                "effect": "none",
+                "hue": 30,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 94,
+                "xy": [
+                    0.599,
+                    0.382
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:f3:07:51:ec:68:2f:71-b0"
+        },
+        "18": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.desk",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 0,
+                "colormode": "xy",
+                "ct": 0,
+                "effect": "none",
+                "hue": 0,
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": true,
+                "sat": 0,
+                "xy": [
+                    0,
+                    0
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:d6:2b:4f:b6:57:2a:09-ea"
+        },
+        "19": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.hall",
+            "name": "",
+            "state": {
+                "bri": 254,
+                "colormode": null,
+                "ct": 250,
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": true
+            },
+            "throttle": 0,
+            "uniqueid": "00:3d:c3:7e:57:2b:ca:27-4f"
+        },
+        "2": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.extended_color_light_9",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 254,
+                "colormode": "ct",
+                "ct": 435,
+                "effect": "none",
+                "hue": 29,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 80,
+                "xy": [
+                    0.569,
+                    0.388
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:dd:9b:63:b0:92:c6:12-63"
+        },
+        "20": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.bathroom",
+            "name": "",
+            "state": {
+                "bri": 254,
+                "colormode": "ct",
+                "ct": 250,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true
+            },
+            "throttle": 0,
+            "uniqueid": "00:4e:45:97:34:f0:82:e5-50"
+        },
+        "21": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.bedroom",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 254,
+                "colormode": "ct",
+                "ct": 435,
+                "effect": "none",
+                "hue": 29,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 80,
+                "xy": [
+                    0.569,
+                    0.388
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:e3:0b:dc:82:c3:17:de-17"
+        },
+        "22": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.floor",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 107,
+                "colormode": "xy",
+                "ct": 0,
+                "effect": "none",
+                "hue": 256,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 100,
+                "xy": [
+                    0.157,
+                    0.018
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:59:9b:86:f0:27:93:45-0a"
+        },
+        "23": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.starlight",
+            "name": "",
+            "state": {
+                "bri": 0,
+                "colormode": "xy",
+                "effect": "none",
+                "hue": 0,
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": true,
+                "sat": 0,
+                "xy": [
+                    0,
+                    0
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:85:64:d9:04:d3:ff:8f-9e"
+        },
+        "24": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.computer_light",
+            "name": "",
+            "state": {
+                "bri": 255,
+                "colormode": "xy",
+                "effect": "none",
+                "hue": 240,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 100,
+                "xy": [
+                    0.136,
+                    0.04
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:2f:cc:af:61:90:98:49-03"
+        },
+        "25": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.mood_light_extended_color",
+            "name": "",
+            "state": {
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": false
+            },
+            "throttle": 0,
+            "uniqueid": "00:38:84:db:7a:58:2d:09-b6"
+        },
+        "26": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.living_main_light_extended_color",
+            "name": "",
+            "state": {
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": false
+            },
+            "throttle": 0,
+            "uniqueid": "00:a9:fe:4d:43:04:76:a3-9b"
+        },
+        "3": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.color_light_3",
+            "name": "",
+            "state": {
+                "bri": 64,
+                "colormode": "xy",
+                "effect": "none",
+                "hue": 44,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 100,
+                "xy": [
+                    0.528,
+                    0.446
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:d7:6e:c8:03:23:ac:b6-15"
+        },
+        "4": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.extended_color_light_4",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 107,
+                "colormode": "xy",
+                "ct": 0,
+                "effect": "none",
+                "hue": 256,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 100,
+                "xy": [
+                    0.157,
+                    0.018
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:f0:12:57:9e:28:02:2c-dd"
+        },
+        "5": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.extended_color_light_10",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 80,
+                "colormode": "xy",
+                "ct": 495,
+                "effect": "none",
+                "hue": 256,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 100,
+                "xy": [
+                    0.157,
+                    0.018
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:9a:f5:e5:fa:f8:be:c2-0d"
+        },
+        "6": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.extended_color_light_11",
+            "name": "",
+            "state": {
+                "alert": "none",
+                "bri": 0,
+                "colormode": "xy",
+                "ct": 0,
+                "effect": "none",
+                "hue": 0,
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": false,
+                "sat": 0,
+                "xy": [
+                    0,
+                    0
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:d4:cd:77:e0:ee:ff:17-22"
+        },
+        "7": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.color_light_11",
+            "name": "",
+            "state": {
+                "bri": 254,
+                "colormode": "xy",
+                "effect": "none",
+                "hue": 256,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true,
+                "sat": 100,
+                "xy": [
+                    0.157,
+                    0.018
+                ]
+            },
+            "throttle": 0,
+            "uniqueid": "00:b8:2c:b5:d0:4a:0b:82-2f"
+        },
+        "8": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.color_temperature_light_6",
+            "name": "",
+            "state": {
+                "bri": 254,
+                "colormode": null,
+                "ct": 250,
+                "mode": "homeautomation",
+                "on": false,
+                "reachable": true
+            },
+            "throttle": 0,
+            "uniqueid": "00:aa:70:14:64:b8:89:42-0a"
+        },
+        "9": {
+            "config": {
+                "archetype": "sultanbulb",
+                "direction": "omnidirectional",
+                "function": "mixed",
+                "startup": {
+                    "configured": true,
+                    "mode": "safety"
+                }
+            },
+            "enabled": true,
+            "entity_id": "light.color_temperature_light_5",
+            "name": "",
+            "state": {
+                "bri": 254,
+                "colormode": "ct",
+                "ct": 250,
+                "mode": "homeautomation",
+                "on": true,
+                "reachable": true
+            },
+            "throttle": 0,
+            "uniqueid": "00:ad:a9:bd:0e:db:bb:8f-3b"
+        }
+    },
+    "users": {
+        "61820F05dc3404Cb6005B5A7AEEDc67cabfAFa8D": {
+            "clientkey": "556DA6FBE3F2884E6AFC5DC2B3668FBE",
+            "create date": "2022-07-13T21:34:17",
+            "last use date": "2022-07-13T21:50:20",
+            "name": "iLightShow",
+            "username": "61820F05dc3404Cb6005B5A7AEEDc67cabfAFa8D"
+        }
+    }
+}

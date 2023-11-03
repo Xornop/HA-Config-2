@@ -1,0 +1,28 @@
+people:
+  name: Tracked persons
+  entities:
+    - person.user1
+    - person.user2
+all_google_home_devices:
+  name: All Google Home Devices
+  entities:
+    - media_player.home_display
+    - media_player.nest_mini
+doors_windows:
+  name: All door & window sensors
+  entities:
+    - binary_sensor.openclose_12
+    - binary_sensor.openclose_13
+    - binary_sensor.openclose_5
+
+phones_charging:
+  name: All phones charging
+  all: true
+  entities:
+    - !secret charging_user1
+    - !secret charging_user2
+any_phone_charging:
+  name: Any phone charging
+  entities:
+    - !secret charging_user1
+    - !secret charging_user2
