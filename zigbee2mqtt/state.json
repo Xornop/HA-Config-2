@@ -240,7 +240,7 @@
         "linkquality": 255,
         "voltage": 3015,
         "battery": 100,
-        "device_temperature": 20,
+        "device_temperature": 19,
         "power_outage_count": 18,
         "contact": true
     },
@@ -255,7 +255,7 @@
     "0x00158d0007e02bc8": {
         "voltage": 2985,
         "battery": 90,
-        "device_temperature": 23,
+        "device_temperature": 21,
         "power_outage_count": 12,
         "contact": true,
         "linkquality": 215
@@ -380,15 +380,15 @@
         "indicator_mode": "off",
         "child_lock": "LOCK",
         "power": 0,
-        "current": 0.05,
-        "voltage": 230,
+        "current": 0,
+        "voltage": 228,
         "energy": 264.87,
         "linkquality": 151
     },
     "0xa4c13834b9e85342": {
         "power": 0,
         "current": 0,
-        "voltage": 228,
+        "voltage": 227,
         "energy": 582.31,
         "state": "ON",
         "child_lock": "LOCK",
@@ -403,7 +403,7 @@
         "child_lock": "LOCK",
         "power": 0,
         "current": 0,
-        "voltage": 229,
+        "voltage": 227,
         "energy": 152.31,
         "linkquality": 143
     },
