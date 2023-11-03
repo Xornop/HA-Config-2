@@ -11,7 +11,7 @@
     },
     "2": {
         "state": "ON",
-        "brightness": 50,
+        "brightness": 254,
         "color_temp": 158,
         "color_mode": "color_temp",
         "color": {
@@ -35,7 +35,7 @@
             "s": 95
         },
         "color_temp": 495,
-        "brightness": 50
+        "brightness": 254
     },
     "0x60a423fffe0250be": {
         "color_mode": "color_temp",
@@ -75,7 +75,7 @@
         "linkquality": 255
     },
     "0x00124b00226a386e": {
-        "temperature": 18.92,
+        "temperature": 18.88,
         "humidity": 83.2,
         "voltage": 2800,
         "battery": 51.5,
@@ -122,7 +122,7 @@
         },
         "update_available": false,
         "state": "ON",
-        "brightness": 127,
+        "brightness": 254,
         "color_temp": 568,
         "color": {
             "x": 0.255,
@@ -147,7 +147,7 @@
             "y": 0.718
         },
         "color_temp": 136,
-        "brightness": 50
+        "brightness": 254
     },
     "0x00124b0023a4f561": {
         "color_mode": "xy",
@@ -160,7 +160,7 @@
         "state": "ON",
         "color_temp": 574,
         "state_cct": "ON",
-        "brightness_cct": 175,
+        "brightness_cct": 254,
         "color_mode_cct": "color_temp",
         "color_cct": {
             "x": 0.5245,
@@ -185,7 +185,7 @@
         "update_available": false,
         "linkquality": 191,
         "state": "ON",
-        "brightness": 127,
+        "brightness": 254,
         "color_temp": 495,
         "color": {
             "x": 0.5245,
@@ -323,7 +323,7 @@
         },
         "update_available": false,
         "linkquality": 255,
-        "state": "OFF",
+        "state": "ON",
         "brightness": 254,
         "color_temp": 158,
         "color": {
@@ -388,7 +388,7 @@
     "0xa4c13834b9e85342": {
         "power": 0,
         "current": 0,
-        "voltage": 227,
+        "voltage": 229,
         "energy": 582.31,
         "state": "ON",
         "child_lock": "LOCK",
@@ -403,7 +403,7 @@
         "child_lock": "LOCK",
         "power": 0,
         "current": 0,
-        "voltage": 227,
+        "voltage": 228,
         "energy": 152.31,
         "linkquality": 143
     },
