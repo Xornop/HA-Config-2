@@ -386,3 +386,11 @@ homeassistant.exceptions.TemplateError: ValueError: Template error: int got inva
 2023-11-03 17:32:44.391 WARNING (Recorder) [homeassistant.components.sensor.recorder] The unit of sensor.openweathermap_rain (mm/h) cannot be converted to the unit of previously compiled statistics (mm). Generation of long term statistics will be suppressed unless the unit changes back to mm or a compatible unit. Go to https://my.home-assistant.io/redirect/developer_statistics to fix this
 2023-11-03 17:32:44.392 WARNING (Recorder) [homeassistant.components.sensor.recorder] The unit of sensor.openweathermap_snow (mm/h) cannot be converted to the unit of previously compiled statistics (mm). Generation of long term statistics will be suppressed unless the unit changes back to mm or a compatible unit. Go to https://my.home-assistant.io/redirect/developer_statistics to fix this
 2023-11-03 17:32:44.396 WARNING (Recorder) [homeassistant.components.sensor.recorder] The unit of sensor.home_precipitation (mm/h) cannot be converted to the unit of previously compiled statistics (mm). Generation of long term statistics will be suppressed unless the unit changes back to mm or a compatible unit. Go to https://my.home-assistant.io/redirect/developer_statistics to fix this
+2023-11-03 17:32:49.213 ERROR (MainThread) [homeassistant.components.shell_command] Error running command: `/bin/bash pushupdates.sh`, return code: 128
+NoneType: None
+2023-11-03 17:33:09.430 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
+2023-11-03 17:33:09.432 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
+2023-11-03 17:33:09.434 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
+2023-11-03 17:33:09.858 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
+2023-11-03 17:33:09.912 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
+2023-11-03 17:33:09.981 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
