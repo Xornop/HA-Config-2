@@ -1,6 +1,6 @@
 [
   {
-    "name": "toiletpapier",
+    "name": "Toiletpapier",
     "id": "70d6191f263642ce8a17b8e50dd00e3b",
     "complete": true
   },
@@ -18,5 +18,55 @@
     "name": "Bosvruchtenthee",
     "id": "51f3b9d36aab465ebd4209a142f4619e",
     "complete": true
+  },
+  {
+    "name": "Vloeibare bakboter",
+    "id": "c013315127b6492b8a247f0b5b3a50ba",
+    "complete": true
+  },
+  {
+    "name": "Geitenkaas",
+    "id": "2df8fe2e35174255976e0b423df2e698",
+    "complete": true
+  },
+  {
+    "name": "Gehakt",
+    "id": "aa2a4f786ef348cd91c661767eb97c88",
+    "complete": true
+  },
+  {
+    "name": "spekjes",
+    "id": "326262a8731e449cb85aca288ee3a401",
+    "complete": false
+  },
+  {
+    "name": "spaghetti",
+    "id": "803b63e6b7ae477a80beeb424dc91718",
+    "complete": false
+  },
+  {
+    "name": "champignons 200",
+    "id": "1c17f384186a4842882b98d67ca1c205",
+    "complete": false
+  },
+  {
+    "name": "tuinerwten (diepvries) 100",
+    "id": "cf52375f96494d0885361b3ec7e1f24b",
+    "complete": false
+  },
+  {
+    "name": "volle melk",
+    "id": "ed80e12894dc4e0a9a18c6ab2eb98dea",
+    "complete": true
+  },
+  {
+    "name": "kookroom",
+    "id": "7811cd06cc55461fa8421d796696c28f",
+    "complete": true
+  },
+  {
+    "name": "fruit",
+    "id": "d025559367b244b3951c7a8223593526",
+    "complete": false
   }
 ]

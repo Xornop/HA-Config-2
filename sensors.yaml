@@ -204,3 +204,17 @@
     name: Random 0 - 9
     minimum: 0
     maximum: 9
+    
+# Github sensors combination (see command_line.yaml for Github sensors)
+  - platform: template
+    sensors:
+      github_backup_status:
+        friendly_name: GitHub Backup Status
+        value_template: >
+          {% if is_state("sensor.github_no_changes", "Your branch is up to date") %}
+            Up To Date 
+          {% elif states("sensor.github_grep_changes") | float(0) > 0 %}
+            Changes Made: {{ states('sensor.github_changes') }}          
+          {% else %}
+            Error 
+          {% endif %}

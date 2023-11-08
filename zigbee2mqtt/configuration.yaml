@@ -107,6 +107,8 @@ devices:
     friendly_name: Bathroom fan
   '0x00158d0009698205':
     friendly_name: Front door sensor
+  '0x00158d0009511f63':
+    friendly_name: Litterbox door sensor
 groups:
   '1':
     friendly_name: Living room floor light

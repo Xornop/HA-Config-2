@@ -17,3 +17,14 @@
         - data
       value_template: 'last_changed: {{states.sensor.neerslag_buienradar_regen_data.last_changed}}'
       scan_interval: 240
+      
+# Github sensors (see sensors.yaml for more)
+  - sensor:
+      name: Github No Changes
+      command: "dd if=/config/git_log.txt ibs=1 skip=17 count=26"
+  - sensor:
+      name: Github Changes
+      command: "dd if=/config/git_log.txt ibs=1 skip=541 count=53"
+  - sensor:
+      name: Github Grep Changes
+      command: "grep -c 'changed' /config/git_log.txt"

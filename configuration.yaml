@@ -5,6 +5,7 @@ conversation:
 breaking_changes:
 tts:
   - platform: google_translate
+command_line: !include command_line.yaml
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -16,7 +17,6 @@ homeassistant:
   packages: !include_dir_named packages
   media_dirs:
     media_halloween: /media/halloween
-command_line: !include command_line.yaml
 recorder:
   purge_keep_days: 61
   commit_interval: 20
@@ -42,7 +42,7 @@ template:
           {% else %}
             mdi:power-plug-off
           {% endif %}
-        
+
 # Router presence detection
 device_tracker:
   - platform: luci

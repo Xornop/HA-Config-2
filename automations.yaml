@@ -16,7 +16,7 @@
     id: Open
   condition:
   - condition: state
-    entity_id: input_boolean.phones_charging
+    entity_id: group.any_phone_charging
     state: 'off'
   action:
   - if:
@@ -622,9 +622,6 @@
       minutes: 29
       seconds: 0
       milliseconds: 0
-  - condition: state
-    entity_id: group.phones_charging
-    state: 'off'
   - if:
     - condition: numeric_state
       entity_id: cover.bedroom_blinds
@@ -633,6 +630,9 @@
     - condition: numeric_state
       entity_id: sensor.bedroom_window_sensor_device_temperature
       below: 35
+    - condition: state
+      entity_id: input_boolean.phones_charging
+      state: 'off'
     then:
     - service: script.google_home_resume
       data:
@@ -658,6 +658,9 @@
     - condition: numeric_state
       entity_id: sensor.bedroom_window_sensor_device_temperature
       below: 35
+    - condition: state
+      entity_id: input_boolean.phones_charging
+      state: 'off'
     then:
     - service: cover.open_cover
       target:
@@ -1808,7 +1811,7 @@
     data: {}
   mode: single
 - id: '1623742376776'
-  alias: '*HASSIO - HA/HACS update available'
+  alias: '*HASSIO - Git/HA/HACS update'
   description: ''
   trigger:
   - platform: state
@@ -1821,6 +1824,11 @@
     - sensor.hacs
     id: HACS
     from: '0'
+  - platform: state
+    entity_id:
+    - sensor.github_backup_status
+    to: Error
+    id: Github error
   action:
   - if:
     - condition: trigger
@@ -1847,7 +1855,20 @@
           actions:
           - action: URI
             title: Open HACS
-            uri: /hacs
+            uri: /hacs/entry
+  - if:
+    - condition: trigger
+      id:
+      - Github error
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: Github sync failed, check the log in /config/git_log.txt
+        data:
+          actions:
+          - action: URI
+            title: Open File Editor
+            uri: /core_configurator/ingress
   mode: single
 - id: '1624744313115'
   alias: Living Room - evening mood
@@ -2981,8 +3002,8 @@
     - binary_sensor.litterbox_sensor_contact
     for:
       hours: 0
-      minutes: 4
-      seconds: 0
+      minutes: 2
+      seconds: 50
     to: 'on'
     id: cleaned
     from: 'off'
@@ -3025,6 +3046,8 @@
       data:
         message: Het is tijd om de kattenbak te legen!
         title: Kiwi wil aandacht!
+        data:
+          tag: litterbox
     - if:
       - condition: state
         entity_id: person.user2
@@ -3034,7 +3057,8 @@
         data:
           message: Het is tijd om de kattenbak te legen!
           title: Kiwi wil aandacht!
-  - if:
+  - alias: Reset if cleaned
+    if:
     - condition: trigger
       id: cleaned
     then:
@@ -3042,6 +3066,8 @@
       data:
         message: Kiwi is je dankbaar!
         title: Kattenbakteller gereset!
+        data:
+          tag: litterbox
     - service: counter.reset
       data: {}
       target:
@@ -3055,7 +3081,8 @@
         data:
           message: Kiwi is je dankbaar!
           title: Kattenbakteller gereset!
-    alias: Reset if cleaned
+          data:
+            tag: litterbox
   - if:
     - condition: trigger
       id: warning after 40 hours
@@ -3064,6 +3091,8 @@
       data:
         message: Het is tijd om poep te scheppen!!
         title: Kiwi wil aandacht!
+        data:
+          tag: litterbox
     - if:
       - condition: state
         entity_id: person.user2
@@ -3073,24 +3102,23 @@
         data:
           message: Het is tijd om poep te scheppen!!
           title: Kiwi wil aandacht!
-  - if:
+          data:
+            tag: litterbox
+  - alias: Reset if cleaned
+    if:
     - condition: trigger
       id: short_clean
     then:
     - service: notify.mobile_app_user1_phone
       data:
-        message: Kiwi is je dankbaar!
-        title: Schoongemaakt!
-    - if:
-      - condition: state
-        entity_id: person.user2
-        state: home
-      then:
-      - service: notify.mobile_app_user2_phone
+        message: clear_notification
         data:
-          message: Kiwi is je dankbaar!
-          title: Schoongemaakt!
-    alias: Reset if cleaned
+          tag: litterbox
+    - service: notify.mobile_app_user2_phone
+      data:
+        message: clear_notification
+        data:
+          tag: litterbox
   mode: single
 - id: '1655985361136'
   alias: All rooms - warm day blinds down
@@ -3645,8 +3673,8 @@
         state: idle
     - condition: numeric_state
       entity_id: light.table_light
-      attribute: Brightness
-      below: 50
+      attribute: brightness
+      below: 70
     then:
     - service: scene.turn_on
       data: {}
@@ -4700,44 +4728,522 @@
       data: {}
   mode: single
 - id: '1698630432690'
-  alias: '*HASSIO - Backup every monday and friday at 5am'
+  alias: '*HASSIO - Backup to github on wednesday and locally every monday and friday
+    at 5am'
   description: ''
   trigger:
   - platform: time
     at: 05:00:00
-  condition:
-  - condition: time
-    weekday:
-    - mon
-    - fri
+    id: local backup
+  condition: []
   action:
-  - service: auto_backup.backup_full
-    data:
-      exclude:
-        addons:
-        - MariaDB
-        folders:
-        - media
-      compressed: true
-      keep_days: 14
+  - if:
+    - condition: trigger
+      id:
+      - local backup
+    - condition: time
+      weekday:
+      - mon
+      - fri
+    then:
+    - service: auto_backup.backup_full
+      data:
+        exclude:
+          addons:
+          - MariaDB
+          folders:
+          - media
+        compressed: true
+        keep_days: 14
+  - if:
+    - condition: time
+      weekday:
+      - wed
+    then:
+    - service: shell_command.pushupdates_to_github
+      data: {}
   mode: single
-- id: '1698936992088'
+- id: '1699038287875'
   alias: '*HASSIO - Time to shop?'
   description: ''
   trigger:
   - platform: state
     entity_id:
-    - device_tracker.user1_phone
+    - person.user1
     id: user1
   - platform: state
     entity_id:
-    - device_tracker.user2_phone
+    - person.user2
     id: user2
+  condition:
+  - condition: time
+    after: 09:00:00
+    before: '21:00:00'
+  action:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ ''SUPER'' in states("person.user1") }}'
+      - condition: trigger
+        id:
+        - user1
+      - condition: numeric_state
+        entity_id: todo.super
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-super
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-super
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-super
+      alias: user1 super
+    - conditions:
+      - condition: template
+        value_template: '{{ ''SUPER'' in states("person.user2") }}'
+      - condition: trigger
+        id:
+        - user2
+      - condition: numeric_state
+        entity_id: todo.super
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-super
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-super
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-super
+      alias: user2 super
+    - conditions:
+      - condition: template
+        value_template: '{{ ''KRUIDVAT'' in states("person.user1") }}'
+      - condition: trigger
+        id:
+        - user1
+      - condition: numeric_state
+        entity_id: todo.kruidvat
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-kruidvat
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-kruidvat
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-kruidvat
+      - condition: numeric_state
+        entity_id: todo.kruidvat
+        above: 0
+      alias: user1 kruidvat
+    - conditions:
+      - condition: template
+        value_template: '{{ ''KRUIDVAT'' in states("person.user2") }}'
+      - condition: trigger
+        id:
+        - user2
+      - condition: numeric_state
+        entity_id: todo.kruidvat
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-kruidvat
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-kruidvat
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-kruidvat
+      alias: user2 kruidvat
+    - conditions:
+      - condition: template
+        value_template: '{{ ''ACTION'' in states("person.user1") }}'
+      - condition: trigger
+        id:
+        - user1
+      - condition: numeric_state
+        entity_id: todo.action
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-action
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-action
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-action
+      alias: user1 action
+    - conditions:
+      - condition: template
+        value_template: '{{ ''ACTION'' in states("person.user2") }}'
+      - condition: trigger
+        id:
+        - user2
+      - condition: numeric_state
+        entity_id: todo.action
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-action
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-action
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-action
+      alias: user2 action
+    - conditions:
+      - condition: template
+        value_template: '{{ ''LIDL'' in states("person.user1") }}'
+      - condition: trigger
+        id:
+        - user1
+      - condition: numeric_state
+        entity_id: todo.lidl
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-lidl
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-lidl
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-lidl
+      alias: user1 lidl
+    - conditions:
+      - condition: template
+        value_template: '{{ ''BLOKKER'' in states("person.user1") }}'
+      - condition: trigger
+        id:
+        - user1
+      - condition: numeric_state
+        entity_id: todo.blokker
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-blokker
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-blokker
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-blokker
+      - condition: numeric_state
+        entity_id: todo.blokker
+        above: 0
+      alias: user1 blokker
+    - conditions:
+      - condition: template
+        value_template: '{{ ''BLOKKER'' in states("person.user2") }}'
+      - condition: trigger
+        id:
+        - user2
+      - condition: numeric_state
+        entity_id: todo.blokker
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-blokker
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-blokker
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-blokker
+      alias: user2 blokker
+    - conditions:
+      - condition: template
+        value_template: '{{ ''BOUWMARKT'' in states("person.user1") }}'
+      - condition: trigger
+        id:
+        - user1
+      - condition: numeric_state
+        entity_id: todo.bouwmarkt
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-blokker
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-bouwmarkt
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user1_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-bouwmarkt
+      alias: user1 bouwmarkt
+    - conditions:
+      - condition: template
+        value_template: '{{ ''BOUWMARKT'' in states("person.user2") }}'
+      - condition: trigger
+        id:
+        - user2
+      - condition: numeric_state
+        entity_id: todo.bouwmarkt
+        above: 0
+      sequence:
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: Tik hieronder om te openen!
+          title: "\U0001F6D2 Tijd voor een boodschap?"
+          data:
+            tag: shopping-bouwmarkt
+            actions:
+            - action: URI
+              title: Open boodschappenlijst
+              uri: /lovelace/shopping-list-bouwmarkt
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      - service: notify.mobile_app_user2_phone
+        data:
+          message: clear_notification
+          data:
+            tag: shopping-bouwmarkt
+      alias: user2 bouwmarkt
+  mode: parallel
+  max: 20
+- id: '1699216198194'
+  alias: All rooms - Scan tags to add things to shopping lists
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 3a846cd0-2671-4126-ac07-df6be75d514c
+    id: toiletpaper
+    alias: When toilet paper tag is scanned
+  condition: []
+  action:
+  - alias: If triggered by toilet paper then
+    if:
+    - condition: trigger
+      id:
+      - toiletpaper
+    then:
+    - service: todo.update_item
+      data:
+        status: needs_action
+        item: Toiletpapier
+      target:
+        entity_id: todo.shopping_list
+    - device_id: f090d9b66cabb6352c88e31479b300cf
+      domain: light
+      entity_id: 9c0408a5688ae9516e9d3c79de6e4f5f
+      type: flash
+  mode: single
+- id: '1699305711504'
+  alias: test1
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.litterbox_door_sensor_contact
+    to: 'on'
+    from: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    id: litterbox door open
+  - platform: state
+    entity_id:
+    - input_boolean.litterbox_door_toggle
+    to: 'on'
+    from: 'off'
+    id: toggle on
   condition: []
   action:
   - if:
-    - condition: zone
-      entity_id: person.user1
-      zone: zone.action_groenestraat
-    then: []
+    - condition: trigger
+      id:
+      - litterbox door open
+    then:
+    - service: input_boolean.toggle
+      data: {}
+      target:
+        entity_id: input_boolean.litterbox_door_toggle
+  - if:
+    - condition: trigger
+      id:
+      - toggle on
+    then:
+    - service: notify.mobile_app_user1_phone
+      data:
+        message: cat in box
+  mode: single
+- id: '1699310648984'
+  alias: '*HASSIO - Litterbox Pee and Poop register'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.litterbox_door_sensor_contact
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    from: 'on'
+  action:
+  - if:
+    - condition: state
+      entity_id: timer.litterbox_in_use
+      state: active
+    then:
+    - service: timer.pause
+      data: {}
+      target:
+        entity_id: timer.litterbox_in_use
+    - alias: If open for x time, increment pees
+      if:
+      - condition: template
+        value_template: '{{ 10 < (300 - (as_timedelta( state_attr("timer.litterbox_in_use",
+          "remaining")).total_seconds()) | int) <= 70 }}'
+      then:
+      - service: counter.increment
+        data: {}
+        target:
+          entity_id: counter.litterbox_pees
+    - alias: If open for x time, increment pees
+      if:
+      - condition: template
+        value_template: '{{ 70 < (300 - (as_timedelta( state_attr("timer.litterbox_in_use",
+          "remaining")).total_seconds()) | int) <= 300 }}'
+      then:
+      - service: counter.increment
+        data: {}
+        target:
+          entity_id: counter.litterbox_poops
+    else:
+    - service: timer.start
+      data:
+        duration: 00:05:00
+      target:
+        entity_id: timer.litterbox_in_use
   mode: single

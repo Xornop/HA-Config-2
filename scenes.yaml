@@ -121,10 +121,25 @@
       supported_color_modes:
       - color_temp
       - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 6024
+      color_temp: 166
+      hs_color:
+      - 31.007
+      - 6.862
+      rgb_color:
+      - 255
+      - 246
+      - 237
+      xy_color:
+      - 0.339
+      - 0.338
+      effect:
       color:
-        x: 0.3164
-        y: 0.3264
-      linkquality: 239
+        x: 0.3217
+        y: 0.3314
+      linkquality: 191
       update:
         installed_version: 385953793
         latest_version: 352399361
@@ -132,20 +147,6 @@
       update_available: false
       friendly_name: Table light
       supported_features: 44
-      color_mode: color_temp
-      brightness: 255
-      color_temp_kelvin: 6329
-      color_temp: 158
-      hs_color:
-      - 37.231
-      - 3.66
-      rgb_color:
-      - 255
-      - 251
-      - 245
-      xy_color:
-      - 0.331
-      - 0.335
       state: 'on'
     light.kitchen_light_cct:
       min_color_temp_kelvin: 2020
@@ -154,11 +155,6 @@
       max_mireds: 495
       supported_color_modes:
       - color_temp
-      color:
-        x: 0.377
-        y: 0.3746
-      friendly_name: Kitchen light Cct
-      supported_features: 40
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 4081
@@ -173,6 +169,11 @@
       xy_color:
       - 0.416
       - 0.363
+      color:
+        x: 0.377
+        y: 0.3746
+      friendly_name: Kitchen light Cct
+      supported_features: 40
       state: 'on'
     light.living_room_main:
       min_color_temp_kelvin: 2202
@@ -190,15 +191,6 @@
       - stop_hue_effect
       supported_color_modes:
       - color_temp
-      linkquality: 255
-      power_on_behavior:
-      update:
-        installed_version: 16785162
-        latest_version: 16785162
-        state: idle
-      update_available: false
-      friendly_name: Living room main
-      supported_features: 44
       color_mode: color_temp
       brightness: 255
       color_temp_kelvin: 4504
@@ -213,6 +205,16 @@
       xy_color:
       - 0.394
       - 0.357
+      effect:
+      linkquality: 255
+      power_on_behavior:
+      update:
+        installed_version: 16785162
+        latest_version: 16785162
+        state: idle
+      update_available: false
+      friendly_name: Living room main
+      supported_features: 44
       state: 'on'
   icon: hass:white-balance-sunny
   metadata:
