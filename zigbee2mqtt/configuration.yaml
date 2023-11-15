@@ -41,8 +41,6 @@ devices:
     friendly_name: Desk light
   '0xa4c138e413b5e4ee':
     friendly_name: Bedroom main light
-  '0x00124b00226a386e':
-    friendly_name: Bathroom moisture sensor
   '0x90fd9ffffe20d266':
     friendly_name: Bathroom light
   '0xcc86ecfffeb79b48':
@@ -109,6 +107,8 @@ devices:
     friendly_name: Front door sensor
   '0x00158d0009511f63':
     friendly_name: Litterbox door sensor
+  '0x00124b00226a386e':
+    friendly_name: Bathroom moisture sensor
 groups:
   '1':
     friendly_name: Living room floor light

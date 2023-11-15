@@ -1934,6 +1934,11 @@
           target:
             entity_id: scene.evening_scene
           data: {}
+        else:
+        - service: light.turn_off
+          data: {}
+          target:
+            entity_id: light.living_room_main
     - conditions:
       - condition: trigger
         id: dark_days
@@ -1982,6 +1987,11 @@
           target:
             entity_id: scene.evening_scene
           data: {}
+        else:
+        - service: light.turn_off
+          data: {}
+          target:
+            entity_id: light.living_room_main
   mode: single
 - id: '1624815860947'
   alias: All rooms - turn on/off light if sky is dark/light
@@ -3589,7 +3599,7 @@
       state: 'on'
     - condition: state
       entity_id: input_boolean.tv_apps
-      state: ''
+      state: 'on'
     then:
     - service: media_player.media_pause
       data: {}
@@ -3610,11 +3620,16 @@
       continue_on_timeout: false
     - if:
       - condition: state
-        entity_id: media_player.tv_adb
-        state: paused
-      - condition: state
         entity_id: input_boolean.tv_apps
         state: 'on'
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: media_player.tv_adb
+          state: idle
+        - condition: state
+          entity_id: media_player.tv_adb
+          state: paused
       then:
       - service: media_player.media_play
         data: {}
@@ -3647,6 +3662,11 @@
         snapshot_entities:
         - light.table_light
         - light.living_room_main
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 300
     - service: light.turn_on
       data:
         brightness_pct: 5
@@ -3657,6 +3677,11 @@
       data: {}
       target:
         entity_id: light.living_room_main
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 300
   - if:
     - condition: trigger
       id: tv_changes
@@ -3680,6 +3705,11 @@
       data: {}
       target:
         entity_id: scene.before_movie_time
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 300
   mode: parallel
   max: 100
 - id: '1680606885050'
@@ -4793,7 +4823,7 @@
       sequence:
       - service: notify.mobile_app_user1_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij de supermarkt)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-super
@@ -4824,7 +4854,7 @@
       sequence:
       - service: notify.mobile_app_user2_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij de supermarkt)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-super
@@ -4855,7 +4885,7 @@
       sequence:
       - service: notify.mobile_app_user1_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij Kruidvat)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-kruidvat
@@ -4889,7 +4919,7 @@
       sequence:
       - service: notify.mobile_app_user2_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij Kruidvat)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-kruidvat
@@ -4920,7 +4950,7 @@
       sequence:
       - service: notify.mobile_app_user1_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij Action)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-action
@@ -4951,7 +4981,7 @@
       sequence:
       - service: notify.mobile_app_user2_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij Action)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-action
@@ -4982,7 +5012,7 @@
       sequence:
       - service: notify.mobile_app_user1_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij Lidl)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-lidl
@@ -5013,7 +5043,7 @@
       sequence:
       - service: notify.mobile_app_user1_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij Blokker)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-blokker
@@ -5047,7 +5077,7 @@
       sequence:
       - service: notify.mobile_app_user2_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij Blokker)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-blokker
@@ -5078,7 +5108,7 @@
       sequence:
       - service: notify.mobile_app_user1_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij de bouwmarkt)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-blokker
@@ -5109,7 +5139,7 @@
       sequence:
       - service: notify.mobile_app_user2_phone
         data:
-          message: Tik hieronder om te openen!
+          message: (Bij de bouwmarkt)
           title: "\U0001F6D2 Tijd voor een boodschap?"
           data:
             tag: shopping-bouwmarkt
@@ -5224,7 +5254,7 @@
       if:
       - condition: template
         value_template: '{{ 10 < (300 - (as_timedelta( state_attr("timer.litterbox_in_use",
-          "remaining")).total_seconds()) | int) <= 70 }}'
+          "remaining")).total_seconds()) | int) <= 75 }}'
       then:
       - service: counter.increment
         data: {}
@@ -5233,7 +5263,7 @@
     - alias: If open for x time, increment pees
       if:
       - condition: template
-        value_template: '{{ 70 < (300 - (as_timedelta( state_attr("timer.litterbox_in_use",
+        value_template: '{{ 75 < (300 - (as_timedelta( state_attr("timer.litterbox_in_use",
           "remaining")).total_seconds()) | int) <= 300 }}'
       then:
       - service: counter.increment

@@ -196,7 +196,7 @@
     entities:
       - sensor.medicine_minutes_recent
     duration:
-      days: 4
+      days: 7
     precision: 0
     
 # Sensors with random output, 0 - 9
