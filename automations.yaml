@@ -1829,6 +1829,10 @@
     - sensor.github_backup_status
     to: Error
     id: Github error
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
   action:
   - if:
     - condition: trigger

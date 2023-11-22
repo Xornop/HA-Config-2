@@ -87,7 +87,7 @@
   {
     "name": "Kattenvoer PerfectFit junior 0,75kg (ong 6 euro)",
     "id": "1e344fefe8b54aba94bd8ca29f3bacaa",
-    "complete": false
+    "complete": true
   },
   {
     "name": "Wijn",
@@ -127,6 +127,151 @@
   {
     "name": "houdbare magere melk",
     "id": "b857e0cb6f084f4fb2466b33dd1b75cb",
+    "complete": true
+  },
+  {
+    "name": "unicura handzeep navulling",
+    "id": "7e5f4b719aaa4a05b8a5e7d2dec58ca1",
+    "complete": true
+  },
+  {
+    "name": "Casa di mama pizza 2x",
+    "id": "22b85329b5a54fa5b434af153fd369cd",
+    "complete": true
+  },
+  {
+    "name": "eieren",
+    "id": "f9c77bf014914564a31229d19b642852",
+    "complete": true
+  },
+  {
+    "name": "pannenkoekenmix",
+    "id": "1b46fa7f40864648a39b0bf81ef552a3",
+    "complete": true
+  },
+  {
+    "name": "houdbare magere melk",
+    "id": "a892892b7276464aadb34a84e4e0bab0",
+    "complete": true
+  },
+  {
+    "name": "verse spinazie 300g",
+    "id": "78101226e3884167a3458a807a263ab4",
+    "complete": true
+  },
+  {
+    "name": "penne",
+    "id": "4c2e885e8419409d98709cfce2907c6f",
+    "complete": true
+  },
+  {
+    "name": "ricotta",
+    "id": "9e78fbd5298142f291a0e157575ebe5d",
+    "complete": true
+  },
+  {
+    "name": "pastasaus",
+    "id": "513cb09f301840c2a37242812184bf0e",
+    "complete": true
+  },
+  {
+    "name": "bamipakket",
+    "id": "614296078603450c852b9ddd558e3f57",
+    "complete": true
+  },
+  {
+    "name": "gebakken uitjes",
+    "id": "c3b0aa2afa8445d6bef46ed0565728d0",
+    "complete": true
+  },
+  {
+    "name": "mie nestjes",
+    "id": "8608bb49e3f3475d8d64541883b9d44c",
+    "complete": true
+  },
+  {
+    "name": "nasi-/bamikruiden",
+    "id": "c6f032c3329f49459ada4ed7562ad401",
+    "complete": true
+  },
+  {
+    "name": "ketjap manis",
+    "id": "d38d4a3b377e44b390afb7ec3891e26a",
+    "complete": true
+  },
+  {
+    "name": "aardappelen kruimig 1,5kg",
+    "id": "8669976e38b0433fb17a769bd3085111",
+    "complete": true
+  },
+  {
+    "name": "courgette",
+    "id": "29253f32b19742aeae28612027772364",
+    "complete": true
+  },
+  {
+    "name": "mozzarella",
+    "id": "1dd7d1d4166e47af963a4388af041372",
+    "complete": true
+  },
+  {
+    "name": "puntpaprika",
+    "id": "f5ef935eee7042579833d589cd50c9c4",
+    "complete": true
+  },
+  {
+    "name": "kookroom 100ml",
+    "id": "30bebbef670146b481d3267011721d43",
+    "complete": true
+  },
+  {
+    "name": "boerenkool 150",
+    "id": "8540a45618474c0480b1c4e9818b7ae0",
+    "complete": true
+  },
+  {
+    "name": "flespompoen 500g",
+    "id": "299b31fc8cdd44ed9a4bbbd851ec0e46",
+    "complete": true
+  },
+  {
+    "name": "uien",
+    "id": "0b01dbfe2a4f400388f191cb7b1e7e03",
+    "complete": true
+  },
+  {
+    "name": "rookworst",
+    "id": "64760bff9853427e8954ee5b9284b5c6",
+    "complete": true
+  },
+  {
+    "name": "Smeerboter",
+    "id": "8e8c15d5ff1340969204469d1b80cfd4",
+    "complete": true
+  },
+  {
+    "name": "Brood",
+    "id": "6a07825944ae4323ae92c259edd8c52e",
+    "complete": true
+  },
+  {
+    "name": "flosdraad",
+    "id": "b96966d7dc034979b20ea3a6cfe204aa",
+    "complete": true
+  },
+  {
+    "name": "Ananassap ",
+    "id": "c3839d8daa944256b8d18544239bbc2b",
+    "complete": true
+  },
+  {
+    "name": "Cranberrysap",
+    "id": "c5fdb80fd9a04406975e361e623b9e32",
+    "complete": true
+  },
+  {
+    "name": "Kaas",
+    "id": "f8e8744def1a4d40bfc54ecce6e756fd",
     "complete": true
   }
 ]
