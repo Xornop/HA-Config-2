@@ -155,11 +155,6 @@
     "complete": true
   },
   {
-    "name": "verse spinazie 300g",
-    "id": "78101226e3884167a3458a807a263ab4",
-    "complete": true
-  },
-  {
     "name": "penne",
     "id": "4c2e885e8419409d98709cfce2907c6f",
     "complete": true
@@ -273,5 +268,45 @@
     "name": "Kaas",
     "id": "f8e8744def1a4d40bfc54ecce6e756fd",
     "complete": true
+  },
+  {
+    "name": "Fruit",
+    "id": "0ab1639dc8904c21a4843dd98b4a3593",
+    "complete": true
+  },
+  {
+    "name": "Cola",
+    "id": "3599cd894acf42d3861beffd8365f8a0",
+    "complete": false
+  },
+  {
+    "name": "Kip",
+    "id": "96d1a355009e4fffb252b5b22696a5a1",
+    "complete": false
+  },
+  {
+    "name": "Crème fraîche",
+    "id": "203c42cf3dbb4122a88c7b32acb871fc",
+    "complete": false
+  },
+  {
+    "name": "Geraspte kaas",
+    "id": "a3fa64aea83c45e288ff118e82878135",
+    "complete": false
+  },
+  {
+    "name": "Verse spinazie 300g",
+    "id": "78101226e3884167a3458a807a263ab4",
+    "complete": true
+  },
+  {
+    "name": "Verse spinazie 300g",
+    "id": "f71ac846b8304d26ba05047e986d7bb1",
+    "complete": false
+  },
+  {
+    "name": "Maaltijd Jop",
+    "id": "27715147388b4ed78abc69bad50f1d59",
+    "complete": false
   }
 ]

@@ -3078,14 +3078,17 @@
     then:
     - service: notify.mobile_app_user1_phone
       data:
-        message: Kiwi is je dankbaar!
+        message: Kiwi en Lychee zijn je dankbaar!
         title: Kattenbakteller gereset!
         data:
           tag: litterbox
     - service: counter.reset
       data: {}
       target:
-        entity_id: counter.litterbox_opened
+        entity_id:
+        - counter.litterbox_opened
+        - counter.litterbox_pees
+        - counter.litterbox_poops
     - if:
       - condition: state
         entity_id: person.user2
@@ -3093,7 +3096,7 @@
       then:
       - service: notify.mobile_app_user2_phone
         data:
-          message: Kiwi is je dankbaar!
+          message: Kiwi en Lychee zijn je dankbaar!
           title: Kattenbakteller gereset!
           data:
             tag: litterbox
@@ -3104,7 +3107,7 @@
     - service: notify.mobile_app_user1_phone
       data:
         message: Het is tijd om poep te scheppen!!
-        title: Kiwi wil aandacht!
+        title: Kiwi en Lychee willen aandacht!
         data:
           tag: litterbox
     - if:
@@ -3115,7 +3118,7 @@
       - service: notify.mobile_app_user2_phone
         data:
           message: Het is tijd om poep te scheppen!!
-          title: Kiwi wil aandacht!
+          title: Kiwi en Lychee willen aandacht!
           data:
             tag: litterbox
   - alias: Reset if cleaned
@@ -3782,6 +3785,11 @@
     - sensor.washer_waiter_button_action
     to: off_hold
     id: bottom_long
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: DRYER_WAITER_ON
+    id: bottom_short
   condition: []
   action:
   - choose:

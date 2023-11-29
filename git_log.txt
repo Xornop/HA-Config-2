@@ -1,4 +1,4 @@
-[master c897e61] config files on 15-11-2023 05:00:02
+[master a14d923] config files on 22-11-2023 05:00:02
  Committer: root <root@homeassistant.local.hass.io>
 Your name and email address were configured automatically based
 on your username and hostname. Please check that they are accurate.
@@ -12,36 +12,36 @@ After doing this, you may fix the identity used for this commit with:
 
     git commit --amend --reset-author
 
- 44 files changed, 105998 insertions(+), 48744 deletions(-)
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f1543.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f1545.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2517.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2518.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2519.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2666.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2760.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2928.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2935.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2942.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2943.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2946.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2961.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2963.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p1543.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p1545.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2517.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2518.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2519.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2666.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2760.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2928.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2935.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2942.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2943.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2946.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2961.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2963.jpg
- delete mode 100644 zigbee2mqtt/log/2023-10-30.02-58-05/log.txt
- create mode 100644 zigbee2mqtt/log/2023-11-07.00-26-58/log1.txt
- create mode 100644 zigbee2mqtt/log/2023-11-10.14-04-18/log.txt
- create mode 100644 zigbee2mqtt/log/2023-11-10.14-04-18/log1.txt
+ 42 files changed, 107066 insertions(+), 64690 deletions(-)
+ delete mode 100644 aircast.xml
+ delete mode 100644 appdaemon/appdaemon.yaml
+ delete mode 100644 appdaemon/apps/apps.yaml
+ delete mode 100755 appdaemon/apps/candle_light.py
+ delete mode 100644 appdaemon/apps/hello.py
+ delete mode 100755 appdaemon/candle_light.py
+ delete mode 100644 appdaemon/dashboards/Hello.dash
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2668.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2683.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2734.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2946.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2961.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2963.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3014.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3027.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3033.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3035.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3053.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3062.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2668.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2683.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2734.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2946.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2961.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2963.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3014.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3027.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3033.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3035.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3053.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3062.jpg
+ create mode 100644 zigbee2mqtt/log/2023-11-10.14-04-18/log2.txt
