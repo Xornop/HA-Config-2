@@ -277,22 +277,22 @@
   {
     "name": "Cola",
     "id": "3599cd894acf42d3861beffd8365f8a0",
-    "complete": false
+    "complete": true
   },
   {
     "name": "Kip",
     "id": "96d1a355009e4fffb252b5b22696a5a1",
-    "complete": false
+    "complete": true
   },
   {
     "name": "Crème fraîche",
     "id": "203c42cf3dbb4122a88c7b32acb871fc",
-    "complete": false
+    "complete": true
   },
   {
     "name": "Geraspte kaas",
     "id": "a3fa64aea83c45e288ff118e82878135",
-    "complete": false
+    "complete": true
   },
   {
     "name": "Verse spinazie 300g",
@@ -302,11 +302,66 @@
   {
     "name": "Verse spinazie 300g",
     "id": "f71ac846b8304d26ba05047e986d7bb1",
-    "complete": false
+    "complete": true
   },
   {
     "name": "Maaltijd Jop",
     "id": "27715147388b4ed78abc69bad50f1d59",
+    "complete": true
+  },
+  {
+    "name": "gehakt",
+    "id": "d351204d5b0144c4bdd34ff9daeb14c8",
+    "complete": true
+  },
+  {
+    "name": "bechamelsaus",
+    "id": "119edcaaa6944fa5839f4565c311d097",
+    "complete": true
+  },
+  {
+    "name": "smeerkaas",
+    "id": "acd6fb09d2ef45ae9fb159c8a621fcce",
+    "complete": true
+  },
+  {
+    "name": "geraspte kaas belegen",
+    "id": "8b8ced74655e4bcd855cbbf1dcd1c21b",
+    "complete": true
+  },
+  {
+    "name": "roomboter",
+    "id": "b3687599b5284303a8fa45d5589873a6",
+    "complete": true
+  },
+  {
+    "name": "paneermeel",
+    "id": "bcbe7e47c3da42b4b24bbc72293dfefe",
+    "complete": true
+  },
+  {
+    "name": "Eieren",
+    "id": "fe15ab4174394f9182161b79953116c3",
+    "complete": true
+  },
+  {
+    "name": "Sojamelk",
+    "id": "4a7d2d11c2734b679dbf79564fc57493",
+    "complete": true
+  },
+  {
+    "name": "Vollrle melk",
+    "id": "9ce9f931038149cdad16df1ff12930b9",
+    "complete": true
+  },
+  {
+    "name": "Ranja",
+    "id": "335bbf3ba40d4c729399888204560bb9",
     "complete": false
+  },
+  {
+    "name": "Kaas",
+    "id": "7f6fabb3987445f9abcf2765540633ee",
+    "complete": true
   }
 ]
