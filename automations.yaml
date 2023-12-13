@@ -5199,46 +5199,6 @@
       entity_id: 9c0408a5688ae9516e9d3c79de6e4f5f
       type: flash
   mode: single
-- id: '1699305711504'
-  alias: test1
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.litterbox_door_sensor_contact
-    to: 'on'
-    from: 'off'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-    id: litterbox door open
-  - platform: state
-    entity_id:
-    - input_boolean.litterbox_door_toggle
-    to: 'on'
-    from: 'off'
-    id: toggle on
-  condition: []
-  action:
-  - if:
-    - condition: trigger
-      id:
-      - litterbox door open
-    then:
-    - service: input_boolean.toggle
-      data: {}
-      target:
-        entity_id: input_boolean.litterbox_door_toggle
-  - if:
-    - condition: trigger
-      id:
-      - toggle on
-    then:
-    - service: notify.mobile_app_user1_phone
-      data:
-        message: cat in box
-  mode: single
 - id: '1699310648984'
   alias: '*HASSIO - Litterbox Pee and Poop register'
   description: ''
