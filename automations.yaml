@@ -505,12 +505,11 @@
         - light.kitchen_light_cct
         - light.living_room_main
         - light.mood_light
-    - service: media_player.turn_off
+    - service: media_player.volume_set
       target:
-        entity_id:
-        - media_player.home_display
-        - media_player.tv
-      data: {}
+        entity_id: media_player.home_display
+      data:
+        volume_level: 0.1
     - type: turn_off
       device_id: 29e5b50f8c442b580a6e128d97fbf9ed
       entity_id: switch.cooker_hood
@@ -567,17 +566,19 @@
       - service: script.google_home_resume
         data:
           target:
-            entity_id: media_player.nest_mini
+            entity_id:
+            - media_player.home_display
           action:
           - service: media_player.volume_set
             data:
               volume_level: 0.5
             target:
-              entity_id: media_player.nest_mini
+              entity_id:
+              - media_player.home_display
           - service: tts.google_translate_say
             data:
               cache: false
-              entity_id: media_player.nest_mini
+              entity_id: media_player.home_display
               message: Don't forget to take your pill
           resume_delay:
             hours: 0
@@ -602,7 +603,8 @@
   action:
   - service: media_player.volume_set
     target:
-      entity_id: media_player.nest_mini
+      entity_id:
+      - media_player.home_display
     data:
       volume_level: 0.4
   - service: light.turn_on
@@ -640,7 +642,7 @@
         - service: tts.google_translate_say
           data:
             message: The blinds will open in 1 minute
-            entity_id: media_player.nest_mini
+            entity_id: media_player.home_display
         resume_delay:
           hours: 0
           minutes: 0
@@ -1443,7 +1445,7 @@
   action:
   - service: tts.google_translate_say
     data:
-      entity_id: media_player.nest_mini
+      entity_id: media_player.home_display
       message: heads up. the door is open
   mode: single
 - id: '1618408486227'
@@ -1544,7 +1546,7 @@
       media_content_type: audio/mp3
     target:
       entity_id:
-      - media_player.nest_mini
+      - media_player.home_display
   - service: light.turn_on
     target:
       entity_id:
@@ -3623,8 +3625,13 @@
         for:
           hours: 0
           minutes: 0
-          seconds: 5
+          seconds: 4
       continue_on_timeout: false
+      timeout:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
     - if:
       - condition: state
         entity_id: input_boolean.tv_apps

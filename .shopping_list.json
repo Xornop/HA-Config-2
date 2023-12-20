@@ -97,7 +97,7 @@
   {
     "name": "Kattenvoer PerfectFit adult/indoor 1,4kg (ong 11 euro)",
     "id": "2762103fa01a4493939133d2da55d4cf",
-    "complete": true
+    "complete": false
   },
   {
     "name": "spaghetti",
@@ -437,6 +437,106 @@
   {
     "name": "suiker",
     "id": "b3bdd5cea853433fade84f7a9b97ffb3",
-    "complete": false
+    "complete": true
+  },
+  {
+    "name": "winterpeen 250",
+    "id": "1fb2fe80419e4986b9f623819931b783",
+    "complete": true
+  },
+  {
+    "name": "kikkererwten in blik 400",
+    "id": "cc87cff3124c4189bd812d6195619d7c",
+    "complete": true
+  },
+  {
+    "name": "gepelde tomaten 400",
+    "id": "c11722e055674287a81557ef2a26b6ea",
+    "complete": true
+  },
+  {
+    "name": "oregano",
+    "id": "0be89e2ba9794840abb233abc8906f08",
+    "complete": true
+  },
+  {
+    "name": "orzo 300",
+    "id": "f27aac98ca634fe58166eb1b554af78a",
+    "complete": true
+  },
+  {
+    "name": "dille",
+    "id": "221786588a734a1fb27413e04312321d",
+    "complete": true
+  },
+  {
+    "name": "150 feta",
+    "id": "f496635a45f847bd90e4a98318daa6af",
+    "complete": true
+  },
+  {
+    "name": "Bloem",
+    "id": "d8c993153adc48ccace8a1697012f35d",
+    "complete": true
+  },
+  {
+    "name": "Griekse yoghurt",
+    "id": "75fca526dc35486aa3ef008f2d34ae1c",
+    "complete": true
+  },
+  {
+    "name": "Garnalen",
+    "id": "e9f2ad4315934051945096b481c567dd",
+    "complete": true
+  },
+  {
+    "name": "Gourmet set 2?",
+    "id": "bb6e6983dd074c8084f24e2067a747e5",
+    "complete": true
+  },
+  {
+    "name": "energy",
+    "id": "a778fa8b66c74e6e9872e47b3507a787",
+    "complete": true
+  },
+  {
+    "name": "tuinerwten 500",
+    "id": "56283be8e7fc4dc48e0f7bbfab0d0ea2",
+    "complete": true
+  },
+  {
+    "name": "ui",
+    "id": "a248bff69ec24649991d9fb604a82fce",
+    "complete": true
+  },
+  {
+    "name": "parmezaanse kaas",
+    "id": "4c180c0a36ef4b30bffb1f5e55f5392c",
+    "complete": true
+  },
+  {
+    "name": "risottorijst",
+    "id": "a8d69683530c4a3b961768e7ee6732ba",
+    "complete": true
+  },
+  {
+    "name": "kip",
+    "id": "34a7a319b8964a778d46c4f29cfb4fb9",
+    "complete": true
+  },
+  {
+    "name": "prei",
+    "id": "5ce4ddfe0c844cfda527756632fff706",
+    "complete": true
+  },
+  {
+    "name": "zuivelspread knoflook en kruiden",
+    "id": "39baba6eeba84b0db000d7bb27d3e7d0",
+    "complete": true
+  },
+  {
+    "name": "boontjes 200",
+    "id": "af6b5cfcc1b34690b6d1709b3978e7c3",
+    "complete": true
   }
 ]
