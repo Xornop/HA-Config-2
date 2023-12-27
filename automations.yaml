@@ -1317,12 +1317,24 @@
           after: 00:00:00
           before: 07:00:00
         sequence:
-        - service: light.turn_on
-          target:
-            entity_id: light.bathroom_light
-          data:
-            brightness_pct: 50
-            color_temp: 500
+        - if:
+          - condition: state
+            entity_id: input_boolean.phones_charging
+            state: 'on'
+          then:
+          - service: light.turn_on
+            target:
+              entity_id: light.bathroom_light
+            data:
+              brightness_pct: 5
+              color_temp: 500
+          else:
+          - service: light.turn_on
+            target:
+              entity_id: light.bathroom_light
+            data:
+              brightness_pct: 50
+              color_temp: 500
       default:
       - service: light.turn_on
         target:
@@ -2986,15 +2998,19 @@
     - condition: trigger
       id: top long
     then:
-    - service: spotcast.start
-      data:
-        force_playback: true
-        random_song: true
-        repeat: context
-        shuffle: true
-        offset: 0
-        ignore_fully_played: false
-        entity_id: media_player.tv
+    - if:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: media_player.tv_adb
+          state: playing
+      then:
+      - service: androidtv.adb_command
+        target:
+          entity_id: media_player.tv_adb
+        data:
+          command: adb shell am start -a android.intent.action.VIEW spotify:user |
+            input keyevent 126
   mode: parallel
   max: 10
 - id: '1654508465966'
