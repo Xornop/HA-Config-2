@@ -1,4 +1,4 @@
-[master 251b6dd] config files on 27-12-2023 05:00:02
+[master 577d680] config files on 01-01-2024 03:14:58
  Committer: root <root@homeassistant.local.hass.io>
 Your name and email address were configured automatically based
 on your username and hostname. Please check that they are accurate.
@@ -12,64 +12,5 @@ After doing this, you may fix the identity used for this commit with:
 
     git commit --amend --reset-author
 
- 72 files changed, 94423 insertions(+), 104485 deletions(-)
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2811.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2812.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2813.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2814.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2815.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3111.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3112.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3114.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3245.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3247.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3257.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3258.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3259.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3260.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3261.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3262.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3263.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3264.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3265.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3266.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3267.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3268.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3269.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3287.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3294.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3299.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3307.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3308.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3311.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3315.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2811.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2812.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2813.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2814.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2815.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3111.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3112.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3114.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3245.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3247.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3257.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3258.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3259.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3260.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3261.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3262.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3263.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3264.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3265.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3266.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3267.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3268.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3269.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3287.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3294.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3299.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3307.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3308.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3311.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3315.jpg
+ 13 files changed, 105575 insertions(+), 69213 deletions(-)
+ create mode 100644 template.yaml

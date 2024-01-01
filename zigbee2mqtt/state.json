@@ -236,7 +236,7 @@
         "linkquality": 255,
         "voltage": 3005,
         "battery": 100,
-        "device_temperature": 19,
+        "device_temperature": 18,
         "power_outage_count": 18,
         "contact": true
     },
@@ -377,14 +377,14 @@
         "child_lock": "LOCK",
         "power": 0,
         "current": 0,
-        "voltage": 230,
+        "voltage": 231,
         "energy": 349.87,
         "linkquality": 95
     },
     "0xa4c13834b9e85342": {
         "power": 0,
         "current": 0,
-        "voltage": 231,
+        "voltage": 230,
         "energy": 787.06,
         "state": "ON",
         "child_lock": "LOCK",

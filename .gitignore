@@ -12,7 +12,7 @@
 .ssl
 .addons
 .ssh
-.upcoming-media-card-images/plex/Plex_Recently_Added
+.upcoming-media-card-images
 
 # Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
 ip_bans.yaml
