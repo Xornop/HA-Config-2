@@ -396,3 +396,7 @@ homeassistant.exceptions.TemplateError: ValueError: Template error: int got inva
 2024-01-01 03:46:09.996 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'title' is undefined when rendering '{{ title }}'
 2024-01-01 03:49:09.961 WARNING (MainThread) [homeassistant.helpers.script] Error in 'if[0]' evaluation: In 'numeric_state':
   In 'numeric_state' condition: unknown entity sensor.humidity_11
+2024-01-01 03:49:28.052 ERROR (MainThread) [homeassistant.components.shell_command] Error running command: `/bin/bash pushupdates.sh`, return code: 1
+NoneType: None
+2024-01-01 03:49:42.168 ERROR (SyncWorker_5) [homeassistant.components.command_line.utils] Command failed (with return code 1): python3 -c "import requests; import json; import random; dataRequest = requests.get('https://gpsgadget.buienradar.nl/data/raintext?lat=51.83&lon=5.86&c='+str(random.randint(0,999999999999999)) ).text; dataRequest = dataRequest.replace('\r\n',' '); data = '{\"data\":\"'+dataRequest+'\"}';    pri(data);"
+2024-01-01 03:49:42.170 WARNING (MainThread) [homeassistant.components.command_line] Empty reply found when expecting JSON data
