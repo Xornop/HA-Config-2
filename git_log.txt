@@ -1,4 +1,4 @@
-[master 94d4f29] config files on 01-01-2024 03:19:40
+[master 779265c] config files on 01-01-2024 03:20:34
  Committer: root <root@homeassistant.local.hass.io>
 Your name and email address were configured automatically based
 on your username and hostname. Please check that they are accurate.
@@ -12,5 +12,5 @@ After doing this, you may fix the identity used for this commit with:
 
     git commit --amend --reset-author
 
- 8 files changed, 275 insertions(+), 66 deletions(-)
- rename www/upcoming-media-card-images/plex/Plex_Recently_Added/{f2811.jpg => f2816.jpg} (100%)
+ 6 files changed, 262 insertions(+), 3 deletions(-)
+ rename www/upcoming-media-card-images/plex/Plex_Recently_Added/{f2816.jpg => f2811.jpg} (100%)

@@ -11,7 +11,7 @@
     },
     "2": {
         "state": "ON",
-        "brightness": 127,
+        "brightness": 254,
         "color_temp": 495,
         "color_mode": "color_temp",
         "color": {
@@ -319,8 +319,8 @@
         },
         "update_available": false,
         "linkquality": 255,
-        "state": "OFF",
-        "brightness": 127,
+        "state": "ON",
+        "brightness": 254,
         "color_temp": 495,
         "color": {
             "x": 0.5245,
@@ -384,7 +384,7 @@
     "0xa4c13834b9e85342": {
         "power": 0,
         "current": 0,
-        "voltage": 230,
+        "voltage": 231,
         "energy": 787.06,
         "state": "ON",
         "child_lock": "LOCK",

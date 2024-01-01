@@ -15810,3 +15810,243 @@ homeassistant.exceptions.TemplateError: ValueError: Template error: int got inva
 2024-01-01 03:20:32.795 ERROR (SyncWorker_8) [homeassistant.components.command_line.utils] Command failed (with return code 1): python3 -c "import requests; import json; import random; dataRequest = requests.get('https://gpsgadget.buienradar.nl/data/raintext?lat=51.83&lon=5.86&c='+str(random.randint(0,999999999999999)) ).text; dataRequest = dataRequest.replace('\r\n',' '); data = '{\"data\":\"'+dataRequest+'\"}';    pri(data);"
 2024-01-01 03:20:32.799 WARNING (MainThread) [homeassistant.components.command_line] Empty reply found when expecting JSON data
 2024-01-01 03:20:32.867 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'None' has no attribute 'last_changed' when rendering 'last_changed: {{states.sensor.neerslag_buienalarm_regen_data.last_changed}}'
+2024-01-01 03:22:45.653 ERROR (MainThread) [homeassistant.components.template.template_entity] TemplateError('ValueError: Template error: int got invalid input 'unknown' when rendering template '{% if states('sensor.average_medicine_hours')|int > 23 %}
+  {% set hours = states('sensor.average_medicine_hours')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.average_medicine_hours')|int %}
+{% endif %}
+  {% set minutes = states('sensor.average_medicine_minutes')|int %}
+{{hours|string + ":" + minutes|string }}' but no default was specified') while processing template 'Template<template=({% if states('sensor.average_medicine_hours')|int > 23 %}
+  {% set hours = states('sensor.average_medicine_hours')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.average_medicine_hours')|int %}
+{% endif %}
+  {% set minutes = states('sensor.average_medicine_minutes')|int %}
+{{hours|string + ":" + minutes|string }}) renders=22>' for attribute '_attr_native_value' in entity 'sensor.medicine_time_average'
+2024-01-01 03:22:47.323 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'None' has no attribute 'attributes' when rendering '{{ states.vacuum.hombot.attributes.battery_icon }}'
+2024-01-01 03:22:47.692 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'None' has no attribute 'attributes' when rendering '{{ states.vacuum.hombot.attributes.battery_level }}'
+2024-01-01 03:22:47.692 ERROR (MainThread) [homeassistant.helpers.event] Error while processing template: Template<template=({{ states.vacuum.hombot.attributes.battery_level }}) renders=2>
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 569, in async_render
+    render_result = _render_with_context(self.template, compiled, **kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2247, in _render_with_context
+    return template.render(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.11/site-packages/jinja2/sandbox.py", line 326, in getattr
+    value = getattr(obj, attribute)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2282, in _fail_with_undefined_error
+    raise ex
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2279, in _fail_with_undefined_error
+    return super()._fail_with_undefined_error(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'None' has no attribute 'attributes'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 695, in async_render_to_info
+    render_info._result = self.async_render(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 571, in async_render
+    raise TemplateError(err) from err
+homeassistant.exceptions.TemplateError: UndefinedError: 'None' has no attribute 'attributes'
+2024-01-01 03:22:47.713 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'None' has no attribute 'attributes' when rendering '{{ states.vacuum.hombot.attributes.battery_icon }}'
+2024-01-01 03:22:47.714 ERROR (MainThread) [homeassistant.helpers.event] Error while processing template: Template<template=({{ states.vacuum.hombot.attributes.battery_icon }}) renders=3>
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 569, in async_render
+    render_result = _render_with_context(self.template, compiled, **kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2247, in _render_with_context
+    return template.render(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.11/site-packages/jinja2/sandbox.py", line 326, in getattr
+    value = getattr(obj, attribute)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2282, in _fail_with_undefined_error
+    raise ex
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2279, in _fail_with_undefined_error
+    return super()._fail_with_undefined_error(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'None' has no attribute 'attributes'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 695, in async_render_to_info
+    render_info._result = self.async_render(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 571, in async_render
+    raise TemplateError(err) from err
+homeassistant.exceptions.TemplateError: UndefinedError: 'None' has no attribute 'attributes'
+2024-01-01 03:22:47.730 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'None' has no attribute 'attributes' when rendering '{{ states.vacuum.hombot.attributes.battery_level }}'
+2024-01-01 03:22:47.732 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'None' has no attribute 'attributes' when rendering '{{ states.vacuum.hombot.attributes.battery_icon }}'
+2024-01-01 03:22:47.733 ERROR (MainThread) [homeassistant.components.template.template_entity] TemplateError('UndefinedError: 'None' has no attribute 'attributes'') while processing template 'Template<template=({{ states.vacuum.hombot.attributes.battery_level }}) renders=4>' for attribute '_attr_native_value' in entity 'sensor.hombot_battery'
+2024-01-01 03:22:47.733 ERROR (MainThread) [homeassistant.components.template.template_entity] TemplateError('UndefinedError: 'None' has no attribute 'attributes'') while processing template 'Template<template=({{ states.vacuum.hombot.attributes.battery_icon }}) renders=5>' for attribute '_attr_icon' in entity 'sensor.hombot_battery'
+2024-01-01 03:22:47.735 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'None' has no attribute 'attributes' when rendering '{{ states.vacuum.hombot.attributes.status }}'
+2024-01-01 03:22:47.735 ERROR (MainThread) [homeassistant.helpers.event] Error while processing template: Template<template=({{ states.vacuum.hombot.attributes.status }}) renders=2>
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 569, in async_render
+    render_result = _render_with_context(self.template, compiled, **kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2247, in _render_with_context
+    return template.render(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.11/site-packages/jinja2/sandbox.py", line 326, in getattr
+    value = getattr(obj, attribute)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2282, in _fail_with_undefined_error
+    raise ex
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2279, in _fail_with_undefined_error
+    return super()._fail_with_undefined_error(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'None' has no attribute 'attributes'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 695, in async_render_to_info
+    render_info._result = self.async_render(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 571, in async_render
+    raise TemplateError(err) from err
+homeassistant.exceptions.TemplateError: UndefinedError: 'None' has no attribute 'attributes'
+2024-01-01 03:22:47.763 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'None' has no attribute 'attributes' when rendering '{{ states.vacuum.hombot.attributes.status }}'
+2024-01-01 03:22:47.764 ERROR (MainThread) [homeassistant.components.template.template_entity] TemplateError('UndefinedError: 'None' has no attribute 'attributes'') while processing template 'Template<template=({{ states.vacuum.hombot.attributes.status }}) renders=4>' for attribute '_attr_native_value' in entity 'sensor.hombot_status'
+2024-01-01 03:22:47.778 ERROR (MainThread) [homeassistant.helpers.event] Error while processing template: Template<template=({% if states('sensor.average_medicine_hours')|int > 23 %}
+  {% set hours = states('sensor.average_medicine_hours')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.average_medicine_hours')|int %}
+{% endif %}
+  {% set minutes = states('sensor.average_medicine_minutes')|int %}
+{{hours|string + ":" + minutes|string }}) renders=2>
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 569, in async_render
+    render_result = _render_with_context(self.template, compiled, **kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2247, in _render_with_context
+    return template.render(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "<template>", line 1, in top-level template code
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 1945, in forgiving_int_filter
+    raise_no_default("int", value)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 1627, in raise_no_default
+    raise ValueError(
+ValueError: Template error: int got invalid input 'unavailable' when rendering template '{% if states('sensor.average_medicine_hours')|int > 23 %}
+  {% set hours = states('sensor.average_medicine_hours')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.average_medicine_hours')|int %}
+{% endif %}
+  {% set minutes = states('sensor.average_medicine_minutes')|int %}
+{{hours|string + ":" + minutes|string }}' but no default was specified
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 695, in async_render_to_info
+    render_info._result = self.async_render(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 571, in async_render
+    raise TemplateError(err) from err
+homeassistant.exceptions.TemplateError: ValueError: Template error: int got invalid input 'unavailable' when rendering template '{% if states('sensor.average_medicine_hours')|int > 23 %}
+  {% set hours = states('sensor.average_medicine_hours')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.average_medicine_hours')|int %}
+{% endif %}
+  {% set minutes = states('sensor.average_medicine_minutes')|int %}
+{{hours|string + ":" + minutes|string }}' but no default was specified
+2024-01-01 03:22:47.793 ERROR (MainThread) [homeassistant.components.template.template_entity] TemplateError('ValueError: Template error: int got invalid input 'unavailable' when rendering template '{% if states('sensor.average_medicine_hours')|int > 23 %}
+  {% set hours = states('sensor.average_medicine_hours')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.average_medicine_hours')|int %}
+{% endif %}
+  {% set minutes = states('sensor.average_medicine_minutes')|int %}
+{{hours|string + ":" + minutes|string }}' but no default was specified') while processing template 'Template<template=({% if states('sensor.average_medicine_hours')|int > 23 %}
+  {% set hours = states('sensor.average_medicine_hours')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.average_medicine_hours')|int %}
+{% endif %}
+  {% set minutes = states('sensor.average_medicine_minutes')|int %}
+{{hours|string + ":" + minutes|string }}) renders=4>' for attribute '_attr_native_value' in entity 'sensor.medicine_time_average'
+2024-01-01 03:22:47.797 ERROR (MainThread) [homeassistant.helpers.event] Error while processing template: Template<template=({% if states('sensor.medicine_hours_recent')|int > 23 %}
+  {% set hours = states('sensor.medicine_hours_recent')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.medicine_hours_recent')|int %}
+{% endif %}
+  {% set minutes = states('sensor.medicine_minutes_recent')|int %}
+{{hours|string + ":" + minutes|string }}) renders=2>
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 569, in async_render
+    render_result = _render_with_context(self.template, compiled, **kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 2247, in _render_with_context
+    return template.render(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "<template>", line 1, in top-level template code
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 1945, in forgiving_int_filter
+    raise_no_default("int", value)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 1627, in raise_no_default
+    raise ValueError(
+ValueError: Template error: int got invalid input 'unknown' when rendering template '{% if states('sensor.medicine_hours_recent')|int > 23 %}
+  {% set hours = states('sensor.medicine_hours_recent')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.medicine_hours_recent')|int %}
+{% endif %}
+  {% set minutes = states('sensor.medicine_minutes_recent')|int %}
+{{hours|string + ":" + minutes|string }}' but no default was specified
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 695, in async_render_to_info
+    render_info._result = self.async_render(
+                          ^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 571, in async_render
+    raise TemplateError(err) from err
+homeassistant.exceptions.TemplateError: ValueError: Template error: int got invalid input 'unknown' when rendering template '{% if states('sensor.medicine_hours_recent')|int > 23 %}
+  {% set hours = states('sensor.medicine_hours_recent')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.medicine_hours_recent')|int %}
+{% endif %}
+  {% set minutes = states('sensor.medicine_minutes_recent')|int %}
+{{hours|string + ":" + minutes|string }}' but no default was specified
+2024-01-01 03:22:47.813 ERROR (MainThread) [homeassistant.components.template.template_entity] TemplateError('ValueError: Template error: int got invalid input 'unknown' when rendering template '{% if states('sensor.medicine_hours_recent')|int > 23 %}
+  {% set hours = states('sensor.medicine_hours_recent')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.medicine_hours_recent')|int %}
+{% endif %}
+  {% set minutes = states('sensor.medicine_minutes_recent')|int %}
+{{hours|string + ":" + minutes|string }}' but no default was specified') while processing template 'Template<template=({% if states('sensor.medicine_hours_recent')|int > 23 %}
+  {% set hours = states('sensor.medicine_hours_recent')|int - 24 %}
+{% else %}
+  {% set hours = states('sensor.medicine_hours_recent')|int %}
+{% endif %}
+  {% set minutes = states('sensor.medicine_minutes_recent')|int %}
+{{hours|string + ":" + minutes|string }}) renders=4>' for attribute '_attr_native_value' in entity 'sensor.medicine_time_recent'
+2024-01-01 03:22:48.311 WARNING (MainThread) [homeassistant.helpers.template] Template variable warning: 'None' has no attribute 'last_changed' when rendering 'last_changed: {{states.sensor.neerslag_buienalarm_regen_data.last_changed}}'
+2024-01-01 03:22:48.354 ERROR (SyncWorker_18) [homeassistant.components.command_line.utils] Command failed (with return code 1): python3 -c "import requests; import json; import random; dataRequest = requests.get('https://gpsgadget.buienradar.nl/data/raintext?lat=51.83&lon=5.86&c='+str(random.randint(0,999999999999999)) ).text; dataRequest = dataRequest.replace('\r\n',' '); data = '{\"data\":\"'+dataRequest+'\"}';    pri(data);"
+2024-01-01 03:22:48.374 WARNING (MainThread) [homeassistant.components.command_line] Empty reply found when expecting JSON data

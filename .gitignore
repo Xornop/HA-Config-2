@@ -12,7 +12,7 @@
 .ssl
 .addons
 .ssh
-.upcoming-media-card-images
+*upcoming-media-card-images*
 
 # Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
 ip_bans.yaml
