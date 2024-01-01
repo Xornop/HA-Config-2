@@ -11,15 +11,15 @@
     },
     "2": {
         "state": "ON",
-        "brightness": 254,
-        "color_temp": 495,
-        "color_mode": "color_temp",
+        "brightness": 50,
+        "color_temp": 168,
+        "color_mode": "xy",
         "color": {
-            "x": 0.5245,
-            "y": 0.4136,
-            "hue": 101,
+            "x": 0.306,
+            "y": 0.599,
+            "hue": 244,
             "saturation": 95,
-            "h": 101,
+            "h": 244,
             "s": 95
         }
     },
@@ -27,15 +27,15 @@
         "state": "ON",
         "color_mode": "xy",
         "color": {
-            "x": 0.159,
-            "y": 0.121,
-            "hue": 101,
+            "x": 0.306,
+            "y": 0.599,
+            "hue": 244,
             "saturation": 95,
-            "h": 101,
+            "h": 244,
             "s": 95
         },
-        "color_temp": 220,
-        "brightness": 254
+        "color_temp": 168,
+        "brightness": 50
     },
     "0x60a423fffe0250be": {
         "color_mode": "color_temp",
@@ -119,13 +119,13 @@
         "update_available": false,
         "state": "ON",
         "brightness": 254,
-        "color_temp": 168,
+        "color_temp": 547,
         "color": {
-            "x": 0.306,
-            "y": 0.599,
-            "hue": 101,
+            "x": 0.182,
+            "y": 0.084,
+            "hue": 244,
             "saturation": 95,
-            "h": 101,
+            "h": 244,
             "s": 95
         },
         "linkquality": 239
@@ -139,11 +139,11 @@
         "linkquality": 255,
         "state": "ON",
         "color": {
-            "x": 0.159,
-            "y": 0.121
+            "x": 0.306,
+            "y": 0.599
         },
-        "color_temp": 220,
-        "brightness": 254
+        "color_temp": 168,
+        "brightness": 50
     },
     "0x00124b0023a4f561": {
         "color_mode": "xy",
@@ -399,7 +399,7 @@
         "child_lock": "LOCK",
         "power": 0,
         "current": 0,
-        "voltage": 229,
+        "voltage": 230,
         "energy": 189.61,
         "linkquality": 111
     },
@@ -425,9 +425,9 @@
     },
     "0x00124b00226a386e": {
         "voltage": 2800,
-        "battery": 50,
+        "battery": 49.5,
         "temperature": 20.23,
-        "humidity": 79.85,
+        "humidity": 79.79,
         "linkquality": 255
     }
 }
