@@ -1,0 +1,19 @@
+  - binary_sensor:
+      - name: "User2 Phone Is Charging"
+        state: >
+         {{ is_state('sensor.user2_phone_battery_state', 'Charging')
+            or is_state('sensor.user2_phone_battery_state', 'Full') }}
+        icon: >
+          {% if is_state("binary_sensor.user2_phone_is_charging", "on") %}
+            mdi:power-plug
+          {% else %}
+            mdi:power-plug-off
+          {% endif %}
+  - trigger:
+      - platform: state
+        entity_id: binary_sensor.nintendo_switch_ping
+        for:
+          seconds: 10
+    binary_sensor:
+      - name: Nintendo Switch in use
+        state: "{{ trigger.to_state.state }}"

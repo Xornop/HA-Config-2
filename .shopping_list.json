@@ -2,7 +2,7 @@
   {
     "name": "Toiletpapier",
     "id": "70d6191f263642ce8a17b8e50dd00e3b",
-    "complete": false
+    "complete": true
   },
   {
     "name": "brood",
@@ -97,7 +97,7 @@
   {
     "name": "Kattenvoer PerfectFit adult/indoor 1,4kg (ong 11 euro)",
     "id": "2762103fa01a4493939133d2da55d4cf",
-    "complete": false
+    "complete": true
   },
   {
     "name": "spaghetti",
@@ -542,7 +542,7 @@
   {
     "name": "Basilicum",
     "id": "40ec70849b96404999fd57a289d750db",
-    "complete": false
+    "complete": true
   },
   {
     "name": "Tomaten",
@@ -557,16 +557,111 @@
   {
     "name": "Uien",
     "id": "21d2842288ad41e5b3fc2146cf5922b4",
-    "complete": false
+    "complete": true
   },
   {
     "name": "Poep doekjes",
     "id": "0ff8e2ef601d4f3593414ec94a3b8643",
-    "complete": false
+    "complete": true
   },
   {
     "name": "Ibuprofen",
     "id": "934450a96d9e4b39a15970d4f5e51e2f",
-    "complete": false
+    "complete": true
+  },
+  {
+    "name": "Spaghetti",
+    "id": "9c7de384d3634776be6d7b54a07cef7d",
+    "complete": true
+  },
+  {
+    "name": "Brood",
+    "id": "9e595480bb3544739ae9a9d9340d6571",
+    "complete": true
+  },
+  {
+    "name": "Kaas",
+    "id": "6e305dad953f4c4691716c007bc6f12d",
+    "complete": true
+  },
+  {
+    "name": "Basilicum",
+    "id": "315c36cbb80c48fb83cc35ca331735c4",
+    "complete": true
+  },
+  {
+    "name": "Gnocchi",
+    "id": "3bb2ab3778354a4399741b19294d2718",
+    "complete": true
+  },
+  {
+    "name": "Shoarma",
+    "id": "0335948b8d2041038e04c7b022df7b68",
+    "complete": true
+  },
+  {
+    "name": "Knoflooksaus",
+    "id": "7e36ce4f97a3470fad8743d82b021fdf",
+    "complete": true
+  },
+  {
+    "name": "Ijsbergsla",
+    "id": "3c693fba065b40d6900ad83c43e21b0a",
+    "complete": true
+  },
+  {
+    "name": "Shoarmabroodjes",
+    "id": "768027dc00af4665bf753b6627e9e147",
+    "complete": true
+  },
+  {
+    "name": "Tomaat",
+    "id": "72941171b62e4be98dbe2f449ea230ac",
+    "complete": true
+  },
+  {
+    "name": "Mozarella",
+    "id": "11cc4fd838a84d67a9c9a37aed7979d6",
+    "complete": true
+  },
+  {
+    "name": "Tomaatjes",
+    "id": "a0fc097f485247ba9c82ef4e2b41d35b",
+    "complete": true
+  },
+  {
+    "name": "Chips",
+    "id": "b75cffa6a8fd4c6186c74695232e7c58",
+    "complete": true
+  },
+  {
+    "name": "Cola",
+    "id": "5e396e56bb5b4295b10d5bb6c30dc668",
+    "complete": true
+  },
+  {
+    "name": "Ranja",
+    "id": "d19aee03dccb439aa7803586cbf81e7d",
+    "complete": true
+  },
+  {
+    "name": "Hummus",
+    "id": "6962bd4bae054a149795c1898062b567",
+    "complete": true
+  },
+  {
+    "name": "Salami",
+    "id": "f1c43d32a16f4fe4805c80a4989b68c9",
+    "complete": true
+  },
+  {
+    "name": "Chocomel",
+    "id": "ef2856a8ceee418f8f56500bec500d44",
+    "complete": true
+  },
+  {
+    "name": "Augurken",
+    "id": "7ff5a0375e7a482ea5c4f27bf064c18d",
+    "complete": true
   }
 ]

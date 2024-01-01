@@ -30,18 +30,7 @@ camera:
     name: Lovelace Video
 
 # If User 2 has an iPhone, this creates a "is charging" sensor
-template:
-  - binary_sensor:
-      - name: "User2 Phone Is Charging"
-        state: >
-         {{ is_state('sensor.user2_phone_battery_state', 'Charging')
-            or is_state('sensor.user2_phone_battery_state', 'Full') }}
-        icon: >
-          {% if is_state("binary_sensor.user2_phone_is_charging", "on") %}
-            mdi:power-plug
-          {% else %}
-            mdi:power-plug-off
-          {% endif %}
+template: !include template.yaml
 
 # Router presence detection
 device_tracker:

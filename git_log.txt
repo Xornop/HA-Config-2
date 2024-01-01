@@ -1,4 +1,4 @@
-[master 55311ee] config files on 20-12-2023 05:00:03
+[master 251b6dd] config files on 27-12-2023 05:00:02
  Committer: root <root@homeassistant.local.hass.io>
 Your name and email address were configured automatically based
 on your username and hostname. Please check that they are accurate.
@@ -12,55 +12,64 @@ After doing this, you may fix the identity used for this commit with:
 
     git commit --amend --reset-author
 
- 61 files changed, 126313 insertions(+), 46214 deletions(-)
- create mode 100644 custom_components/localtuya/__init__.py
- create mode 100644 custom_components/localtuya/__pycache__/__init__.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/binary_sensor.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/climate.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/cloud_api.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/common.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/config_flow.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/const.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/cover.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/diagnostics.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/discovery.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/fan.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/light.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/number.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/select.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/sensor.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/switch.cpython-311.pyc
- create mode 100644 custom_components/localtuya/__pycache__/vacuum.cpython-311.pyc
- create mode 100644 custom_components/localtuya/binary_sensor.py
- create mode 100644 custom_components/localtuya/climate.py
- create mode 100644 custom_components/localtuya/cloud_api.py
- create mode 100644 custom_components/localtuya/common.py
- create mode 100644 custom_components/localtuya/config_flow.py
- create mode 100644 custom_components/localtuya/const.py
- create mode 100644 custom_components/localtuya/cover.py
- create mode 100644 custom_components/localtuya/diagnostics.py
- create mode 100644 custom_components/localtuya/discovery.py
- create mode 100644 custom_components/localtuya/fan.py
- create mode 100644 custom_components/localtuya/light.py
- create mode 100644 custom_components/localtuya/manifest.json
- create mode 100644 custom_components/localtuya/number.py
- create mode 100644 custom_components/localtuya/pytuya/__init__.py
- create mode 100644 custom_components/localtuya/pytuya/__pycache__/__init__.cpython-311.pyc
- create mode 100644 custom_components/localtuya/select.py
- create mode 100644 custom_components/localtuya/sensor.py
- create mode 100644 custom_components/localtuya/services.yaml
- create mode 100644 custom_components/localtuya/strings.json
- create mode 100644 custom_components/localtuya/switch.py
- create mode 100644 custom_components/localtuya/translations/en.json
- create mode 100644 custom_components/localtuya/translations/it.json
- create mode 100644 custom_components/localtuya/translations/pt-BR.json
- create mode 100644 custom_components/localtuya/vacuum.py
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3240.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3246.jpg
- create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3240.jpg
- delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3246.jpg
- delete mode 100644 zigbee2mqtt/log/2023-11-03.18-45-53/log.txt
- delete mode 100644 zigbee2mqtt/log/2023-11-03.18-45-53/log1.txt
- create mode 100644 zigbee2mqtt/log/2023-12-13.19-50-37/log.txt
- create mode 100644 zigbee2mqtt/log/2023-12-13.19-50-37/log1.txt
- create mode 100644 zigbee2mqtt/log/2023-12-13.19-50-37/log2.txt
+ 72 files changed, 94423 insertions(+), 104485 deletions(-)
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2811.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2812.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2813.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2814.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f2815.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3111.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3112.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3114.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3245.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3247.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3257.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3258.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3259.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3260.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3261.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3262.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3263.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3264.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3265.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3266.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3267.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3268.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3269.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3287.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3294.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3299.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3307.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3308.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3311.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/f3315.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2811.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2812.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2813.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2814.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p2815.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3111.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3112.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3114.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3245.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3247.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3257.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3258.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3259.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3260.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3261.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3262.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3263.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3264.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3265.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3266.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3267.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3268.jpg
+ delete mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3269.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3287.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3294.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3299.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3307.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3308.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3311.jpg
+ create mode 100644 www/upcoming-media-card-images/plex/Plex_Recently_Added/p3315.jpg
