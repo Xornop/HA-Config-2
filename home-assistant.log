@@ -400,3 +400,7 @@ homeassistant.exceptions.TemplateError: ValueError: Template error: int got inva
 NoneType: None
 2024-01-01 03:49:42.168 ERROR (SyncWorker_5) [homeassistant.components.command_line.utils] Command failed (with return code 1): python3 -c "import requests; import json; import random; dataRequest = requests.get('https://gpsgadget.buienradar.nl/data/raintext?lat=51.83&lon=5.86&c='+str(random.randint(0,999999999999999)) ).text; dataRequest = dataRequest.replace('\r\n',' '); data = '{\"data\":\"'+dataRequest+'\"}';    pri(data);"
 2024-01-01 03:49:42.170 WARNING (MainThread) [homeassistant.components.command_line] Empty reply found when expecting JSON data
+2024-01-01 03:50:40.769 ERROR (MainThread) [homeassistant.components.shell_command] Error running command: `/bin/bash pushupdates.sh`, return code: 1
+NoneType: None
+2024-01-01 03:51:06.569 WARNING (Thread-8) [pychromecast.socket_client] [Bedroom(192.168.69.236):8009] Heartbeat timeout, resetting connection
+2024-01-01 03:51:36.575 ERROR (Thread-8) [pychromecast.socket_client] [Bedroom(192.168.69.236):8009] Failed to connect to service ServiceInfo(type='host', data=('192.168.69.236', 8009)), retrying in 5.0s
