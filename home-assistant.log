@@ -408,3 +408,7 @@ NoneType: None
 NoneType: None
 2024-01-01 03:53:42.073 ERROR (SyncWorker_6) [homeassistant.components.command_line.utils] Command failed (with return code 1): python3 -c "import requests; import json; import random; dataRequest = requests.get('https://gpsgadget.buienradar.nl/data/raintext?lat=51.83&lon=5.86&c='+str(random.randint(0,999999999999999)) ).text; dataRequest = dataRequest.replace('\r\n',' '); data = '{\"data\":\"'+dataRequest+'\"}';    pri(data);"
 2024-01-01 03:53:42.074 WARNING (MainThread) [homeassistant.components.command_line] Empty reply found when expecting JSON data
+2024-01-01 03:57:14.910 ERROR (MainThread) [homeassistant.components.shell_command] Error running command: `/bin/bash pushupdates.sh`, return code: 1
+NoneType: None
+2024-01-01 03:57:42.057 ERROR (SyncWorker_4) [homeassistant.components.command_line.utils] Command failed (with return code 1): python3 -c "import requests; import json; import random; dataRequest = requests.get('https://gpsgadget.buienradar.nl/data/raintext?lat=51.83&lon=5.86&c='+str(random.randint(0,999999999999999)) ).text; dataRequest = dataRequest.replace('\r\n',' '); data = '{\"data\":\"'+dataRequest+'\"}';    pri(data);"
+2024-01-01 03:57:42.058 WARNING (MainThread) [homeassistant.components.command_line] Empty reply found when expecting JSON data

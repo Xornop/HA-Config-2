@@ -210,7 +210,7 @@
         "linkquality": 255
     },
     "0x001788010b5962cd": {
-        "battery": 27,
+        "battery": 57,
         "update": {
             "state": "idle",
             "installed_version": 33565954,
@@ -251,7 +251,7 @@
     "0x00158d0007e02bc8": {
         "voltage": 2985,
         "battery": 90,
-        "device_temperature": 22,
+        "device_temperature": 21,
         "power_outage_count": 12,
         "contact": true,
         "linkquality": 31
