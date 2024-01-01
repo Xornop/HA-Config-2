@@ -384,7 +384,7 @@
     "0xa4c13834b9e85342": {
         "power": 0,
         "current": 0,
-        "voltage": 230,
+        "voltage": 231,
         "energy": 787.06,
         "state": "ON",
         "child_lock": "LOCK",
@@ -399,7 +399,7 @@
         "child_lock": "LOCK",
         "power": 0,
         "current": 0,
-        "voltage": 229,
+        "voltage": 230,
         "energy": 189.61,
         "linkquality": 111
     },

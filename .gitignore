@@ -14,8 +14,7 @@
 .ssh
 *upcoming-media-card-images*
 *private*
-
-# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
+*.log
 ip_bans.yaml
 secrets.yaml
 known_devices.yaml
